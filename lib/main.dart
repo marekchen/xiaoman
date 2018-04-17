@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:xiaoman/discovery.dart';
+import 'package:xiaoman/home.dart';
+import 'package:xiaoman/mine.dart';
 import 'package:xiaoman/base/m_tab_scaffold.dart';
 import 'package:xiaoman/base/m_cupertino_tabbar.dart';
 
@@ -108,7 +110,6 @@ class Choice {
 }
 
 const List<Choice> choices = const <Choice>[
-  //const Choice(title: 'Car', icon: const IconData(0xe6ad, fontFamily: 'ali')),
   const Choice(title: 'Bicycle', icon: Icons.directions_bike),
   const Choice(title: 'Boat', icon: Icons.directions_boat),
   const Choice(title: 'Bus', icon: Icons.directions_bus),
@@ -129,6 +130,12 @@ class ChoiceCard extends StatelessWidget {
     switch (index) {
       case 0:
         widget = new Home();
+        break;
+      case 1:
+        widget = new Discovery();
+        break;
+      case 4:
+        widget = new Mine();
         break;
       default:
         widget = new Card(
