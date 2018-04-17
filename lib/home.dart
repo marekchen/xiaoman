@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return new Scaffold(
+      backgroundColor: new Color(0xFFF8F9FA),
       body: new CustomScrollView(
         slivers: <Widget>[
           _buildAppBar(context, statusBarHeight),
@@ -248,14 +249,18 @@ class _EventCardState extends State<EventCard> {
                 child: new InkWell(
                   onTap: () {
                     //Navigator.of(context).pushNamed('/task');
-                    Navigator.of(context).push(
-                          new MaterialPageRoute(
-                              builder: (context) => new TaskHome()),
-                        );
+//                    Navigator.of(context).push(
+//                          new MaterialPageRoute(
+//                              builder: (context) => new TaskHome()),
+//                        );
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new TaskHome()),
+                    );
 //                    Navigator.push(
 //                      context,
-//                      new MaterialPageRoute(
-//                          builder: (context) => new TaskHome()),
+//                      new MaterialPageRoute(builder: (context) => new SecondScreen()),
 //                    );
                   },
                   child: new Text(

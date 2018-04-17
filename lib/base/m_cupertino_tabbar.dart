@@ -1,39 +1,15 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-// Standard iOS 10 tab bar height.
-const double _kTabBarHeight = 50.0;
+const double _kTabBarHeight = 60.0;
 
-const Color _kDefaultTabBarBackgroundColor = const Color(0xFFFFFF);
+const Color _kDefaultTabBarBackgroundColor = const Color(0xFFFFFFFF);
 const Color _kDefaultTabBarBorderColor = const Color(0xFFFFFFFF);
 
-/// An iOS-styled bottom navigation tab bar.
-///
-/// Displays multiple tabs using [BottomNavigationBarItem] with one tab being
-/// active, the first tab by default.
-///
-/// This [StatelessWidget] doesn't store the active tab itself. You must
-/// listen to the [onTap] callbacks and call `setState` with a new [currentIndex]
-/// for the new selection to reflect.
-///
-/// Tab changes typically trigger a switch between [Navigator]s, each with its
-/// own navigation stack, per standard iOS design.
-///
-/// If the given [backgroundColor]'s opacity is not 1.0 (which is the case by
-/// default), it will produce a blurring effect to the content behind it.
-///
-/// See also:
-///
-///  * [CupertinoTabScaffold], which hosts the [CupertinoTabBar] at the bottom.
-///  * [BottomNavigationBarItem], an item in a [CupertinoTabBar].
 class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
-  /// Creates a tab bar in the iOS style.
   MCupertinoTabBar({
     Key key,
     @required this.items,
@@ -42,55 +18,28 @@ class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor: _kDefaultTabBarBackgroundColor,
     this.activeColor,
     this.inactiveColor,
-    this.iconSize: 30.0,
-  }) : assert(items != null),
+    this.iconSize: 22.0,
+  })  : assert(items != null),
         assert(items.length >= 2),
         assert(currentIndex != null),
         assert(0 <= currentIndex && currentIndex < items.length),
         assert(iconSize != null),
         super(key: key);
 
-  /// The interactive items laid out within the bottom navigation bar.
-  ///
   /// Must not be null.
   final List<BottomNavigationBarItem> items;
 
-  /// The callback that is called when a item is tapped.
-  ///
-  /// The widget creating the bottom navigation bar needs to keep track of the
-  /// current index and call `setState` to rebuild it with the newly provided
-  /// index.
   final ValueChanged<int> onTap;
 
-  /// The index into [items] of the current active item.
-  ///
-  /// Must not be null.
   final int currentIndex;
 
-  /// The background color of the tab bar. If it contains transparency, the
-  /// tab bar will automatically produce a blurring effect to the content
-  /// behind it.
   final Color backgroundColor;
 
-  /// The foreground color of the icon and title for the [BottomNavigationBarItem]
-  /// of the selected tab.
   final Color activeColor;
 
-  /// The foreground color of the icon and title for the [BottomNavigationBarItem]s
-  /// in the unselected state.
   final Color inactiveColor;
 
-  /// The size of all of the [BottomNavigationBarItem] icons.
-  ///
-  /// This value is used to to configure the [IconTheme] for the navigation
-  /// bar. When a [BottomNavigationBarItem.icon] widget is not an [Icon] the widget
-  /// should configure itself to match the icon theme's size and color.
-  ///
-  /// Must not be null.
   final double iconSize;
-
-  /// True if the tab bar's background color has no transparency.
-  bool get opaque => backgroundColor.alpha == 0xFF;
 
   @override
   Size get preferredSize => const Size.fromHeight(_kTabBarHeight);
@@ -98,23 +47,32 @@ class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final double bottomPadding = MediaQuery.of(context).padding.bottom;
-    Widget result = new DecoratedBox(
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.only(
-          topLeft: new Radius.circular(16.0),
-          topRight: new Radius.circular(16.0),
+//    Widget result = new DecoratedBox(
+//      decoration: new BoxDecoration(
+//        borderRadius: new BorderRadius.only(
+//          topLeft: new Radius.circular(16.0),
+//          topRight: new Radius.circular(16.0),
+//        ),
+//        color: backgroundColor,
+//      ),
+    // TODO(xster): allow icons-only versions of the tab bar too.
+    Widget result = new SizedBox(
+      height: _kTabBarHeight + bottomPadding,
+      child: IconTheme.merge(
+        // Default with the inactive state.
+        data: new IconThemeData(
+          size: iconSize,
         ),
-        color: backgroundColor,
-      ),
-      // TODO(xster): allow icons-only versions of the tab bar too.
-      child: new SizedBox(
-        height: _kTabBarHeight + bottomPadding,
-        child: IconTheme.merge( // Default with the inactive state.
-          data: new IconThemeData(
-            color: inactiveColor,
-            size: iconSize,
+        child: new Material(
+          type: MaterialType.card,
+          elevation: 20.0,
+          color: backgroundColor,
+          borderRadius: new BorderRadius.only(
+            topLeft: new Radius.circular(16.0),
+            topRight: new Radius.circular(16.0),
           ),
-          child: new DefaultTextStyle( // Default with the inactive state.
+          child: new DefaultTextStyle(
+            // Default with the inactive state.
             style: new TextStyle(
               fontFamily: '.SF UI Text',
               fontSize: 10.0,
@@ -134,17 +92,6 @@ class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
-
-    if (!opaque) {
-      // For non-opaque backgrounds, apply a blur effect.
-      result = new ClipRect(
-        child: new BackdropFilter(
-          filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-          child: result,
-        ),
-      );
-    }
-
     return result;
   }
 
@@ -152,19 +99,72 @@ class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     final List<Widget> result = <Widget>[];
 
     for (int index = 0; index < items.length; index += 1) {
+      if (index == 2) {
+        result.add(
+          _wrapActiveCenterItem(
+            new Expanded(
+              child: new GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: onTap == null
+                    ? null
+                    : () {
+                        onTap(index);
+                      },
+                child: new Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      new Expanded(
+                        child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            new Align(
+                              alignment: Alignment.topCenter,
+                              heightFactor: 1.0,
+                              child: new Container(
+                                decoration: new BoxDecoration(
+                                  color: new Color(0xFF42BE56),
+                                  borderRadius: new BorderRadius.all(
+                                      new Radius.circular(22.0)),
+                                ),
+                                height: 44.0,
+                                width: 44.0,
+                                child: items[index].icon,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            active: index == currentIndex,
+          ),
+        );
+        continue;
+      }
+
       result.add(
         _wrapActiveItem(
           new Expanded(
             child: new GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: onTap == null ? null : () { onTap(index); },
+              behavior: HitTestBehavior.translucent,
+              onTap: onTap == null
+                  ? null
+                  : () {
+                      onTap(index);
+                    },
               child: new Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget> [
-                    new Expanded(child: new Center(child: items[index].icon)),
-                    items[index].title,
+                  children: <Widget>[
+                    new Expanded(child: new Center(child: items[index].icon))
                   ],
                 ),
               ),
@@ -178,10 +178,35 @@ class MCupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     return result;
   }
 
+  Widget _wrapActiveCenterItem(Widget item, {bool active}) {
+    if (!active) {
+      return IconTheme.merge(
+        data: new IconThemeData(
+          color: new Color(0xFFFFFFFF),
+        ),
+        child: item,
+      );
+    }
+
+    return IconTheme.merge(
+      data: new IconThemeData(color: new Color(0xFFFFFFFF)),
+      child: DefaultTextStyle.merge(
+        style: new TextStyle(color: activeColor),
+        child: item,
+      ),
+    );
+  }
+
   /// Change the active tab item's icon and title colors to active.
-  Widget _wrapActiveItem(Widget item, { bool active }) {
-    if (!active)
-      return item;
+  Widget _wrapActiveItem(Widget item, {bool active}) {
+    if (!active) {
+      return IconTheme.merge(
+        data: new IconThemeData(
+          color: inactiveColor,
+        ),
+        child: item,
+      );
+    }
 
     return IconTheme.merge(
       data: new IconThemeData(color: activeColor),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MCard extends StatelessWidget {
@@ -18,12 +19,17 @@ class MCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Semantics(
       container: true,
-      child: new Container(
-        decoration: new BoxDecoration(
-          color: color,
-          borderRadius: new BorderRadius.all(new Radius.circular(radius)),
-        ),
-        child: child,
+      child: new Material(
+        shadowColor: const Color(0x78CED4DA),
+        type: MaterialType.card,
+        elevation: 2.0,
+        borderRadius: new BorderRadius.all(new Radius.circular(radius)),
+        child: new Container(
+            decoration: new BoxDecoration(
+              color: color,
+              borderRadius: new BorderRadius.all(new Radius.circular(radius)),
+            ),
+            child: child),
       ),
     );
   }

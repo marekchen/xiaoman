@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
-import 'task.dart';
-import 'test.dart';
 import 'package:xiaoman/base/m_tab_scaffold.dart';
 import 'package:xiaoman/base/m_cupertino_tabbar.dart';
 
@@ -42,51 +40,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-
       home: new MCupertinoTabScaffold(
-        //appBar: null,
-        // body: new Padding(
-        //   padding: const EdgeInsets.all(10.0),
-        //   child: new ChoiceCard(choice: _selectedChoice, index: _selectedIndex),
-        // ),
         tabBuilder: (BuildContext context, int index) {
-          return new DefaultTextStyle(
-            style: const TextStyle(
-              fontFamily: '.SF UI Text',
-              fontSize: 17.0,
-              color: CupertinoColors.black,
-            ),
-            child: new CupertinoTabView(
-              builder: (BuildContext context) {
-                switch (index) {
-                  case 0:
-                    Choice _selectedChoice = choices[0];
-                    return new ChoiceCard(choice: _selectedChoice, index: 0);
-                    break;
-                  case 1:
-                    Choice _selectedChoice = choices[1];
-                    return new ChoiceCard(choice: _selectedChoice, index: 1);
-                    break;
-                  case 2:
-                    Choice _selectedChoice = choices[2];
-                    return new ChoiceCard(choice: _selectedChoice, index: 2);
-                    break;
-                  case 3:
-                    Choice _selectedChoice = choices[3];
-                    return new ChoiceCard(choice: _selectedChoice, index: 3);
-                    break;
-                  case 4:
-                    Choice _selectedChoice = choices[4];
-                    return new ChoiceCard(choice: _selectedChoice, index: _selectedIndex);
-                    break;
-                  default:
-                }
-              },
-            ),
-          );
+          switch (index) {
+            case 0:
+              Choice _selectedChoice = choices[0];
+              return new ChoiceCard(choice: _selectedChoice, index: 0);
+              break;
+            case 1:
+              Choice _selectedChoice = choices[1];
+              return new ChoiceCard(choice: _selectedChoice, index: 1);
+              break;
+            case 2:
+              Choice _selectedChoice = choices[2];
+              return new ChoiceCard(choice: _selectedChoice, index: 2);
+              break;
+            case 3:
+              Choice _selectedChoice = choices[3];
+              return new ChoiceCard(choice: _selectedChoice, index: 3);
+              break;
+            case 4:
+              Choice _selectedChoice = choices[4];
+              return new ChoiceCard(
+                  choice: _selectedChoice, index: _selectedIndex);
+              break;
+            default:
+          }
         },
-//        tabBuilder: new ChoiceCard(choice: _selectedChoice, index: _selectedIndex),
         tabBar: new MCupertinoTabBar(
+          activeColor: new Color(0xFF42BE56),
+          inactiveColor: new Color(0xFF9DA4B3),
           items: <BottomNavigationBarItem>[
             new BottomNavigationBarItem(
               icon: new Icon(choices[0].icon),
