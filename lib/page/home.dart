@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xiaoman/model/event.dart';
 import 'package:xiaoman/widget/event_card.dart';
 import 'package:xiaoman/widget/search_bar.dart';
 
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
 Widget _buildAppBar(BuildContext context, double statusBarHeight) {
   return new SliverAppBar(
     pinned: true,
-    backgroundColor: new Color(0xFFFFFFFF),
+    backgroundColor: Colors.white,
     expandedHeight: _kAppBarHeight,
     flexibleSpace: new LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -39,12 +40,11 @@ Widget _buildAppBar(BuildContext context, double statusBarHeight) {
         final double t =
             (appBarHeight - kToolbarHeight) / (_kAppBarHeight - kToolbarHeight);
         final double extraPadding =
-            new Tween<double>(begin: 10.0, end: 24.0).lerp(t);
-        final double logoHeight = appBarHeight - 1.5 * extraPadding;
+            new Tween<double>(begin: 10.0, end: 20.0).lerp(t);
+        final double logoHeight = appBarHeight - extraPadding;
         return new Padding(
           padding: new EdgeInsets.only(
             top: statusBarHeight + 0.5 * extraPadding,
-            bottom: extraPadding,
           ),
           child: new TopBar(height: logoHeight, t: t.clamp(0.0, 1.0)),
         );
@@ -69,17 +69,61 @@ Widget _buildBody(BuildContext context, double statusBarHeight) {
   );
 }
 
+Event event = new Event(
+  userAvatar:
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳巴拉酱",
+  eventType: 1,
+  pictures: [
+//    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+//    "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=927480163,3727066344&fm=27&gp=0.jpg",
+//    "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3774731071,361198447&fm=27&gp=0.jpg",
+  "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2233345096,4117074648&fm=27&gp=0.jpg",
+  ],
+  title: "我是任务标题，是啥任务咧，点我瞧瞧",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  followNum: 300,
+  joinNum: 143,
+);
+
+Event event2 = new Event(
+  userAvatar:
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳222",
+  eventType: 2,
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
+  ],
+  title: "我是任务标题，是啥任务咧，22222",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  likeNum: 1000,
+  commentNum: 143,
+);
+
+Event event3 = new Event(
+  userAvatar:
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳333333",
+  eventType: 3,
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=426595056,3152484396&fm=27&gp=0.jpg",
+  ],
+  title: "我是任务标题，是啥任务咧，333333",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  likeNum: 1000,
+  commentNum: 143,
+);
+
 List<Widget> list = <Widget>[
-  //new SearchBar(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new Container(
-    height: 50.0,
-  )
+  new EventCard(event: event),
+  new EventCard(event: event2),
+  new EventCard(event: event3),
+  new EventCard(event: event),
+  new EventCard(event: event2),
+  new EventCard(event: event3),
 ];
 
 class TopBar extends StatefulWidget {
@@ -103,7 +147,7 @@ class _TopBarState extends State<TopBar> {
       begin: new Rect.fromLTWH(0.0, 0.0, width, 45.0),
     );
     return new SizedBox(
-      width: 375.0,
+      width: width,
       child: new Stack(
         overflow: Overflow.visible,
         children: <Widget>[
@@ -136,5 +180,3 @@ class _TopBarState extends State<TopBar> {
     );
   }
 }
-
-

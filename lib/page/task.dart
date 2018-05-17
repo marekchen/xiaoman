@@ -1,105 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoman/base/m_underline_tab_indicator.dart';
 import 'package:xiaoman/base/mcard.dart';
+import 'package:xiaoman/model/article.dart';
+import 'package:xiaoman/widget/article_card.dart';
 
 class TaskHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: new ThemeData(primaryColor: new Color(0xFFE9ECEF)),
-      home: new DefaultTabController(
-        length: 3,
-        child: new Scaffold(
-          floatingActionButton: new FloatingActionButton(
-            child: new Icon(Icons.border_color),
-            backgroundColor: const Color(0xFF42BE56),
-            onPressed: () {},
-          ),
-          appBar: new AppBar(
-            backgroundColor: Colors.white,
-            leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            elevation: 2.0,
-            bottom: new TaskHeader(
-              new TabBar(
-                indicatorColor: const Color(0xFF42BE56),
-                indicatorWeight: 3.0,
-                indicator: new MUnderlineTabIndicator(
-                  insets: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                  borderSide: new BorderSide(
-                    width: 3.0,
-                    color: const Color(0xFF42BE56),
-                  ),
-                ),
-                indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                tabs: [
-                  new Tab(
-                    child: new Row(
-                      children: <Widget>[
-                        //new Icon(Icons.textsms),
-                        new Text(
-                          "手账",
-                          style: new TextStyle(
-                            fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
-                          ),
-                        ),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                    ),
-                  ),
-                  new Tab(
-                    child: new Row(
-                      children: <Widget>[
-                        //new Icon(Icons.voice_chat),
-                        new Text(
-                          "直播",
-                          style: new TextStyle(
-                            fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
-                          ),
-                        ),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                    ),
-                  ),
-                  new Tab(
-                    child: new Row(
-                      children: <Widget>[
-                        //new Icon(Icons.chat),
-                        new Text(
-                          "群聊",
-                          style: new TextStyle(
-                            fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
-                          ),
-                        ),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: new TabBarView(
-            children: [
-              new Icon(Icons.directions_car),
-              new Icon(Icons.directions_transit),
-              new Icon(Icons.directions_bike),
-            ],
+      home: new Scaffold(
+        floatingActionButton: new FloatingActionButton(
+          child: new Icon(Icons.border_color),
+          backgroundColor: const Color(0xFF42BE56),
+          onPressed: () {},
+        ),
+        backgroundColor: new Color(0xFFF8F9FA),
+        body: new DefaultTabController(
+          length: 3,
+          child: new NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                _buildAppBar(context, innerBoxIsScrolled),
+              ];
+            },
+            body: _buildBody(context), //_tabs.map((String name) {}).toList(),
           ),
         ),
       ),
     );
   }
+}
+
+Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
+  return new SliverOverlapAbsorber(
+    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+    child: new SliverAppBar(
+      backgroundColor: Colors.white,
+      leading: new IconButton(
+        icon: new Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      elevation: 2.0,
+      bottom: new TaskHeader(
+        new TabBar(
+          indicatorColor: const Color(0xFF42BE56),
+          indicatorWeight: 3.0,
+          indicator: new MUnderlineTabIndicator(
+            insets: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+            borderSide: new BorderSide(
+              width: 3.0,
+              color: const Color(0xFF42BE56),
+            ),
+          ),
+          indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+          tabs: [
+            new Tab(
+              child: new Row(
+                children: <Widget>[
+                  //new Icon(Icons.textsms),
+                  new Text(
+                    "手账",
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                      color: const Color(0xFF0D0E15),
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ),
+            new Tab(
+              child: new Row(
+                children: <Widget>[
+                  //new Icon(Icons.voice_chat),
+                  new Text(
+                    "直播",
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                      color: const Color(0xFF0D0E15),
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ),
+            new Tab(
+              child: new Row(
+                children: <Widget>[
+                  //new Icon(Icons.chat),
+                  new Text(
+                    "群聊",
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                      color: const Color(0xFF0D0E15),
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 class TaskHeader extends StatefulWidget implements PreferredSizeWidget {
@@ -112,7 +123,7 @@ class TaskHeader extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize {
-    return new Size.fromHeight(tabBar.preferredSize.height + 96.0);
+    return new Size.fromHeight(tabBar.preferredSize.height + 110.0);
   }
 }
 
@@ -120,7 +131,7 @@ class _TaskHeaderState extends State<TaskHeader> {
   @override
   Widget build(BuildContext context) {
     Widget taskInfo = new Container(
-      height: 98.0,
+      height: 105.0,
       padding: new EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
       child: new MCard(
         color: new Color(0xFFFFFFFF),
@@ -129,6 +140,7 @@ class _TaskHeaderState extends State<TaskHeader> {
           padding: new EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +163,7 @@ class _TaskHeaderState extends State<TaskHeader> {
                 ],
               ),
               new Padding(
-                padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
+                padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -197,32 +209,63 @@ class _TaskHeaderState extends State<TaskHeader> {
       ),
     );
     return new Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         taskInfo,
         widget.tabBar,
-//        new Material(
-//          shadowColor: const Color(0x78CED4DA),
-//          type: MaterialType.card,
-//          elevation: 2.0,
-//          borderRadius: new BorderRadius.only(
-//            bottomLeft: new Radius.circular(12.0),
-//            bottomRight: new Radius.circular(12.0),
-//          ),
-//          child: new Container(
-//            decoration: new BoxDecoration(
-//              color: Colors.white,
-////              borderRadius: new BorderRadius.only(
-////                bottomLeft: new Radius.circular(12.0),
-////                bottomRight: new Radius.circular(12.0),
-////              ),
-//            ),
-//            child: widget.tabBar,
-//          ),
-//        ),
       ],
     );
   }
 }
+
+Widget _buildBody(BuildContext context) {
+  return new TabBarView(children: [
+    _buildTab(context, 1),
+    _buildTab(context, 2),
+    _buildTab(context, 3),
+  ]);
+}
+
+Widget _buildTab(BuildContext context, int type) {
+  return new SafeArea(
+    top: false,
+    bottom: false,
+    child: new Builder(
+      builder: (BuildContext context) {
+        return new CustomScrollView(
+          key: new PageStorageKey<int>(type),
+          slivers: <Widget>[
+            new SliverOverlapInjector(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+            ),
+            new SliverPadding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              sliver: new SliverList(
+                delegate: new SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return ArticleCard(article: article);
+                  },
+                  childCount: 30,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+}
+
+Article article = new Article(
+  userAvatar:
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "二逼欢乐多",
+  content: "城里的月光把梦照亮，请温暖他心房，看透了人间聚散。",
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
+  ],
+);
 
 class TaskTab extends StatefulWidget {
   TaskTab({Key key}) : super(key: key);

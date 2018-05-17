@@ -1,21 +1,21 @@
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-const double _kTopMargin = 6.0;
+const double _kTopMargin = 8.0;
 const double _kBottomMargin = 8.0;
 const double _kTabBarHeight = 50.0;
 
-class MBottomNavigationBar extends StatefulWidget implements PreferredSizeWidget{
+class MBottomNavigationBar extends StatefulWidget
+    implements PreferredSizeWidget {
   MBottomNavigationBar({
     Key key,
     @required this.items,
     this.onTap,
     this.currentIndex: 0,
     this.fixedColor,
+    this.defaultColor,
     this.iconSize: 24.0,
   })  : assert(items != null),
         assert(items.length >= 2),
@@ -31,6 +31,8 @@ class MBottomNavigationBar extends StatefulWidget implements PreferredSizeWidget
 
   final Color fixedColor;
 
+  final Color defaultColor;
+
   final double iconSize;
 
   @override
@@ -38,7 +40,7 @@ class MBottomNavigationBar extends StatefulWidget implements PreferredSizeWidget
 
   // TODO: implement preferredSize
   @override
-  Size get preferredSize =>const Size.fromHeight(_kTabBarHeight);
+  Size get preferredSize => const Size.fromHeight(_kTabBarHeight);
 }
 
 class _BottomNavigationBarState extends State<MBottomNavigationBar>
@@ -99,7 +101,7 @@ class _BottomNavigationBarState extends State<MBottomNavigationBar>
         break;
     }
     final ColorTween colorTween = new ColorTween(
-      begin: textTheme.caption.color,
+      begin: widget.defaultColor ?? textTheme.caption.color,
       end: widget.fixedColor ?? themeColor,
     );
     for (int i = 0; i < widget.items.length; i += 1) {
@@ -154,18 +156,13 @@ class _BottomNavigationBarState extends State<MBottomNavigationBar>
   @override
   Widget build(BuildContext context) {
     final double additionalBottomPadding = 0.0;
-    //math.max(MediaQuery.of(context).padding.bottom - _kBottomMargin, 0.0);
     return new Stack(
       children: <Widget>[
         new Positioned.fill(
           child: new Material(
             // Casts shadow.
             elevation: 8.0,
-            color: Colors.red,
-            borderRadius: new BorderRadius.only(
-              topLeft: new Radius.circular(16.0),
-              topRight: new Radius.circular(16.0),
-            ),
+            color: Colors.white,
           ),
         ),
         new ConstrainedBox(
@@ -201,20 +198,13 @@ class _BottomNavigationTileCenter extends StatelessWidget {
   final String indexLabel;
 
   Widget _buildIcon() {
-    double tweenStart;
     Color iconColor;
-    tweenStart = 8.0;
     iconColor = colorTween.evaluate(animation);
     return new Align(
       alignment: Alignment.topCenter,
       heightFactor: 1.0,
       child: new Container(
-        margin: new EdgeInsets.only(
-          top: new Tween<double>(
-            begin: tweenStart,
-            end: _kTopMargin,
-          ).evaluate(animation),
-        ),
+        margin: new EdgeInsets.only(top: _kTopMargin),
         child: new IconTheme(
           data: new IconThemeData(
             color: Colors.white,
@@ -247,7 +237,7 @@ class _BottomNavigationTileCenter extends StatelessWidget {
                     heightFactor: 1.0,
                     child: new Container(
                       decoration: new BoxDecoration(
-                        color: new Color(0xFF42BE56),
+                        color: colorTween.end,
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(22.0)),
                       ),
@@ -291,20 +281,12 @@ class _BottomNavigationTile extends StatelessWidget {
   final String indexLabel;
 
   Widget _buildIcon() {
-    double tweenStart;
     Color iconColor;
-    tweenStart = 8.0;
     iconColor = colorTween.evaluate(animation);
     return new Align(
       alignment: Alignment.topCenter,
       heightFactor: 1.0,
       child: new Container(
-        margin: new EdgeInsets.only(
-          top: new Tween<double>(
-            begin: tweenStart,
-            end: _kTopMargin,
-          ).evaluate(animation),
-        ),
         child: new IconTheme(
           data: new IconThemeData(
             color: iconColor,

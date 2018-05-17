@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoman/base/m_underline_tab_indicator.dart';
+import 'package:xiaoman/model/event.dart';
 import 'package:xiaoman/widget/search_bar.dart';
 import 'package:xiaoman/widget/event_card.dart';
 
@@ -12,85 +13,144 @@ class Discovery extends StatefulWidget {
 
 const double _kAppBarHeight = 177.0;
 
-class _DiscoveryState extends State<Discovery> {
+class _DiscoveryState extends State<Discovery>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: 3);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return new DefaultTabController(
-      length: 3,
-      child: new Scaffold(
+    return new Scaffold(
         backgroundColor: new Color(0xFFF8F9FA),
-        body: new CustomScrollView(
-          slivers: <Widget>[
-            _buildAppBar(context, statusBarHeight),
-            _buildBody(context, statusBarHeight),
-          ],
-        ),
-      ),
-    );
+        body: new DefaultTabController(
+          length: 3,
+          child: new NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                _buildAppBar(context, innerBoxIsScrolled),
+              ];
+            },
+            body: _buildBody(context), //_tabs.map((String name) {}).toList(),
+          ),
+        ));
   }
 }
 
-Widget _buildAppBar(BuildContext context, double statusBarHeight) {
-  return new SliverAppBar(
-    pinned: true,
-    backgroundColor: new Color(0xFFFFFFFF),
-    expandedHeight: _kAppBarHeight,
-    flexibleSpace: new LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final Size size = constraints.biggest;
-        final double appBarHeight = size.height - statusBarHeight;
-        final double t =
-            (appBarHeight - kToolbarHeight) / (_kAppBarHeight - kToolbarHeight);
-        final double extraPadding =
-            new Tween<double>(begin: 10.0, end: 24.0).lerp(t);
-        final double logoHeight = appBarHeight - 1.5 * extraPadding;
-        return new Padding(
-          padding: new EdgeInsets.only(
-            top: statusBarHeight + 0.5 * extraPadding,
-            bottom: extraPadding,
-          ),
-          child: new TopBar(height: logoHeight, t: t.clamp(0.0, 1.0)),
+Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
+  final double statusBarHeight = MediaQuery.of(context).padding.top;
+  return new SliverOverlapAbsorber(
+    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+    child: new SliverAppBar(
+      pinned: true,
+      forceElevated: innerBoxIsScrolled,
+      backgroundColor: Colors.white,
+      expandedHeight: _kAppBarHeight,
+      flexibleSpace: new LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final Size size = constraints.biggest;
+          final double appBarHeight = size.height - statusBarHeight;
+          final double t = (appBarHeight - kToolbarHeight) /
+              (_kAppBarHeight - kToolbarHeight);
+          final double extraPadding = //20.0;
+          new Tween<double>(begin: 10.0, end: 20.0).lerp(t);
+          final double logoHeight = appBarHeight - 1 * extraPadding;
+          return new Padding(
+            padding: new EdgeInsets.only(
+              top: statusBarHeight + 0.5 * extraPadding,
+            ),
+            child: new TopBar(
+              height: logoHeight,
+              t: t.clamp(0.0, 1.0),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+Widget _buildBody(BuildContext context) {
+  return new TabBarView(children: [
+    _buildTab(context, 1),
+    _buildTab(context, 2),
+    _buildTab(context, 3),
+  ]);
+}
+
+Event event = new Event(
+  userAvatar:
+  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳巴拉酱",
+  eventType: 1,
+  title: "我是任务标题，是啥任务咧，点我瞧瞧",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  followNum: 300,
+  joinNum: 143,
+);
+
+Event event2 = new Event(
+  userAvatar:
+  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳222",
+  eventType: 2,
+  title: "我是任务标题，是啥任务咧，22222",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  likeNum: 300,
+  commentNum: 143,
+);
+
+Widget _buildTab(BuildContext context, int type) {
+  return new SafeArea(
+    top: false,
+    bottom: false,
+    child: new Builder(
+      builder: (BuildContext context) {
+        return new CustomScrollView(
+          key: new PageStorageKey<int>(type),
+          slivers: <Widget>[
+            new SliverOverlapInjector(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+            ),
+            new SliverPadding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              sliver: new SliverList(
+                delegate: new SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return EventCard(event: event);
+                  },
+                  childCount: 30,
+                ),
+              ),
+            ),
+          ],
         );
       },
     ),
   );
 }
 
-Widget _buildBody(BuildContext context, double statusBarHeight) {
-  final EdgeInsets padding = new EdgeInsets.only(top: 8.0, bottom: 8.0);
-  return new SliverPadding(
-    padding: padding,
-    sliver: new SliverList(
-      delegate: new SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          final Widget item = list[index];
-          return item;
-        },
-        childCount: list.length,
-      ),
-    ),
-  );
-}
-
-List<Widget> list = <Widget>[
-  //new SearchBar(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new EventCard(),
-  new Container(
-    height: 50.0,
-  )
-];
-
 class TopBar extends StatefulWidget {
-  const TopBar({this.height, this.t});
+  const TopBar({
+    this.controller,
+    this.height,
+    this.t,
+  });
 
   final double height;
   final double t;
+  final TabController controller;
 
   @override
   _TopBarState createState() => new _TopBarState();
@@ -103,19 +163,15 @@ class _TopBarState extends State<TopBar> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     RectTween _searchBarRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 60.0, width, 45.0), //410
+      end: new Rect.fromLTWH(0.0, 60.0, width, 45.0),
       begin: new Rect.fromLTWH(0.0, 0.0, width, 45.0),
     );
-    RectTween _tabbarTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 120.0, width, 45.0), //410
+    RectTween _tabBarTween = new RectTween(
+      end: new Rect.fromLTWH(0.0, 122.0, width, 45.0),
       begin: new Rect.fromLTWH(0.0, 6.0, width, 45.0),
     );
-    RectTween _searchButtonRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 120.0, width, 15.0), //410
-      begin: new Rect.fromLTWH(0.0, 6.0, width, 15.0),
-    );
     return new SizedBox(
-      width: 375.0,
+      width: width,
       child: new Stack(
         overflow: Overflow.visible,
         children: <Widget>[
@@ -147,26 +203,13 @@ class _TopBarState extends State<TopBar> {
             ),
           ),
           new Positioned.fromRect(
-            rect: _searchButtonRectTween.lerp(widget.t),
-            child: new Opacity(
-                opacity: 1 - _textOpacity.transform(widget.t),
-                child: new Container(
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      new IconButton(
-                          icon: new Icon(Icons.search), onPressed: null),
-                    ],
-                  ),
-                )),
-          ),
-          new Positioned.fromRect(
-            rect: _tabbarTween.lerp(widget.t),
+            rect: _tabBarTween.lerp(widget.t),
             child: new Container(
               height: 50.0,
               width: 500.0,
               padding: new EdgeInsets.only(right: 90.0),
               child: new TabBar(
+                controller: widget.controller,
                 indicator: new MUnderlineTabIndicator(
                   insets: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   borderSide: new BorderSide(

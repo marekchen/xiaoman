@@ -6,7 +6,7 @@ class MCard extends StatelessWidget {
     Key key,
     this.color,
     this.child,
-    this.radius: 16.0,
+    this.radius: 10.0,
   }) : super(key: key);
 
   final Widget child;
@@ -22,7 +22,7 @@ class MCard extends StatelessWidget {
       child: new Material(
         shadowColor: const Color(0x78CED4DA),
         type: MaterialType.card,
-        elevation: 2.0,
+        elevation: 4.0,
         borderRadius: new BorderRadius.all(new Radius.circular(radius)),
         child: new Container(
             decoration: new BoxDecoration(
