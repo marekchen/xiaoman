@@ -4,6 +4,10 @@ import 'package:xiaoman/page/discovery.dart';
 import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/mine.dart';
 import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
+import 'package:xiaoman/page/test.dart';
+import 'package:xiaoman/page/test2.dart';
+import 'package:xiaoman/page/test_page1.dart';
+import 'package:xiaoman/page/test_page2.dart';
 
 void main() => runApp(new MyApp());
 
@@ -51,54 +55,76 @@ class _MyHomePageState extends State<MyHomePage>
       title: new Text('Train'),
     ),
   ];
-  TabController _pageController;
 
-  int index = 0;
+  final List<Tab> tabs = [
+    new Tab(
+      icon: new Icon(Icons.directions_bike, size: 30.0),
+    ),
+    new Tab(
+      icon: new Icon(Icons.directions_boat, size: 30.0),
+    ),
+    new Tab(
+      icon: new Icon(Icons.directions_bus, size: 30.0),
+    ),
+    new Tab(
+      icon: new Icon(Icons.directions_railway, size: 30.0),
+    ),
+    new Tab(
+      icon: new Icon(Icons.directions_railway, size: 30.0),
+    ),
+  ];
 
-  void _selectTab(int index) {
-    setState(() {
-      this.index = index;
-    });
-    _pageController.animateTo(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.ease,
-    );
-  }
+  PageController pageController;
+  int page = 0;
 
   @override
   void initState() {
     super.initState();
-    _pageController = new TabController(vsync: this, length: items.length);
+    pageController = new PageController(initialPage: this.page);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
+
+  void onTap(int index) {
+    pageController.animateToPage(
+        index, duration: const Duration(milliseconds: 300),
+        curve: Curves.ease);
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      this.page = page;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new TabBarView(
+      body: new PageView(
+        controller: pageController,
         children: [
-          new Home(),
-          new Discovery(),
-          new Mine(),
-          new Mine(),
+          new TabsDemo1(),
+          new TabsDemo2(),
+          new ChatScreen(),
+          new TestPage(),
           new Mine(),
         ],
-        controller: _pageController,
         physics: new NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: new MBottomNavigationBar(
         items: items,
         fixedColor: new Color(0xFF42BE56),
         defaultColor: new Color(0xFF9DA4B3),
-        onTap: _selectTab,
-        currentIndex: index,
+        onTap: onTap,
+        currentIndex: page,
       ),
     );
+//      bottomNavigationBar: new Material(
+//        color: Colors.blue[600],
+//        child: new TabBar(
+//          controller: pageController,
+//          tabs: tabs,
+//        ),
+//      ),
+//    );
   }
 }

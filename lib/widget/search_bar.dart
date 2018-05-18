@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:xiaoman/base/mcard.dart';
 
 class SearchBar extends StatefulWidget {
-  SearchBar({Key key}) : super(key: key);
+  final TextEditingController controller;
+
+  SearchBar({Key key,@required this.controller}) : super(key: key);
 
   @override
   _SearchBarState createState() => new _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class _SearchBarState extends State<SearchBar> {
       child: new Container(
         padding: new EdgeInsets.fromLTRB(13.0, 0.0, 0.0, 0.0),
         child: new TextField(
-          controller: _controller,
+          controller: widget.controller,
           decoration: new InputDecoration(
             hintText: '搜索',
             hintStyle: new TextStyle(

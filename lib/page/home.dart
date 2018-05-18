@@ -4,6 +4,7 @@ import 'package:xiaoman/widget/event_card.dart';
 import 'package:xiaoman/widget/search_bar.dart';
 
 class Home extends StatefulWidget {
+
   Home({Key key}) : super(key: key);
 
   @override
@@ -13,12 +14,17 @@ class Home extends StatefulWidget {
 const double _kAppBarHeight = 140.0;
 
 class _HomeState extends State<Home> {
+
+//  AutomaticKeepAliveClientMixin
+//  PageStorageBucket
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: new Color(0xFFF8F9FA),
       body: new CustomScrollView(
+        key: new PageStorageKey<String>("home"),
         slivers: <Widget>[
           _buildAppBar(context, statusBarHeight),
           _buildBody(context, statusBarHeight),
@@ -58,6 +64,7 @@ Widget _buildBody(BuildContext context, double statusBarHeight) {
   return new SliverPadding(
     padding: padding,
     sliver: new SliverList(
+      key: new PageStorageKey<String>("home-list"),
       delegate: new SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           final Widget item = list[index];
@@ -78,7 +85,7 @@ Event event = new Event(
 //    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
 //    "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=927480163,3727066344&fm=27&gp=0.jpg",
 //    "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3774731071,361198447&fm=27&gp=0.jpg",
-  "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2233345096,4117074648&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2233345096,4117074648&fm=27&gp=0.jpg",
   ],
   title: "我是任务标题，是啥任务咧，点我瞧瞧",
   body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
@@ -138,6 +145,7 @@ class TopBar extends StatefulWidget {
 
 class _TopBarState extends State<TopBar> {
   final Curve _textOpacity = const Interval(0.4, 1.0, curve: Curves.easeInOut);
+  final TextEditingController _textController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +180,7 @@ class _TopBarState extends State<TopBar> {
             child: new Container(
               height: 45.0,
               padding: new EdgeInsets.only(left: 16.0, right: 16.0),
-              child: new SearchBar(),
+              child: new SearchBar(controller: _textController),
             ),
           )
         ],
