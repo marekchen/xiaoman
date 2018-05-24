@@ -95,14 +95,13 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
         minHeight: 100.0,
         minWidth: 100.0,
       ),
-      decoration: new BoxDecoration(
-        color: Colors.black,
-        borderRadius: new BorderRadius.all(new Radius.circular(4.0)),
-      ),
-      child: new Image.network(
-        pictures[0],
-        fit: BoxFit.fitHeight,
-        alignment: Alignment.topLeft,
+      child: new ClipRRect(
+        borderRadius: new BorderRadius.circular(4.0),
+        child: new Image.network(
+          pictures[0],
+          fit: BoxFit.fitHeight,
+          //alignment: Alignment.topLeft,
+        ),
       ),
     );
   }
@@ -113,6 +112,7 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
     crossAxisSpacing: 6.0,
     mainAxisSpacing: 6.0,
     crossAxisCount: 3,
+    physics: new NeverScrollableScrollPhysics(),
     children: pictures
         .map((String url) => new Container(
               decoration: new BoxDecoration(

@@ -4,7 +4,6 @@ import 'package:xiaoman/widget/event_card.dart';
 import 'package:xiaoman/widget/search_bar.dart';
 
 class Home extends StatefulWidget {
-
   Home({Key key}) : super(key: key);
 
   @override
@@ -13,10 +12,7 @@ class Home extends StatefulWidget {
 
 const double _kAppBarHeight = 140.0;
 
-class _HomeState extends State<Home> {
-
-//  AutomaticKeepAliveClientMixin
-//  PageStorageBucket
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -32,6 +28,9 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 Widget _buildAppBar(BuildContext context, double statusBarHeight) {

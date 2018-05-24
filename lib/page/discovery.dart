@@ -14,7 +14,9 @@ class Discovery extends StatefulWidget {
 const double _kAppBarHeight = 177.0;
 
 class _DiscoveryState extends State<Discovery>
-    with SingleTickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin<Discovery>,
+        SingleTickerProviderStateMixin<Discovery> {
   TabController tabController;
 
   @override
@@ -32,24 +34,26 @@ class _DiscoveryState extends State<Discovery>
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: new Color(0xFFF8F9FA),
-        body: new DefaultTabController(
-          length: 3,
-          child: new NestedScrollView(
-            key: new PageStorageKey<String>("discovery"),
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                _buildAppBar(context, innerBoxIsScrolled, tabController),
-              ];
-            },
-            body: _buildBody(
-                context, tabController), //_tabs.map((String name) {}).toList(),
-          ),
-        ));
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: new Color(0xFFF8F9FA),
+      body: new DefaultTabController(
+        length: 3,
+        child: new NestedScrollView(
+          key: new PageStorageKey<String>("discovery"),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              _buildAppBar(context, innerBoxIsScrolled, tabController),
+            ];
+          },
+          body: _buildBody(context, tabController),
+        ),
+      ),
+    );
   }
 }
 
@@ -101,9 +105,15 @@ Widget _buildBody(BuildContext context, TabController tabController) {
 
 Event event = new Event(
   userAvatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳巴拉酱",
   eventType: 1,
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+//    "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=927480163,3727066344&fm=27&gp=0.jpg",
+//    "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3774731071,361198447&fm=27&gp=0.jpg",
+//    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2233345096,4117074648&fm=27&gp=0.jpg",
+  ],
   title: "我是任务标题，是啥任务咧，点我瞧瞧",
   body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
   followNum: 300,
@@ -112,12 +122,32 @@ Event event = new Event(
 
 Event event2 = new Event(
   userAvatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳222",
   eventType: 2,
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
+  ],
   title: "我是任务标题，是啥任务咧，22222",
   body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
-  likeNum: 300,
+  likeNum: 1000,
+  commentNum: 143,
+);
+
+Event event3 = new Event(
+  userAvatar:
+  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+  userName: "霹雳333333",
+  eventType: 3,
+  pictures: [
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=426595056,3152484396&fm=27&gp=0.jpg",
+  ],
+  title: "我是任务标题，是啥任务咧，333333",
+  body: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧",
+  likeNum: 1000,
   commentNum: 143,
 );
 
@@ -138,7 +168,14 @@ Widget _buildTab(BuildContext context, int type) {
               sliver: new SliverList(
                 delegate: new SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return EventCard(event: event);
+                    switch (index % 3) {
+                      case 0:
+                        return EventCard(event: event);
+                      case 1:
+                        return EventCard(event: event2);
+                      case 2:
+                        return EventCard(event: event3);
+                    }
                   },
                   childCount: 30,
                 ),

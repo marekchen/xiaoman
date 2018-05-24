@@ -2,135 +2,219 @@ import 'package:flutter/material.dart';
 import 'package:xiaoman/base/m_underline_tab_indicator.dart';
 import 'package:xiaoman/base/mcard.dart';
 import 'package:xiaoman/model/article.dart';
+import 'package:xiaoman/page/task_detail.dart';
 import 'package:xiaoman/widget/article_card.dart';
 
-class TaskHome extends StatelessWidget {
+class TaskHome extends StatefulWidget {
+  TaskHome({Key key}) : super(key: key);
+
+  @override
+  _TaskHomeState createState() => new _TaskHomeState();
+}
+
+const double _kAppBarHeight = 200.0;
+
+class _TaskHomeState extends State<TaskHome>
+    with SingleTickerProviderStateMixin<TaskHome> {
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (tabController == null) {
+      tabController = new TabController(vsync: this, length: 3);
+    }
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(primaryColor: new Color(0xFFE9ECEF)),
-      home: new Scaffold(
-        floatingActionButton: new FloatingActionButton(
-          child: new Icon(Icons.border_color),
-          backgroundColor: const Color(0xFF42BE56),
-          onPressed: () {},
-        ),
-        backgroundColor: new Color(0xFFF8F9FA),
-        body: new DefaultTabController(
-          length: 3,
-          child: new NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                _buildAppBar(context, innerBoxIsScrolled),
-              ];
-            },
-            body: _buildBody(context), //_tabs.map((String name) {}).toList(),
-          ),
+    return new Scaffold(
+      floatingActionButton: new FloatingActionButton(
+        child: new Icon(Icons.border_color),
+        backgroundColor: const Color(0xFF42BE56),
+        onPressed: () {},
+      ),
+      backgroundColor: new Color(0xFFF8F9FA),
+      body: new DefaultTabController(
+        length: 3,
+        child: new NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              _buildAppBar(context, innerBoxIsScrolled, tabController),
+            ];
+          },
+          body: _buildBody(context, tabController),
         ),
       ),
     );
   }
 }
 
-Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
+Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
+    TabController tabController) {
+  final double statusBarHeight = MediaQuery.of(context).padding.top;
   return new SliverOverlapAbsorber(
     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
     child: new SliverAppBar(
+      pinned: true,
+      forceElevated: innerBoxIsScrolled,
       backgroundColor: Colors.white,
-      leading: new IconButton(
-        icon: new Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.pop(context);
+      expandedHeight: _kAppBarHeight,
+      flexibleSpace: new LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final Size size = constraints.biggest;
+          final double appBarHeight = size.height - statusBarHeight;
+          final double t = (appBarHeight - kToolbarHeight) /
+              (_kAppBarHeight - kToolbarHeight);
+          return new TopBar(
+            statusBarHeight: statusBarHeight,
+            controller: tabController,
+            t: t.clamp(0.0, 1.0),
+          );
         },
       ),
-      elevation: 2.0,
-      bottom: new TaskHeader(
-        new TabBar(
-          indicatorColor: const Color(0xFF42BE56),
-          indicatorWeight: 3.0,
-          indicator: new MUnderlineTabIndicator(
-            insets: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-            borderSide: new BorderSide(
-              width: 3.0,
-              color: const Color(0xFF42BE56),
+      bottom: new TabBar(
+        indicator: new MUnderlineTabIndicator(
+          insets: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+          borderSide: new BorderSide(
+            width: 3.0,
+            color: const Color(0xFF42BE56),
+          ),
+        ),
+        indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+        controller: tabController,
+        tabs: [
+          new Tab(
+            child: new Row(
+              children: <Widget>[
+                new Text(
+                  "手账",
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: const Color(0xFF0D0E15),
+                  ),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
             ),
           ),
-          indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-          tabs: [
-            new Tab(
-              child: new Row(
-                children: <Widget>[
-                  //new Icon(Icons.textsms),
-                  new Text(
-                    "手账",
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                      color: const Color(0xFF0D0E15),
-                    ),
+          new Tab(
+            child: new Row(
+              children: <Widget>[
+                new Text(
+                  "直播",
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: const Color(0xFF0D0E15),
                   ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-              ),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
             ),
-            new Tab(
-              child: new Row(
-                children: <Widget>[
-                  //new Icon(Icons.voice_chat),
-                  new Text(
-                    "直播",
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                      color: const Color(0xFF0D0E15),
-                    ),
+          ),
+          new Tab(
+            child: new Row(
+              children: <Widget>[
+                new Text(
+                  "群聊",
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: const Color(0xFF0D0E15),
                   ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-              ),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
             ),
-            new Tab(
-              child: new Row(
-                children: <Widget>[
-                  //new Icon(Icons.chat),
-                  new Text(
-                    "群聊",
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                      color: const Color(0xFF0D0E15),
-                    ),
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );
 }
 
-class TaskHeader extends StatefulWidget implements PreferredSizeWidget {
-  TaskHeader(this.tabBar, {Key key}) : super(key: key);
+class TopBar extends StatefulWidget {
+  const TopBar({
+    this.controller,
+    this.statusBarHeight,
+    this.t,
+  });
+
+  final TabController controller;
+  final double statusBarHeight;
+  final double t;
+
+  @override
+  _TopBarState createState() => new _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  final Curve _textOpacity = const Interval(0.4, 1.0, curve: Curves.easeInOut);
+
+  @override
+  Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    RectTween _backgroundRectTween = new RectTween(
+      end: new Rect.fromLTWH(
+          0.0, 0.0, width, _kAppBarHeight + widget.statusBarHeight - 45.0),
+      begin: new Rect.fromLTWH(
+          0.0, 0.0, width, _kAppBarHeight + widget.statusBarHeight - 45.0),
+    );
+    RectTween _taskHeaderRectTween = new RectTween(
+      end: new Rect.fromLTWH(0.0, 75.0, width, 105.0),
+      begin: new Rect.fromLTWH(0.0, 0.0, width, 105.0),
+    );
+    return new SizedBox(
+      width: width,
+      child: new Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          new Positioned.fromRect(
+            rect: _backgroundRectTween.lerp(widget.t),
+            child: new Opacity(
+              opacity: _textOpacity.transform(widget.t),
+              child: new Image.network(
+                'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          new Positioned.fromRect(
+            rect: _taskHeaderRectTween.lerp(widget.t),
+            child: new Opacity(
+              opacity: _textOpacity.transform(widget.t),
+              child: new Container(
+                height: 45.0,
+                padding: new EdgeInsets.only(left: 16.0, right: 16.0),
+                child: new TaskHeader(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TaskHeader extends StatefulWidget {
+  TaskHeader({Key key}) : super(key: key);
 
   @override
   _TaskHeaderState createState() => new _TaskHeaderState();
-
-  final TabBar tabBar;
-
-  @override
-  Size get preferredSize {
-    return new Size.fromHeight(tabBar.preferredSize.height + 110.0);
-  }
 }
 
 class _TaskHeaderState extends State<TaskHeader> {
   @override
   Widget build(BuildContext context) {
-    Widget taskInfo = new Container(
+    return new Container(
       height: 105.0,
       padding: new EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
       child: new MCard(
@@ -174,25 +258,32 @@ class _TaskHeaderState extends State<TaskHeader> {
                         color: const Color(0xFF0D0E15),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          "查看任务",
-                          style: new TextStyle(
-                            fontSize: 14.0,
-                            color: const Color(0xFF9DA4B3),
+                    new InkWell(
+                      child: new Row(
+                        children: <Widget>[
+                          new Text(
+                            "查看任务",
+                            style: new TextStyle(
+                              fontSize: 14.0,
+                              color: const Color(0xFF9DA4B3),
+                            ),
                           ),
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.only(left: 2.0),
-                          child: new Icon(
-                            Icons.keyboard_arrow_right,
-                            size: 14.0,
-                            color: const Color(0xFF9DA4B3),
+                          new Padding(
+                            padding: new EdgeInsets.only(left: 2.0),
+                            child: new Icon(
+                              Icons.keyboard_arrow_right,
+                              size: 14.0,
+                              color: const Color(0xFF9DA4B3),
+                            ),
                           ),
-                        ),
-                      ],
-                    )
+                        ],
+                      ),
+                      onTap: () => Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new TaskDetailPage(null)),
+                          ),
+                    ),
                   ],
                 ),
               ),
@@ -208,38 +299,34 @@ class _TaskHeaderState extends State<TaskHeader> {
         ),
       ),
     );
-    return new Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        taskInfo,
-        widget.tabBar,
-      ],
-    );
   }
 }
 
-Widget _buildBody(BuildContext context) {
-  return new TabBarView(children: [
-    _buildTab(context, 1),
-    _buildTab(context, 2),
-    _buildTab(context, 3),
-  ]);
+Widget _buildBody(BuildContext context, TabController tabController) {
+  return new TabBarView(
+    children: [
+      _buildTab(context, "article"),
+      _buildTab(context, "streaming"),
+      _buildTab(context, "chat"),
+    ],
+    controller: tabController,
+  );
 }
 
-Widget _buildTab(BuildContext context, int type) {
+Widget _buildTab(BuildContext context, String type) {
   return new SafeArea(
     top: false,
     bottom: false,
     child: new Builder(
       builder: (BuildContext context) {
         return new CustomScrollView(
-          key: new PageStorageKey<int>(type),
+          key: new PageStorageKey<String>(type),
           slivers: <Widget>[
             new SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
             new SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              padding: const EdgeInsets.only(top: 8.0),
               sliver: new SliverList(
                 delegate: new SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
@@ -266,56 +353,3 @@ Article article = new Article(
     "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg",
   ],
 );
-
-class TaskTab extends StatefulWidget {
-  TaskTab({Key key}) : super(key: key);
-
-  @override
-  _TaskTabState createState() => new _TaskTabState();
-}
-
-class _TaskTabState extends State<TaskTab> {
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      child: new DefaultTabController(
-        length: 3,
-        child: new Scaffold(
-          appBar: new AppBar(
-            bottom: new TabBar(
-              tabs: [
-                new Tab(icon: new Icon(Icons.directions_car)),
-                new Tab(icon: new Icon(Icons.directions_transit)),
-                new Tab(icon: new Icon(Icons.directions_bike)),
-              ],
-            ),
-          ),
-          body: new TabBarView(
-            children: [
-              new Icon(Icons.directions_car),
-              new Icon(Icons.directions_transit),
-              new Icon(Icons.directions_bike),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TaskTabArticle extends StatefulWidget {
-  TaskTabArticle({Key key}) : super(key: key);
-
-  @override
-  _TaskTabArticleState createState() => new _TaskTabArticleState();
-}
-
-class _TaskTabArticleState extends State<TaskTabArticle> {
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-      child: new Card(),
-    );
-  }
-}

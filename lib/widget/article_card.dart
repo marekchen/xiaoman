@@ -17,7 +17,7 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
   }
   if (pictures.length == 1) {
     return new Container(
-      margin: const EdgeInsets.only(top: 6.0, bottom: 12.0),
+      margin: const EdgeInsets.only(top: 6.0, bottom: 6.0),
       constraints: new BoxConstraints(
         maxHeight: 200.0,
         minHeight: 100.0,
@@ -37,10 +37,11 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
   return new GridView.count(
     shrinkWrap: true,
     primary: false,
-    padding: const EdgeInsets.only(top: 6.0, bottom: 12.0),
+    padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
     crossAxisSpacing: 6.0,
     mainAxisSpacing: 6.0,
     crossAxisCount: 3,
+    physics: new NeverScrollableScrollPhysics(),
     children: pictures
         .map((String url) => new Container(
               decoration: new BoxDecoration(
@@ -66,17 +67,17 @@ class _ArticleCardState extends State<ArticleCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new Padding(
-            padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
+            padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
             child: new Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 new Padding(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 6.0, 0.0),
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 11.0, 0.0),
                   child: new Image.network(
                     widget.article.userAvatar,
-                    width: 20.0,
-                    height: 20.0,
+                    width: 32.0,
+                    height: 32.0,
                   ),
                 ),
                 new Text(
@@ -84,14 +85,14 @@ class _ArticleCardState extends State<ArticleCard> {
                   style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: new Color(0xFF0D0E15),
-                    fontSize: 14.0,
+                    fontSize: 16.0,
                   ),
                 ),
               ],
             ),
           ),
           new Padding(
-            padding: new EdgeInsets.fromLTRB(26.0, 13.0, 0.0, 8.0),
+            padding: new EdgeInsets.fromLTRB(43.0, 0.0, 0.0, 8.0),
             child: new Column(
               children: <Widget>[
                 new Text(

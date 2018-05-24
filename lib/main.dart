@@ -4,10 +4,9 @@ import 'package:xiaoman/page/discovery.dart';
 import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/mine.dart';
 import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
+import 'package:xiaoman/page/task_detail.dart';
 import 'package:xiaoman/page/test.dart';
 import 'package:xiaoman/page/test2.dart';
-import 'package:xiaoman/page/test_page1.dart';
-import 'package:xiaoman/page/test_page2.dart';
 
 void main() => runApp(new MyApp());
 
@@ -50,29 +49,29 @@ class _MyHomePageState extends State<MyHomePage>
       icon: new Icon(Icons.directions_railway),
       title: new Text('Train'),
     ),
-    new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_railway),
-      title: new Text('Train'),
-    ),
+//    new BottomNavigationBarItem(
+//      icon: new Icon(Icons.directions_railway),
+//      title: new Text('Train'),
+//    ),
   ];
 
-  final List<Tab> tabs = [
-    new Tab(
-      icon: new Icon(Icons.directions_bike, size: 30.0),
-    ),
-    new Tab(
-      icon: new Icon(Icons.directions_boat, size: 30.0),
-    ),
-    new Tab(
-      icon: new Icon(Icons.directions_bus, size: 30.0),
-    ),
-    new Tab(
-      icon: new Icon(Icons.directions_railway, size: 30.0),
-    ),
-    new Tab(
-      icon: new Icon(Icons.directions_railway, size: 30.0),
-    ),
-  ];
+//  final List<Tab> tabs = [
+//    new Tab(
+//      icon: new Icon(Icons.directions_bike, size: 30.0),
+//    ),
+//    new Tab(
+//      icon: new Icon(Icons.directions_boat, size: 30.0),
+//    ),
+//    new Tab(
+//      icon: new Icon(Icons.directions_bus, size: 30.0),
+//    ),
+//    new Tab(
+//      icon: new Icon(Icons.directions_railway, size: 30.0),
+//    ),
+//    new Tab(
+//      icon: new Icon(Icons.directions_railway, size: 30.0),
+//    ),
+//  ];
 
   PageController pageController;
   int page = 0;
@@ -83,17 +82,12 @@ class _MyHomePageState extends State<MyHomePage>
     pageController = new PageController(initialPage: this.page);
   }
 
-
-  void onTap(int index) {
-    pageController.animateToPage(
-        index, duration: const Duration(milliseconds: 300),
-        curve: Curves.ease);
-  }
-
-  void onPageChanged(int page) {
+  void onTap(int page) {
     setState(() {
       this.page = page;
     });
+    pageController.animateToPage(page,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   @override
@@ -102,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage>
       body: new PageView(
         controller: pageController,
         children: [
-          new TabsDemo1(),
-          new TabsDemo2(),
+          new Home(),
+          new Discovery(),
           new ChatScreen(),
-          new TestPage(),
-          new Mine(),
+          new TaskDetailPage(null),
+//          new Mine(),
         ],
         physics: new NeverScrollableScrollPhysics(),
       ),
@@ -118,13 +112,5 @@ class _MyHomePageState extends State<MyHomePage>
         currentIndex: page,
       ),
     );
-//      bottomNavigationBar: new Material(
-//        color: Colors.blue[600],
-//        child: new TabBar(
-//          controller: pageController,
-//          tabs: tabs,
-//        ),
-//      ),
-//    );
   }
 }

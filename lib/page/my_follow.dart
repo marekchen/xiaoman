@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoman/base/m_underline_tab_indicator.dart';
-import 'package:xiaoman/base/mcard.dart';
 
 class MyFollow extends StatefulWidget {
   MyFollow({Key key}) : super(key: key);
