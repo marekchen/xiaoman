@@ -4,6 +4,7 @@ import 'package:xiaoman/page/discovery.dart';
 import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/mine.dart';
 import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
+import 'package:xiaoman/page/release.dart';
 import 'package:xiaoman/page/task_detail.dart';
 import 'package:xiaoman/page/test.dart';
 import 'package:xiaoman/page/test2.dart';
@@ -49,10 +50,10 @@ class _MyHomePageState extends State<MyHomePage>
       icon: new Icon(Icons.directions_railway),
       title: new Text('Train'),
     ),
-//    new BottomNavigationBarItem(
-//      icon: new Icon(Icons.directions_railway),
-//      title: new Text('Train'),
-//    ),
+    new BottomNavigationBarItem(
+      icon: new Icon(Icons.directions_railway),
+      title: new Text('Train'),
+    ),
   ];
 
 //  final List<Tab> tabs = [
@@ -98,9 +99,9 @@ class _MyHomePageState extends State<MyHomePage>
         children: [
           new Home(),
           new Discovery(),
-          new ChatScreen(),
-          new TaskDetailPage(null),
-//          new Mine(),
+          new Release(),
+          new Release(),
+          new Mine(),
         ],
         physics: new NeverScrollableScrollPhysics(),
       ),
