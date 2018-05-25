@@ -23,14 +23,13 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
         minHeight: 100.0,
         minWidth: 100.0,
       ),
-      decoration: new BoxDecoration(
-        color: Colors.black,
-        borderRadius: new BorderRadius.all(new Radius.circular(4.0)),
-      ),
-      child: new Image.network(
-        pictures[0],
-        fit: BoxFit.fitHeight,
-        alignment: Alignment.topLeft,
+      child: new ClipRRect(
+        borderRadius: new BorderRadius.circular(4.0),
+        child: new Image.network(
+          pictures[0],
+          fit: BoxFit.fitHeight,
+          //alignment: Alignment.topLeft,
+        ),
       ),
     );
   }
@@ -72,20 +71,27 @@ class _ArticleCardState extends State<ArticleCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                new Padding(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 11.0, 0.0),
-                  child: new Image.network(
-                    widget.article.userAvatar,
-                    width: 32.0,
-                    height: 32.0,
+                new Container(
+                  height: 32.0,
+                  width: 32.0,
+                  child: new ClipRRect(
+                    borderRadius: new BorderRadius.circular(4.0),
+                    child: new Image.network(
+                      widget.article.userAvatar,
+                      fit: BoxFit.cover,
+                      //alignment: Alignment.topLeft,
+                    ),
                   ),
                 ),
-                new Text(
-                  widget.article.userName,
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: new Color(0xFF0D0E15),
-                    fontSize: 16.0,
+                new Padding(
+                  padding: new EdgeInsets.only(left: 11.0),
+                  child: new Text(
+                    widget.article.userName,
+                    style: new TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: new Color(0xFF0D0E15),
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
               ],

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 import 'package:xiaoman/base/mcard.dart';
+import 'package:xiaoman/model/comment.dart';
 import 'package:xiaoman/model/task.dart';
+import 'package:xiaoman/widget/comment_card.dart';
 
 const double _kAppBarHeight = 220.0;
 
@@ -15,7 +17,7 @@ class TaskDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: new Color(0xFFF8F9FA),
+      backgroundColor: new Color(0xFFE9ECEF),
       body: new NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -34,7 +36,7 @@ class TaskDetailPage extends StatelessWidget {
       child: new SliverAppBar(
         pinned: true,
         forceElevated: innerBoxIsScrolled,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF8F9FA),
         expandedHeight: _kAppBarHeight,
         flexibleSpace: new LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -93,6 +95,79 @@ class TaskDetailPage extends StatelessWidget {
         '<a href="https://baidu.com">Go Google</a> '
         '<a href="mailto:ponnamkarthik3@gmail.com">Mail to me</a> ';
 
+    List<Comment> list = [
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+      new Comment(
+          userName: '二逼欢乐多',
+          userAvatar:
+              'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
+          likeNum: 556,
+          replyNum: 322,
+          content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
+    ];
+
     return new SafeArea(
       top: false,
       bottom: false,
@@ -105,7 +180,7 @@ class TaskDetailPage extends StatelessWidget {
             new SliverList(
               delegate: new SliverChildListDelegate([
                 new Container(
-                  color: Colors.white,
+                  color: const Color(0xFFF8F9FA),
                   child: new Column(
                     children: <Widget>[
                       new Container(
@@ -189,13 +264,249 @@ class TaskDetailPage extends StatelessWidget {
 //                      ],
 //                    ),
                       new ExpansionDetail(html: html, html2: html2),
-                      new Padding(
-                        padding: new EdgeInsets.only(top: 20.0),
-                        child: new Text('bottom'),
-                      ),
                     ],
                   ),
                 ),
+                new Container(
+                  child: new Column(
+                    children: <Widget>[
+                      new InkWell(
+                        onTap: () {},
+                        child: new Container(
+                          height: 54.0,
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                '日程安排',
+                                style: new TextStyle(
+                                    color: const Color(0xFF0D0E15),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Text(
+                                    "2018.01.06 周六起",
+                                    style: new TextStyle(
+                                        color: const Color(0xFF768196),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  new Padding(
+                                    padding: new EdgeInsets.only(left: 5.0),
+                                    child: new Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: const Color(0xFF768196),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                          height: 1.0, color: const Color(0xFFE9ECEF)),
+                      new InkWell(
+                        onTap: () {},
+                        child: new Container(
+                          height: 54.0,
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                '团队属性',
+                                style: new TextStyle(
+                                    color: const Color(0xFF0D0E15),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Text(
+                                    "单人活动",
+                                    style: new TextStyle(
+                                        color: const Color(0xFF768196),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  new Padding(
+                                    padding: new EdgeInsets.only(left: 5.0),
+                                    child: new Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: const Color(0xFF768196),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                          height: 1.0, color: const Color(0xFFE9ECEF)),
+                      new InkWell(
+                        onTap: () {},
+                        child: new Container(
+                          height: 54.0,
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                '权限管理',
+                                style: new TextStyle(
+                                    color: const Color(0xFF0D0E15),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Text(
+                                    "公共活动",
+                                    style: new TextStyle(
+                                        color: const Color(0xFF768196),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  new Padding(
+                                    padding: new EdgeInsets.only(left: 5.0),
+                                    child: new Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: const Color(0xFF768196),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                          height: 1.0, color: const Color(0xFFE9ECEF)),
+                      new InkWell(
+                        onTap: () {},
+                        child: new Container(
+                          height: 54.0,
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                '直播管理',
+                                style: new TextStyle(
+                                    color: const Color(0xFF0D0E15),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Text(
+                                    "本活动开通直播",
+                                    style: new TextStyle(
+                                        color: const Color(0xFF768196),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  new Padding(
+                                    padding: new EdgeInsets.only(left: 5.0),
+                                    child: new Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: const Color(0xFF768196),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                          height: 1.0, color: const Color(0xFFE9ECEF)),
+                    ],
+                  ),
+                  margin: new EdgeInsets.symmetric(vertical: 10.0),
+                  padding: new EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 20.0,
+                  ),
+                  color: const Color(0xFFF8F9FA),
+                ),
+                new Container(
+                  padding: new EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 14.0,
+                  ),
+                  color: const Color(0xFFF8F9FA),
+                  child: new Column(
+                    children: <Widget>[
+                      new Container(
+                        child: new Row(
+                          children: <Widget>[
+                            new Row(
+                              children: <Widget>[
+                                new Container(
+                                  height: 16.0,
+                                  width: 4.0,
+                                  color: const Color(0xFF42BE56),
+                                ),
+                                new Padding(
+                                  padding: new EdgeInsets.only(left: 4.0),
+                                  child: new Text(
+                                    "热门评论",
+                                    style: new TextStyle(
+                                      fontSize: 16.0,
+                                      color: const Color(0xFF0D0E15),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            new Row(
+                              children: <Widget>[
+                                new Text(
+                                  "更多热门评论",
+                                  style: new TextStyle(
+                                      color: const Color(0xFF768196),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                new Padding(
+                                  padding: new EdgeInsets.only(left: 5.0),
+                                  child: new Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: const Color(0xFF768196),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        height: 42.0,
+                      ),
+                      const Divider(
+                          height: 1.0, color: const Color(0xFFE9ECEF)),
+//                      new ListView.builder(
+//                        itemBuilder: (context, index) {
+//                          return new CommentCard(comment: list[index]);
+//                          //return new Container(height: 20.0,);
+//                        },
+//                        itemCount: 10,
+//                        shrinkWrap: true,
+//                      )
+                      new CommentCard(comment: list[0]),
+                      new CommentCard(comment: list[1]),
+                      new CommentCard(comment: list[2]),
+                      new CommentCard(comment: list[3]),
+                      new CommentCard(comment: list[4]),
+                      new CommentCard(comment: list[5]),
+                      new CommentCard(comment: list[6]),
+                      new CommentCard(comment: list[7]),
+                      new CommentCard(comment: list[8]),
+                      new CommentCard(comment: list[9]),
+                    ],
+                  ),
+                )
               ]),
             ),
           ],
@@ -249,7 +560,7 @@ class TopBar extends StatelessWidget {
               child: new Container(
                 padding: new EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
                 child: new MCard(
-                  color: new Color(0xFFFFFFFF),
+                  color: Colors.white,
                   radius: 8.0,
                   child: new Container(
                     padding: new EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
@@ -331,22 +642,23 @@ class _ExpansionDetailState extends State<ExpansionDetail> {
                   padding: new EdgeInsets.all(16.0),
                 ),
                 new Container(
+                  height: 44.0,
                   color: const Color(0xFFF8F9FA),
                   child: new InkWell(
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        new Container(
-                          padding: new EdgeInsets.only(bottom: 10.0),
-                          margin: new EdgeInsets.all(0.0),
-                          color: const Color(0xFFF8F9FA),
-                          child: new Text(
-                            '展开活动活动详情',
-                            style: new TextStyle(
-                              color: const Color(0xFFADB5BD),
-                              fontSize: 16.0,
-                            ),
+                        new Text(
+                          '展开查看活动详情',
+                          style: new TextStyle(
+                            color: const Color(0xFFADB5BD),
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
                           ),
+                        ),
+                        new Icon(
+                          Icons.keyboard_arrow_down,
+                          color: const Color(0xFFADB5BD),
                         ),
                       ],
                     ),
