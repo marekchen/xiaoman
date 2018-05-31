@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoman/base/m_underline_tab_indicator.dart';
+import 'package:xiaoman/model/task.dart';
 
 class MyFollow extends StatefulWidget {
   MyFollow({Key key}) : super(key: key);
@@ -17,6 +18,14 @@ class _MyFollowState extends State<MyFollow> {
         length: 3,
         child: new Scaffold(
           appBar: new AppBar(
+            centerTitle: true,
+            title: new Text(
+              "我的关注",
+              style: new TextStyle(
+                fontSize: 18.0,
+                color: const Color(0xFF0D0E15),
+              ),
+            ),
             backgroundColor: Colors.white,
             leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
@@ -24,7 +33,7 @@ class _MyFollowState extends State<MyFollow> {
                 Navigator.pop(context);
               },
             ),
-            elevation: 2.0,
+            elevation: 1.0,
             bottom: new TabBar(
               indicator: new MUnderlineTabIndicator(
                 insets: new EdgeInsets.fromLTRB(70.0, 0.0, 70.0, 0.0),
@@ -77,8 +86,8 @@ class _MyFollowState extends State<MyFollow> {
               ),
               new ListView.builder(
                 itemBuilder: (BuildContext context, int index) =>
-                    new UserInfoCard(list[index]),
-                itemCount: list.length,
+                    new TaskCard(taskList[index]),
+                itemCount: taskList.length,
               ),
             ],
           ),
@@ -88,14 +97,59 @@ class _MyFollowState extends State<MyFollow> {
   }
 }
 
-_buildUserList(BuildContext context) {}
-
 class UserInfo {
   const UserInfo({this.name, this.avatar});
 
   final String name;
   final String avatar;
 }
+
+const List<Task> taskList = const <Task>[
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+  const Task(
+    title: "我是任务标题，是啥任务咧，点我瞧瞧",
+    subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
+  ),
+];
 
 const List<UserInfo> list = const <UserInfo>[
   const UserInfo(
@@ -129,27 +183,27 @@ const List<UserInfo> list = const <UserInfo>[
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
   const UserInfo(
       name: "陈小春",
       avatar:
-      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
 ];
 
 class UserInfoCard extends StatelessWidget {
@@ -160,22 +214,31 @@ class UserInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      height: 60.0,
+      height: 61.0,
       color: Colors.white,
-      padding: new EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: new EdgeInsets.symmetric(horizontal: 16.0),
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           new Container(
-            height: 59.0,
+            height: 60.0,
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 new Row(
                   children: <Widget>[
-                    new CircleAvatar(
-                      backgroundImage: new NetworkImage(userInfo.avatar),
+                    new Container(
+                      height: 32.0,
+                      width: 32.0,
+                      child: new ClipRRect(
+                        borderRadius: new BorderRadius.circular(4.0),
+                        child: new Image.network(
+                          userInfo.avatar,
+                          fit: BoxFit.fitHeight,
+                          //alignment: Alignment.topLeft,
+                        ),
+                      ),
                     ),
                     new Padding(
                       padding: new EdgeInsets.only(left: 10.0),
@@ -200,9 +263,45 @@ class UserInfoCard extends StatelessWidget {
             ),
           ),
           new Divider(
-            height: 0.0,
+            height: 1.0,
             color: const Color(0xFFF3F4F6),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  const TaskCard(this.task);
+
+  final Task task;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      color: Colors.white,
+      padding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+      margin: new EdgeInsets.only(bottom: 1.0),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Text(
+            task.title,
+            style: new TextStyle(
+              fontSize: 16.0,
+              color: const Color(0xFF0D0E15),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          new Text(
+            task.subTitle,
+            style: new TextStyle(
+              fontSize: 14.0,
+              color: const Color(0xFF0D0E15),
+            ),
+          ),
         ],
       ),
     );

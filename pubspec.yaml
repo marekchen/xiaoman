@@ -32,6 +32,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+      - assets/logo.png
+      - assets/ic_qq.png
+      - assets/ic_wechat.png
+      - assets/tabbar_ic_home.png
+      - assets/tabbar_ic_found.png
+      - assets/tabbar_ic_write.png
+      - assets/tabbar_ic_message.png
+      - assets/tabbar_ic_mine.png
       - packages/flutter_gallery_assets/videos/butterfly.mp4
       - packages/flutter_gallery_assets/animated_flutter_lgtm.gif
       - packages/flutter_gallery_assets/animated_flutter_stickers.webp

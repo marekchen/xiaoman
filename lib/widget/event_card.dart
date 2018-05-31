@@ -100,7 +100,6 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
         child: new Image.network(
           pictures[0],
           fit: BoxFit.fitHeight,
-          //alignment: Alignment.topLeft,
         ),
       ),
     );

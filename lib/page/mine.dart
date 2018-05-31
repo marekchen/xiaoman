@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:xiaoman/base/mcard.dart';
+import 'package:xiaoman/page/personal_info.dart';
+import 'package:xiaoman/page/setting.dart';
+import 'package:xiaoman/page/switch_role.dart';
 import 'my_follow.dart';
 import 'my_money.dart';
 
@@ -61,12 +64,11 @@ class _TopBarState extends State<TopBar> {
                 ),
               ),
             ),
-            new Container(
-              height: 50.0,
-              padding:
-                  new EdgeInsets.only(right: 16.0, top: 10.0, bottom: 10.0),
-              child: new PopupMenuButton<String>(
-                icon: null,
+            new InkWell(
+              child: new Container(
+                height: 50.0,
+                padding:
+                    new EdgeInsets.only(right: 16.0, top: 10.0, bottom: 10.0),
                 child: new Container(
                   padding: new EdgeInsets.only(right: 5.0, left: 5.0),
                   decoration: new BoxDecoration(
@@ -90,17 +92,51 @@ class _TopBarState extends State<TopBar> {
                     ],
                   ),
                 ),
-                onSelected: showMenuSelection,
-                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                      const PopupMenuItem<String>(
-                          value: 'id1', child: const Text('身份1')),
-                      const PopupMenuItem<String>(
-                          value: 'id2', child: const Text('身份2')),
-                      const PopupMenuItem<String>(
-                          value: 'id3', child: const Text('身份3')),
-                    ],
               ),
-            ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new SwitchRole(),
+                  ),
+                );
+              },
+            )
+//              child: new PopupMenuButton<String>(
+//                icon: null,
+//                child: new Container(
+//                  padding: new EdgeInsets.only(right: 5.0, left: 5.0),
+//                  decoration: new BoxDecoration(
+//                    border: new Border.all(color: const Color(0xFFACACAC)),
+//                    borderRadius:
+//                        new BorderRadius.all(new Radius.circular(15.0)),
+//                  ),
+//                  child: new Row(
+//                    children: <Widget>[
+//                      new Text(
+//                        "切换身份",
+//                        style: new TextStyle(
+//                          fontSize: 12.0,
+//                          color: const Color(0xFFACACAC),
+//                        ),
+//                      ),
+//                      new Icon(
+//                        Icons.arrow_downward,
+//                        color: const Color(0xFFACACAC),
+//                      )
+//                    ],
+//                  ),
+//                ),
+//                onSelected: showMenuSelection,
+//                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+//                      const PopupMenuItem<String>(
+//                          value: 'id1', child: const Text('身份1')),
+//                      const PopupMenuItem<String>(
+//                          value: 'id2', child: const Text('身份2')),
+//                      const PopupMenuItem<String>(
+//                          value: 'id3', child: const Text('身份3')),
+//                    ],
+//              ),
           ],
         ),
       ),
@@ -245,7 +281,7 @@ Widget _buildBottom(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            new MaterialPageRoute(builder: (context) => new MyMoney()),
+            new MaterialPageRoute(builder: (context) => new Setting()),
           );
         },
         child: new Padding(
@@ -292,11 +328,20 @@ Widget _buildTopCard(BuildContext context) {
           children: <Widget>[
             new Row(
               children: <Widget>[
-                new CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: new NetworkImage(
-                    "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+                new InkWell(
+                  child: new CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: new NetworkImage(
+                      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new PersonalInfo()),
+                    );
+                  },
                 ),
                 new Container(
                   height: 60.0,

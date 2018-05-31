@@ -1,22 +1,25 @@
 class Task {
-  final String name;
+  final String title;
+  final String subTitle;
   final int followNum;
   final int joinNum;
-  final String content;
+  final String body;
 
-  Task({
-    this.name,
+  const Task({
+    this.title,
+    this.subTitle,
     this.followNum,
     this.joinNum,
-    this.content,
+    this.body,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return new Task(
-      name: json['name'],
+      title: json['title'],
+      subTitle: json['subTitle'],
       followNum: json['followNum'],
       joinNum: json['joinNum'],
-      content: json['content'],
+      body: json['body'],
     );
   }
 }

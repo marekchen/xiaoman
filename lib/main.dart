@@ -5,9 +5,6 @@ import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/mine.dart';
 import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
 import 'package:xiaoman/page/release.dart';
-import 'package:xiaoman/page/task_detail.dart';
-import 'package:xiaoman/page/test.dart';
-import 'package:xiaoman/page/test2.dart';
 
 void main() => runApp(new MyApp());
 
@@ -35,44 +32,42 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   final List<BottomNavigationBarItem> items = [
     new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_bike),
-      title: new Text('Bicycle'),
+      icon: new ImageIcon(
+        const AssetImage(
+          'assets/tabbar_ic_home.png',
+        ),
+      ),
+      title: new Text('hone'),
     ),
     new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_boat),
-      title: new Text('Boat'),
+      icon: new ImageIcon(
+        const AssetImage(
+          'assets/tabbar_ic_found.png',
+        ),
+      ),
+      title: new Text('found'),
+    ),
+//    new BottomNavigationBarItem(
+//      icon: new Icon(Icons.wrap_text),
+//      title: new Text('write'),
+//    ),
+    new BottomNavigationBarItem(
+      icon: new ImageIcon(
+        const AssetImage(
+          'assets/tabbar_ic_message.png',
+        ),
+      ),
+      title: new Text('message'),
     ),
     new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_bus),
-      title: new Text('Bus'),
-    ),
-    new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_railway),
-      title: new Text('Train'),
-    ),
-    new BottomNavigationBarItem(
-      icon: new Icon(Icons.directions_railway),
-      title: new Text('Train'),
+      icon: new ImageIcon(
+        const AssetImage(
+          'assets/tabbar_ic_mine.png',
+        ),
+      ),
+      title: new Text('mine'),
     ),
   ];
-
-//  final List<Tab> tabs = [
-//    new Tab(
-//      icon: new Icon(Icons.directions_bike, size: 30.0),
-//    ),
-//    new Tab(
-//      icon: new Icon(Icons.directions_boat, size: 30.0),
-//    ),
-//    new Tab(
-//      icon: new Icon(Icons.directions_bus, size: 30.0),
-//    ),
-//    new Tab(
-//      icon: new Icon(Icons.directions_railway, size: 30.0),
-//    ),
-//    new Tab(
-//      icon: new Icon(Icons.directions_railway, size: 30.0),
-//    ),
-//  ];
 
   PageController pageController;
   int page = 0;
@@ -99,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage>
         children: [
           new Home(),
           new Discovery(),
-          new Release(),
+//          new Release(),
           new Release(),
           new Mine(),
         ],
