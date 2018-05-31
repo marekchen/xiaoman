@@ -24,7 +24,7 @@ class _MyCollectionState extends State<MyCollection> {
             }),
         centerTitle: true,
         title: new Text(
-          "历史浏览",
+          "我的收藏",
           style: new TextStyle(
             fontSize: 18.0,
             color: const Color(0xFF0D0E15),

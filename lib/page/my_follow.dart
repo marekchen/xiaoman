@@ -80,11 +80,13 @@ class _MyFollowState extends State<MyFollow> {
           body: new TabBarView(
             children: [
               new ListView.builder(
+                key: new PageStorageKey<String>("follow-user"),
                 itemBuilder: (BuildContext context, int index) =>
                     new UserInfoCard(list[index]),
                 itemCount: list.length,
               ),
               new ListView.builder(
+                key: new PageStorageKey<String>("follow-task"),
                 itemBuilder: (BuildContext context, int index) =>
                     new TaskCard(taskList[index]),
                 itemCount: taskList.length,
@@ -204,6 +206,42 @@ const List<UserInfo> list = const <UserInfo>[
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
+  const UserInfo(
+      name: "陈小春",
+      avatar:
+          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
 ];
 
 class UserInfoCard extends StatelessWidget {
@@ -236,7 +274,6 @@ class UserInfoCard extends StatelessWidget {
                         child: new Image.network(
                           userInfo.avatar,
                           fit: BoxFit.fitHeight,
-                          //alignment: Alignment.topLeft,
                         ),
                       ),
                     ),
@@ -262,10 +299,7 @@ class UserInfoCard extends StatelessWidget {
               ],
             ),
           ),
-          new Divider(
-            height: 1.0,
-            color: const Color(0xFFF3F4F6),
-          )
+          new Divider(height: 1.0, color: const Color(0xFFF3F4F6))
         ],
       ),
     );

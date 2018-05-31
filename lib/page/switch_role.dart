@@ -46,7 +46,6 @@ class _SwitchRoleState extends State<SwitchRole> {
             height: 100.0,
             color: Colors.white,
             padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            margin: new EdgeInsets.only(top: 1.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -91,11 +90,12 @@ class _SwitchRoleState extends State<SwitchRole> {
               ],
             ),
           ),
+          new Divider(
+              height: 0.0, indent: 92.0, color: const Color(0xFFF3F4F6)),
           new Container(
             height: 100.0,
             color: Colors.white,
             padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            margin: new EdgeInsets.only(top: 1.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -140,11 +140,12 @@ class _SwitchRoleState extends State<SwitchRole> {
               ],
             ),
           ),
+          new Divider(
+              height: 0.0, indent: 92.0, color: const Color(0xFFF3F4F6)),
           new Container(
             height: 100.0,
             color: Colors.white,
             padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            margin: new EdgeInsets.only(top: 1.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
