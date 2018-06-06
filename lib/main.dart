@@ -5,6 +5,7 @@ import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/mine.dart';
 import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
 import 'package:xiaoman/page/release.dart';
+import 'package:xiaoman/page/test.dart';
 
 void main() => runApp(new MyApp());
 
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage>
           new Home(),
           new Discovery(),
 //          new Release(),
-          new Release(),
+          new Test(),
           new Mine(),
         ],
         physics: new NeverScrollableScrollPhysics(),
