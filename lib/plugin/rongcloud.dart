@@ -25,8 +25,7 @@ class Response {
   int code;
   int errorCode;
   String errorInfo;
-  int progress;
-  Message message;
+  dynamic result;
 }
 
 class UserInfo {
@@ -187,6 +186,9 @@ class Message {
       case "RC:TxtMsg":
         content = TextMessage.fromJson(json);
         break;
+      case "RC:LBSMsg":
+        content = LocationMessage.fromJson(json);
+        break;
       case "RC:ImgMsg":
         content = ImageMessage.fromJson(json);
         break;
@@ -249,10 +251,26 @@ class LocationMessage extends MessageContent {
       "lat": lat,
       "lng": lng,
       "poi": poi,
-      "imgUri": imgUri.toFilePath(),
+      "imgUri": imgUri.toString(),
     };
     map.addAll(superMap);
     return map;
+  }
+
+  factory LocationMessage.fromJson(Map<dynamic, dynamic> json) {
+    LocationMessage message = new LocationMessage(
+      json['lat'],
+      json['lng'],
+      json['poi'],
+      json['imgUri'],
+    );
+    if (json.containsKey("userInfo")) {
+      message.setUserInfo(UserInfo.fromJson(json['userInfo']));
+    }
+    if (json.containsKey("mentionedInfo")) {
+      message.setMentionedInfo(MentionedInfo.fromJson(json['mentionedInfo']));
+    }
+    return message;
   }
 }
 
@@ -264,7 +282,7 @@ class ImageMessage extends MediaMessageContent {
     @required Uri thumbUri,
     @required Uri localUri,
     bool isFull = true,
-  }):super(localUri) {
+  }) : super(localUri) {
     this.thumbUri = thumbUri;
     this.isFull = isFull;
   }
@@ -318,7 +336,6 @@ class MediaMessageContent extends MessageContent {
 }
 
 class FileMessage extends MediaMessageContent {
-
   FileMessage(Uri localUri) : super(localUri);
 
   toMap() {
@@ -335,8 +352,7 @@ class FileMessage extends MediaMessageContent {
   }
 
   factory FileMessage.fromJson(Map<dynamic, dynamic> json) {
-    FileMessage message = new FileMessage(
-        Uri.parse(json['localUri']));
+    FileMessage message = new FileMessage(Uri.parse(json['localUri']));
     if (json.containsKey("userInfo")) {
       message.setUserInfo(UserInfo.fromJson(json['userInfo']));
     }
@@ -386,14 +402,17 @@ class RongCloud {
     return response;
   }
 
-  static Response _parseResponse(Map<dynamic, dynamic> result) {
+  static Response _parseResponseMessage(Map<dynamic, dynamic> result) {
     Response response = new Response();
     response.code = result["Code"];
     response.errorCode = result["ErrorCode"];
     response.errorInfo = result["ErrorInfo"];
-    response.progress = result["Progress"];
-    if (result.containsKey("Message")) {
-      response.message = Message.fromJson(result["Message"]);
+    switch (response.code) {
+      case 0:
+        response.result = Message.fromJson(result["Message"]);
+        break;
+      default:
+        response.result = result["Message"];
     }
     return response;
   }
@@ -405,7 +424,7 @@ class RongCloud {
     if (_onMessageCallback == null) {
       _onMessageCallback = _channel_event
           .receiveBroadcastStream(arguments)
-          .map((event) => _parseResponse(event));
+          .map((event) => _parseResponseMessage(event));
     }
     return _onMessageCallback;
   }
@@ -417,7 +436,7 @@ class RongCloud {
     if (_onMessageCallback == null) {
       _onMessageCallback = _channel_event
           .receiveBroadcastStream(arguments)
-          .map((dynamic event) => _parseResponse(event));
+          .map((dynamic event) => _parseResponseMessage(event));
     }
     return _onMessageCallback;
   }
@@ -429,7 +448,7 @@ class RongCloud {
     if (_onMessageCallback == null) {
       _onMessageCallback = _channel_event
           .receiveBroadcastStream(arguments)
-          .map((dynamic event) => _parseResponse(event));
+          .map((dynamic event) => _parseResponseMessage(event));
     }
     return _onMessageCallback;
   }
@@ -441,7 +460,7 @@ class RongCloud {
     if (_onMessageCallback == null) {
       _onMessageCallback = _channel_event
           .receiveBroadcastStream(arguments)
-          .map((dynamic event) => _parseResponse(event));
+          .map((dynamic event) => _parseResponseMessage(event));
     }
     return _onMessageCallback;
   }

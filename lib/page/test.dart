@@ -56,9 +56,9 @@ class _TestState extends State<Test> {
                     new Message("chenpei2", ConversationType.PRIVATE, content);
                 RongCloud.sendMessage(message).listen((Response response) {
                   setState(() {
-                    if (response.message != null) {
-                      print(response.message.toMap());
-                      text2 = response.message.toMap().toString();
+                    if (response.result != null) {
+                      print(response.result.toMap());
+                      text2 = response.result.toMap().toString();
                     } else {
                       text2 = "";
                     }
@@ -81,9 +81,9 @@ class _TestState extends State<Test> {
                       .sendImageMessage(message)
                       .listen((Response response) {
                     setState(() {
-                      if (response.message != null) {
-                        print(response.message.toMap());
-                        text3 = response.message.toMap().toString();
+                      if (response.result != null) {
+                        print(response.result.toMap());
+                        text3 = response.result.toMap().toString();
                       } else {
                         text3 = "";
                       }
@@ -103,9 +103,9 @@ class _TestState extends State<Test> {
                       .sendMediaMessage(message)
                       .listen((Response response) {
                     setState(() {
-                      if (response.message != null) {
-                        print(response.message.toMap().toString());
-                        text3 = response.message.toMap().toString();
+                      if (response.result != null) {
+                        print(response.result.toMap().toString());
+                        text3 = response.result.toMap().toString();
                       } else {
                         print(response.errorInfo);
                       }
