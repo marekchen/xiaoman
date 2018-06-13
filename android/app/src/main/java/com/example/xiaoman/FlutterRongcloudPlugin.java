@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.EventChannel.StreamHandler;
 import io.flutter.plugin.common.EventChannel.EventSink;
 import io.flutter.plugin.common.MethodCall;
@@ -18,7 +17,12 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.ErrorCode;
+import io.rong.imlib.RongIMClient.ResultCallback;
+import io.rong.imlib.RongIMClient.OperationCallback;
+import io.rong.imlib.RongIMClient.SendImageMessageCallback;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
 import io.rong.message.FileMessage;
 import io.rong.message.ImageMessage;
@@ -44,7 +48,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 logout(methodCall, result);
                 break;
             case "insertMessage":
-                // TODO
+                // NO
                 break;
             case "clearMessages":
                 clearMessages(methodCall, result);
@@ -56,22 +60,19 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 getHistoryMessages(methodCall, result);
                 break;
             case "getRemoteHistoryMessages":
-                // TODO
+                // NO
                 break;
             case "searchConversations":
-                // TODO
+                // NO
                 break;
             case "searchMessages":
-                // TODO
-                break;
-            case "setOnReceiveMessageListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "clearMessagesUnreadStatus":
-                RongIMClient.getInstance().logout();
+                clearMessagesUnreadStatus(methodCall, result);
                 break;
             case "setMessageReceivedStatus":
-                RongIMClient.getInstance().logout();
+                setMessageReceivedStatus(methodCall, result);
                 break;
             case "getConversation":
                 getConversation(methodCall, result);
@@ -86,16 +87,16 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 removeConversation(methodCall, result);
                 break;
             case "getConversationNotificationStatus":
-                RongIMClient.getInstance().logout();
+                getConversationNotificationStatus(methodCall, result);
                 break;
             case "setConversationNotificationStatus":
-                RongIMClient.getInstance().logout();
+                setConversationNotificationStatus(methodCall, result);
                 break;
             case "setNotificationQuietHours":
-                RongIMClient.getInstance().logout();
+                setNotificationQuietHours(methodCall, result);
                 break;
             case "removeNotificationQuietHours":
-                RongIMClient.getInstance().logout();
+                removeNotificationQuietHours(methodCall, result);
                 break;
             case "saveTextMessageDraft":
                 saveTextMessageDraft(methodCall, result);
@@ -104,103 +105,103 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 getTextMessageDraft(methodCall, result);
                 break;
             case "setConversationToTop":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getTotalUnreadCount":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getUnreadCount":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "addToBlacklist":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "removeFromBlacklist":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getBlacklistStatus":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getBlacklist":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "joinChatRoom":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "joinExistChatRoom":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "quitChatRoom":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getChatRoomInfo":
-                RongIMClient.getInstance().logout();
+                // TODO
                 break;
             case "getChatroomHistoryMessages":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "getMentionedCount":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "getUnreadMentionedMessages":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "recallMessage":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "setRecallMessageListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "sendReadReceiptMessage":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "setReadReceiptListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "sendReadReceiptRequest":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "sendReadReceiptResponse":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "syncConversationReadStatus":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "setSyncConversationReadStatusListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "sendTypingStatus":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "setTypingStatusListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "setRCLogInfoListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "getRealTimeLocation":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "startRealTimeLocation":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "joinRealTimeLocation":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "quitRealTimeLocation":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "getRealTimeLocationParticipants":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "getRealTimeLocationCurrentState":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "addRealTimeLocationListener":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
             case "removeRealTimeLocationObserver":
-                RongIMClient.getInstance().logout();
+                // NO
                 break;
         }
     }
@@ -226,7 +227,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -245,10 +246,58 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         RongIMClient.getInstance().logout();
     }
 
+    private void clearMessagesUnreadStatus(MethodCall methodCall, final Result result) {
+        int conversationType = methodCall.argument("conversationType");
+        String targetId = methodCall.argument("targetId");
+        Long timestamp = methodCall.argument("timestamp");
+        Log.i(TAG, "timestamp:" + timestamp);
+        if (timestamp != null) {
+            RongIMClient.getInstance().clearMessagesUnreadStatus(ConversationType.setValue(conversationType), targetId, timestamp, new OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    Map<String, Object> re = new HashMap<>();
+                    re.put("Code", 0);
+                    re.put("Result", true);
+                    result.success(re);
+                }
+
+                @Override
+                public void onError(ErrorCode errorCode) {
+                    Map<String, Object> re = new HashMap<>();
+                    re.put("Code", -1);
+                    re.put("ErrorCode", errorCode.getValue());
+                    re.put("ErrorInfo", errorCode.getMessage());
+                    Log.i(TAG, "error:" + errorCode.toString());
+                    result.success(re);
+                }
+            });
+        } else {
+            RongIMClient.getInstance().clearMessagesUnreadStatus(ConversationType.setValue(conversationType), targetId, new ResultCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    Map<String, Object> re = new HashMap<>();
+                    re.put("Code", 0);
+                    re.put("Result", aBoolean);
+                    result.success(re);
+                }
+
+                @Override
+                public void onError(ErrorCode errorCode) {
+                    Map<String, Object> re = new HashMap<>();
+                    re.put("Code", -1);
+                    re.put("ErrorCode", errorCode.getValue());
+                    re.put("ErrorInfo", errorCode.getMessage());
+                    Log.i(TAG, "error:" + errorCode.toString());
+                    result.success(re);
+                }
+            });
+        }
+    }
+
     private void setMessageReceivedStatus(MethodCall methodCall, final Result result) {
         int messageId = methodCall.argument("messageId");
         int receivedStatus = methodCall.argument("receivedStatus");
-        RongIMClient.getInstance().setMessageReceivedStatus(messageId, new Message.ReceivedStatus(receivedStatus), new RongIMClient.ResultCallback<Boolean>() {
+        RongIMClient.getInstance().setMessageReceivedStatus(messageId, new Message.ReceivedStatus(receivedStatus), new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
                 Map<String, Object> re = new HashMap<>();
@@ -258,7 +307,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -272,7 +321,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
     private void getConversation(MethodCall methodCall, final Result result) {
         int conversationType = methodCall.argument("conversationType");
         String targetId = methodCall.argument("targetId");
-        RongIMClient.getInstance().getConversation(Conversation.ConversationType.setValue(conversationType), targetId, new RongIMClient.ResultCallback<Conversation>() {
+        RongIMClient.getInstance().getConversation(ConversationType.setValue(conversationType), targetId, new ResultCallback<Conversation>() {
             @Override
             public void onSuccess(Conversation conversation) {
                 Map<String, Object> re = new HashMap<>();
@@ -282,7 +331,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -295,8 +344,8 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
 
     private void getConversationList(MethodCall methodCall, final Result result) {
         List<Integer> conversationTypes1 = methodCall.argument("conversationTypes");
-        Conversation.ConversationType[] conversationTypes2 = convertConversationTypes(conversationTypes1);
-        RongIMClient.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
+        ConversationType[] conversationTypes2 = convertConversationTypes(conversationTypes1);
+        RongIMClient.getInstance().getConversationList(new ResultCallback<List<Conversation>>() {
             @Override
             public void onSuccess(List<Conversation> conversations) {
                 Map<String, Object> re = new HashMap<>();
@@ -306,7 +355,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -319,10 +368,10 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
 
     private void getConversationListByPage(MethodCall methodCall, final Result result) {
         List<Integer> conversationTypes1 = methodCall.argument("conversationTypes");
-        Conversation.ConversationType[] conversationTypes2 = convertConversationTypes(conversationTypes1);
+        ConversationType[] conversationTypes2 = convertConversationTypes(conversationTypes1);
         long timeStamp = methodCall.argument("timeStamp");
         int count = methodCall.argument("count");
-        RongIMClient.getInstance().getConversationListByPage(new RongIMClient.ResultCallback<List<Conversation>>() {
+        RongIMClient.getInstance().getConversationListByPage(new ResultCallback<List<Conversation>>() {
             @Override
             public void onSuccess(List<Conversation> conversations) {
                 Map<String, Object> re = new HashMap<>();
@@ -332,7 +381,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -343,13 +392,13 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         }, timeStamp, count, conversationTypes2);
     }
 
-    private static Conversation.ConversationType[] convertConversationTypes(List<Integer> conversationTypes) {
-        List<Conversation.ConversationType> list = new ArrayList<>();
+    private static ConversationType[] convertConversationTypes(List<Integer> conversationTypes) {
+        List<ConversationType> list = new ArrayList<>();
         if (conversationTypes != null && conversationTypes.size() != 0) {
             for (int conversationType : conversationTypes) {
-                list.add(Conversation.ConversationType.setValue(conversationType));
+                list.add(ConversationType.setValue(conversationType));
             }
-            return list.toArray(new Conversation.ConversationType[0]);
+            return list.toArray(new ConversationType[0]);
         } else {
             return null;
         }
@@ -358,7 +407,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
     private void removeConversation(MethodCall methodCall, final Result result) {
         int conversationType = methodCall.argument("conversationType");
         String targetId = methodCall.argument("targetId");
-        RongIMClient.getInstance().removeConversation(Conversation.ConversationType.setValue(conversationType), targetId, new RongIMClient.ResultCallback<Boolean>() {
+        RongIMClient.getInstance().removeConversation(ConversationType.setValue(conversationType), targetId, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
                 Map<String, Object> re = new HashMap<>();
@@ -368,7 +417,102 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", -1);
+                re.put("ErrorCode", errorCode.getValue());
+                re.put("ErrorInfo", errorCode.getMessage());
+                Log.i(TAG, "error:" + errorCode.toString());
+                result.success(re);
+            }
+        });
+    }
+
+    private void getConversationNotificationStatus(MethodCall methodCall, final Result result) {
+        String targetId = methodCall.argument("targetId");
+        int conversationType = methodCall.argument("conversationType");
+        RongIMClient.getInstance().getConversationNotificationStatus(ConversationType.setValue(conversationType), targetId, new ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("Result", conversationNotificationStatus.getValue());
+                result.success(re);
+            }
+
+            @Override
+            public void onError(ErrorCode errorCode) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", -1);
+                re.put("ErrorCode", errorCode.getValue());
+                re.put("ErrorInfo", errorCode.getMessage());
+                Log.i(TAG, "error:" + errorCode.toString());
+                result.success(re);
+            }
+        });
+    }
+
+    private void setConversationNotificationStatus(MethodCall methodCall, final Result result) {
+        String targetId = methodCall.argument("targetId");
+        int conversationType = methodCall.argument("conversationType");
+        int notificationStatus = methodCall.argument("notificationStatus");
+        RongIMClient.getInstance().setConversationNotificationStatus(ConversationType.setValue(conversationType), targetId, Conversation.ConversationNotificationStatus.setValue(notificationStatus), new ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("Result", conversationNotificationStatus.getValue());
+                result.success(re);
+            }
+
+            @Override
+            public void onError(ErrorCode errorCode) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", -1);
+                re.put("ErrorCode", errorCode.getValue());
+                re.put("ErrorInfo", errorCode.getMessage());
+                Log.i(TAG, "error:" + errorCode.toString());
+                result.success(re);
+            }
+        });
+    }
+
+    private void setNotificationQuietHours(MethodCall methodCall, final Result result) {
+        String startTime = methodCall.argument("startTime");
+        int spanMinutes = methodCall.argument("spanMinutes");
+        RongIMClient.getInstance().setNotificationQuietHours(startTime, spanMinutes, new OperationCallback() {
+            @Override
+            public void onSuccess() {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("Result", true);
+                result.success(re);
+            }
+
+            @Override
+            public void onError(ErrorCode errorCode) {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", -1);
+                re.put("ErrorCode", errorCode.getValue());
+                re.put("ErrorInfo", errorCode.getMessage());
+                Log.i(TAG, "error:" + errorCode.toString());
+                result.success(re);
+            }
+        });
+    }
+
+    private void removeNotificationQuietHours(MethodCall methodCall, final Result result) {
+        RongIMClient.getInstance().removeNotificationQuietHours(new OperationCallback() {
+            @Override
+            public void onSuccess() {
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("Result", true);
+                result.success(re);
+            }
+
+            @Override
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -382,7 +526,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
     private void clearMessages(MethodCall methodCall, final Result result) {
         String targetId = methodCall.argument("targetId");
         int conversationType = methodCall.argument("conversationType");
-        RongIMClient.getInstance().clearMessages(Conversation.ConversationType.setValue(conversationType), targetId, new RongIMClient.ResultCallback<Boolean>() {
+        RongIMClient.getInstance().clearMessages(ConversationType.setValue(conversationType), targetId, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
                 Map<String, Object> re = new HashMap<>();
@@ -392,7 +536,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -407,7 +551,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         int conversationType = methodCall.argument("conversationType");
         int[] messageIds = methodCall.argument("messageIds");
         if (messageIds != null && messageIds.length != 0) {
-            RongIMClient.getInstance().deleteMessages(messageIds, new RongIMClient.ResultCallback<Boolean>() {
+            RongIMClient.getInstance().deleteMessages(messageIds, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
                     Map<String, Object> re = new HashMap<>();
@@ -417,7 +561,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 }
 
                 @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
+                public void onError(ErrorCode errorCode) {
                     Map<String, Object> re = new HashMap<>();
                     re.put("Code", -1);
                     re.put("ErrorCode", errorCode.getValue());
@@ -426,7 +570,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 }
             });
         } else {
-            RongIMClient.getInstance().deleteMessages(Conversation.ConversationType.setValue(conversationType), targetId, new RongIMClient.ResultCallback<Boolean>() {
+            RongIMClient.getInstance().deleteMessages(ConversationType.setValue(conversationType), targetId, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
                     Map<String, Object> re = new HashMap<>();
@@ -436,7 +580,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
                 }
 
                 @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
+                public void onError(ErrorCode errorCode) {
                     Map<String, Object> re = new HashMap<>();
                     re.put("Code", -1);
                     re.put("ErrorCode", errorCode.getValue());
@@ -452,7 +596,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         int conversationType = methodCall.argument("conversationType");
         int oldestMessageId = methodCall.argument("oldestMessageId");
         int count = methodCall.argument("count");
-        RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.setValue(conversationType), targetId, oldestMessageId, count, new RongIMClient.ResultCallback<List<Message>>() {
+        RongIMClient.getInstance().getHistoryMessages(ConversationType.setValue(conversationType), targetId, oldestMessageId, count, new ResultCallback<List<Message>>() {
             @Override
             public void onSuccess(List<Message> messages) {
                 List<Map<String, Object>> list;
@@ -472,7 +616,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -486,7 +630,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         String targetId = methodCall.argument("targetId");
         int conversationType = methodCall.argument("conversationType");
         String content = methodCall.argument("content");
-        RongIMClient.getInstance().saveTextMessageDraft(Conversation.ConversationType.setValue(conversationType), targetId, content, new RongIMClient.ResultCallback<Boolean>() {
+        RongIMClient.getInstance().saveTextMessageDraft(ConversationType.setValue(conversationType), targetId, content, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
                 Map<String, Object> re = new HashMap<>();
@@ -496,7 +640,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -509,7 +653,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
     private void getTextMessageDraft(MethodCall methodCall, final Result result) {
         String targetId = methodCall.argument("targetId");
         int conversationType = methodCall.argument("conversationType");
-        RongIMClient.getInstance().getTextMessageDraft(Conversation.ConversationType.setValue(conversationType), targetId, new RongIMClient.ResultCallback<String>() {
+        RongIMClient.getInstance().getTextMessageDraft(ConversationType.setValue(conversationType), targetId, new ResultCallback<String>() {
             @Override
             public void onSuccess(String s) {
                 Map<String, Object> re = new HashMap<>();
@@ -519,7 +663,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(ErrorCode errorCode) {
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
                 re.put("ErrorCode", errorCode.getValue());
@@ -545,6 +689,10 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             case "sendMediaMessage":
                 sendMediaMessage(arguments, eventSink);
                 break;
+            case "setOnReceiveMessageListener":
+                setOnReceiveMessageListener(arguments, eventSink);
+            case "setConnectionStatusListener":
+                setConnectionStatusListener(arguments, eventSink);
         }
     }
 
@@ -658,7 +806,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         Map<String, Object> content = (Map<String, Object>) argument(arguments, "content");
         String text = (String) content.get("content");
         TextMessage myTextMessage = TextMessage.obtain(text);
-        Message myMessage = Message.obtain(targetId, Conversation.ConversationType.setValue(conversationType), myTextMessage);
+        Message myMessage = Message.obtain(targetId, ConversationType.setValue(conversationType), myTextMessage);
         RongIMClient.getInstance().sendMessage(myMessage, pushContent, pushData, new IRongCallback.ISendMessageCallback() {
             @Override
             public void onAttached(Message message) {
@@ -680,7 +828,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+            public void onError(Message message, ErrorCode errorCode) {
                 Log.i(TAG, "onError");
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
@@ -704,7 +852,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         String poi = (String) content.get("poi");
         Uri imgUri = Uri.parse((String) content.get("imgUri"));
         LocationMessage locationMessage = LocationMessage.obtain(lat, lng, poi, imgUri);
-        Message myMessage2 = Message.obtain(targetId, Conversation.ConversationType.setValue(conversationType), locationMessage);
+        Message myMessage2 = Message.obtain(targetId, ConversationType.setValue(conversationType), locationMessage);
         RongIMClient.getInstance().sendLocationMessage(myMessage2, pushContent, pushData, new IRongCallback.ISendMessageCallback() {
             @Override
             public void onAttached(Message message) {
@@ -729,7 +877,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+            public void onError(Message message, ErrorCode errorCode) {
                 // 消息发送失败的回调
                 Log.i(TAG, "onError");
                 Map<String, Object> re = new HashMap<>();
@@ -753,8 +901,8 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         Uri thumbUri = Uri.parse((String) content.get("thumbUri"));
         Uri localUri = Uri.parse((String) content.get("localUri"));
         ImageMessage imageMessage = ImageMessage.obtain(thumbUri, localUri, isFull);
-        Message myMessage3 = Message.obtain(targetId, Conversation.ConversationType.setValue(conversationType), imageMessage);
-        RongIMClient.getInstance().sendImageMessage(myMessage3, pushContent, pushData, new RongIMClient.SendImageMessageCallback() {
+        Message myMessage3 = Message.obtain(targetId, ConversationType.setValue(conversationType), imageMessage);
+        RongIMClient.getInstance().sendImageMessage(myMessage3, pushContent, pushData, new SendImageMessageCallback() {
 
             @Override
             public void onAttached(Message message) {
@@ -766,7 +914,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+            public void onError(Message message, ErrorCode errorCode) {
                 Log.i(TAG, "onError");
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
@@ -809,7 +957,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         Uri localUri = Uri.parse((String) content.get("localUri"));
 
         FileMessage fileMessage = FileMessage.obtain(localUri);
-        Message message4 = Message.obtain(targetId, Conversation.ConversationType.setValue(conversationType), fileMessage);
+        Message message4 = Message.obtain(targetId, ConversationType.setValue(conversationType), fileMessage);
         RongIMClient.getInstance().sendMediaMessage(message4, pushContent, pushData, new IRongCallback.ISendMediaMessageCallback() {
 
             @Override
@@ -822,7 +970,7 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
             }
 
             @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+            public void onError(Message message, ErrorCode errorCode) {
                 Log.i(TAG, "onError");
                 Map<String, Object> re = new HashMap<>();
                 re.put("Code", -1);
@@ -872,5 +1020,34 @@ public class FlutterRongcloudPlugin implements MethodCallHandler, StreamHandler 
         } else {
             throw new ClassCastException();
         }
+    }
+
+    private void setOnReceiveMessageListener(Object arguments, final EventSink eventSink) {
+        RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+            @Override
+            public boolean onReceived(Message message, int i) {
+                Log.i(TAG, "onReceived");
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("ErrorInfo", "onReceived");
+                re.put("Result", messageToMap(message));
+                eventSink.success(re);
+                return false;
+            }
+        });
+    }
+
+    private void setConnectionStatusListener(Object arguments, final EventSink eventSink) {
+        RongIMClient.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
+            @Override
+            public void onChanged(ConnectionStatus connectionStatus) {
+                Log.i(TAG, "onChanged");
+                Map<String, Object> re = new HashMap<>();
+                re.put("Code", 0);
+                re.put("ErrorInfo", "onReceived");
+                re.put("Result", connectionStatus.getValue());
+                eventSink.success(re);
+            }
+        });
     }
 }

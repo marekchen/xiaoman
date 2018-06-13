@@ -21,6 +21,7 @@ class _TestState extends State<Test> {
   String text = "11";
   String text2 = "22";
   String text3 = "33";
+  String text4 = "44";
 
   setText(t) {
     setState(() {
@@ -45,10 +46,12 @@ class _TestState extends State<Test> {
             new RaisedButton(
               onPressed: () {
                 RongCloud.connect(
-                    "0Id8Y8Bp/tnBwUgE1s4+U2pomLY2zaivtK7TeS41XfJnGS22i5plmlUBehxG10AhXWWgpBdLF0FmlibswPRvFSCfqWPCQZ0R");
+                    "GajZWPd5yIqDpMZIXobBOGpomLY2zaivtK7TeS41XfJnGS22i5plmh3cOT59KFgBiMoQSCw9PYFaC/Db56F6oSCfqWPCQZ0R");
               },
               child: new Text("connect"),
             ),
+            new Text(text),
+            new Text(text2),
             new RaisedButton(
               onPressed: () {
                 TextMessage content = new TextMessage("test Text Message");
@@ -56,19 +59,18 @@ class _TestState extends State<Test> {
                     new Message("chenpei2", ConversationType.PRIVATE, content);
                 RongCloud.sendMessage(message).listen((Response response) {
                   setState(() {
-                    if (response.result != null) {
+                    if (response.code == 0) {
                       print(response.result.toMap());
                       text2 = response.result.toMap().toString();
                     } else {
-                      text2 = "";
+                      print(response.result.toString());
+                      text2 = response.result.toString();
                     }
                   });
                 });
               },
               child: new Text("sendMessage"),
             ),
-            new Text(text),
-            new Text(text2),
             new Text(text3),
             new RaisedButton(
               onPressed: () {
@@ -81,11 +83,12 @@ class _TestState extends State<Test> {
                       .sendImageMessage(message)
                       .listen((Response response) {
                     setState(() {
-                      if (response.result != null) {
+                      if (response.code == 0) {
                         print(response.result.toMap());
                         text3 = response.result.toMap().toString();
                       } else {
-                        text3 = "";
+                        print(response.result.toString());
+                        text3 = response.result.toString();
                       }
                     });
                   });
@@ -93,6 +96,7 @@ class _TestState extends State<Test> {
               },
               child: new Text("pick-image"),
             ),
+            new Text(text4),
             new RaisedButton(
               onPressed: () {
                 ImagePicker.pickImage(source: ImageSource.gallery).then((file) {
@@ -103,17 +107,27 @@ class _TestState extends State<Test> {
                       .sendMediaMessage(message)
                       .listen((Response response) {
                     setState(() {
-                      if (response.result != null) {
-                        print(response.result.toMap().toString());
-                        text3 = response.result.toMap().toString();
+                      if (response.code == 0) {
+                        print(response.result.toMap());
+                        text4 = response.result.toMap().toString();
                       } else {
-                        print(response.errorInfo);
+                        print(response.result.toString());
+                        text4 = response.result.toString();
                       }
                     });
                   });
                 });
               },
               child: new Text("pick-file"),
+            ),
+            new RaisedButton(
+              onPressed: () {
+                RongCloud
+                    .clearMessagesUnreadStatus(
+                        "chenpei", ConversationType.PRIVATE)
+                    .then((response) {});
+              },
+              child: new Text("clearMessagesUnreadStatus"),
             ),
           ],
         ));

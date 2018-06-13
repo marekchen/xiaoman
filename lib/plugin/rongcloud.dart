@@ -3,6 +3,34 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
+enum ConnectionStatus {
+  NETWORK_UNAVAILABLE,
+  CONNECTED,
+  CONNECTING,
+  DISCONNECTED,
+  KICKED_OFFLINE_BY_OTHER_CLIENT,
+  TOKEN_INCORRECT,
+  SERVER_INVALID,
+  CONN_USER_BLOCKED,
+}
+
+ConnectionStatus connectionStatusFromInt(int value) {
+  print("value:" + value.toString());
+  return ConnectionStatus.values.firstWhere((md) => md.index == value);
+}
+
+enum ConversationNotificationStatus {
+  DO_NOT_DISTURB,
+  NOTIFY,
+}
+
+ConversationNotificationStatus conversationNotificationStatusFromInt(
+    int value) {
+  print("value:" + value.toString());
+  return ConversationNotificationStatus.values
+      .firstWhere((md) => md.index == value);
+}
+
 enum ConversationType {
   NONE,
   PRIVATE,
@@ -402,6 +430,76 @@ class RongCloud {
     return response;
   }
 
+  static Future<Response> clearMessages() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('clearMessages');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> deleteMessages() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('deleteMessages');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> getHistoryMessages() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('getHistoryMessages');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> clearMessagesUnreadStatus(
+      String targetId, ConversationType conversationType,
+      [num timestamp]) async {
+    Map<String, dynamic> arguments = {
+      "targetId": targetId,
+      "conversationType": conversationType.index
+    };
+    arguments.putIfAbsent("timestamp", () => timestamp);
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('clearMessagesUnreadStatus', arguments);
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> setMessageReceivedStatus() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('setMessageReceivedStatus');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> getConversationNotificationStatus() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('getConversationNotificationStatus');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
+  static Future<Response> setConversationNotificationStatus() async {
+    final Map<dynamic, dynamic> result =
+        await _channel.invokeMethod('setConversationNotificationStatus');
+    Response response = new Response();
+    response.code = result["Code"];
+    response.errorInfo = result["ErrorInfo"];
+    return response;
+  }
+
   static Response _parseResponseMessage(Map<dynamic, dynamic> result) {
     Response response = new Response();
     response.code = result["Code"];
@@ -409,10 +507,10 @@ class RongCloud {
     response.errorInfo = result["ErrorInfo"];
     switch (response.code) {
       case 0:
-        response.result = Message.fromJson(result["Message"]);
+        response.result = Message.fromJson(result["Result"]);
         break;
       default:
-        response.result = result["Message"];
+        response.result = result["Result"];
     }
     return response;
   }
@@ -465,12 +563,13 @@ class RongCloud {
     return _onMessageCallback;
   }
 
-  static Future<Response> clearMessages() async {
-    final Map<dynamic, dynamic> result =
-        await _channel.invokeMethod('clearMessages');
-    Response response = new Response();
-    response.code = result["Code"];
-    response.errorInfo = result["ErrorInfo"];
-    return response;
+  static Stream<Response> setOnReceiveMessageListener() {
+    Stream<Response> _onMessageCallback;
+    if (_onMessageCallback == null) {
+      _onMessageCallback = _channel_event
+          .receiveBroadcastStream()
+          .map((dynamic event) => _parseResponseMessage(event));
+    }
+    return _onMessageCallback;
   }
 }
