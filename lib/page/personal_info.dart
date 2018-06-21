@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:xiaoman/base/m_divider.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PersonalInfo extends StatelessWidget {
   PersonalInfo({Key key}) : super(key: key);
@@ -26,7 +28,7 @@ class PersonalInfo extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: Colors.white,
       body: new Body(),
     );
   }
@@ -44,50 +46,121 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return new Column(
       children: <Widget>[
-        new Padding(
-          padding: new EdgeInsets.only(top: 1.0),
-          child: new InkWell(
-            child: new Container(
-              height: 100.0,
-              color: Colors.white,
-              padding: new EdgeInsets.only(left: 11.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new Text(
-                    "头像",
-                    style: new TextStyle(
-                        color: const Color(0xFF333333), fontSize: 16.0),
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: new NetworkImage(
-                          "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
-                        ),
+        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
+        new InkWell(
+          child: new Container(
+            height: 100.0,
+            padding: new EdgeInsets.all(16.0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new Text(
+                  "头像",
+                  style: new TextStyle(
+                      color: const Color(0xFF333333), fontSize: 16.0),
+                ),
+                new Row(
+                  children: <Widget>[
+                    new CircleAvatar(
+                      radius: 30.0,
+                      backgroundImage: new NetworkImage(
+                        "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                       ),
-                      new IconButton(
-                          padding: new EdgeInsets.only(left: 0.0),
-                          icon: new Icon(
-                            Icons.keyboard_arrow_right,
-                            color: const Color(0xFFACACAC),
-                          ),
-                          onPressed: null),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                    new Icon(
+                      Icons.keyboard_arrow_right,
+                      color: const Color(0xFFACACAC),
+                    ),
+                  ],
+                )
+              ],
             ),
-            onTap: () {},
           ),
+          onTap: () {
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return new Container(
+                  height: 162.0,
+                  child: new Column(
+                    children: <Widget>[
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "相册",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          ImagePicker
+                              .pickImage(source: ImageSource.gallery)
+                              .then((file) {});
+                        },
+                      ),
+                      new Divider(
+                        height: 0.0,
+                        color: const Color(0xFFF3F4F6),
+                      ),
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "拍照",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          ImagePicker
+                              .pickImage(source: ImageSource.camera)
+                              .then((file) {});
+                        },
+                      ),
+                      new Divider(
+                        height: 0.0,
+                        color: const Color(0xFFF3F4F6),
+                      ),
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "取消",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         ),
-        new Divider(height: 0.0, indent: 12.0, color: const Color(0xFFF3F4F6)),
+        new MDivider(
+          indent: 16.0,
+          endIndent: 16.0,
+          height: 0.0,
+          color: const Color(0xFFF3F4F6),
+        ),
         new InkWell(
           child: new Container(
             height: 54.0,
-            color: Colors.white,
-            padding: new EdgeInsets.only(left: 11.0),
+            padding: new EdgeInsets.all(16.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -105,13 +178,10 @@ class _BodyState extends State<Body> {
                         fontSize: 15.0,
                       ),
                     ),
-                    new IconButton(
-                        padding: new EdgeInsets.only(left: 0.0),
-                        icon: new Icon(
-                          Icons.keyboard_arrow_right,
-                          color: const Color(0xFFACACAC),
-                        ),
-                        onPressed: null),
+                    new Icon(
+                      Icons.keyboard_arrow_right,
+                      color: const Color(0xFFACACAC),
+                    ),
                   ],
                 )
               ],
@@ -119,52 +189,121 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new Divider(height: 0.0, indent: 12.0, color: const Color(0xFFF3F4F6)),
-        new Padding(
-          padding: new EdgeInsets.only(top: 9.0),
-          child: new InkWell(
-            child: new Container(
-              height: 54.0,
-              color: Colors.white,
-              padding: new EdgeInsets.only(left: 11.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new Text(
-                    "性别",
-                    style: new TextStyle(
-                        color: const Color(0xFF333333), fontSize: 16.0),
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new Text(
-                        "男",
-                        style: new TextStyle(
-                          color: const Color(0xFFACACAC),
-                          fontSize: 15.0,
-                        ),
-                      ),
-                      new IconButton(
-                          padding: new EdgeInsets.only(left: 0.0),
-                          icon: new Icon(
-                            Icons.keyboard_arrow_right,
-                            color: const Color(0xFFACACAC),
-                          ),
-                          onPressed: null),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            onTap: () {},
-          ),
+        new MDivider(
+          indent: 16.0,
+          endIndent: 16.0,
+          height: 0.0,
+          color: const Color(0xFFF3F4F6),
         ),
-        new Divider(height: 0.0, indent: 12.0, color: const Color(0xFFF3F4F6)),
         new InkWell(
           child: new Container(
             height: 54.0,
-            color: Colors.white,
-            padding: new EdgeInsets.only(left: 11.0),
+            padding: new EdgeInsets.all(16.0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new Text(
+                  "性别",
+                  style: new TextStyle(
+                      color: const Color(0xFF333333), fontSize: 16.0),
+                ),
+                new Row(
+                  children: <Widget>[
+                    new Text(
+                      "男",
+                      style: new TextStyle(
+                        color: const Color(0xFFACACAC),
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    new Icon(
+                      Icons.keyboard_arrow_right,
+                      color: const Color(0xFFACACAC),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          onTap: () {
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return new Container(
+                  height: 162.0,
+                  child: new Column(
+                    children: <Widget>[
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "男",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                        },
+                      ),
+                      new Divider(
+                        height: 0.0,
+                        color: const Color(0xFFF3F4F6),
+                      ),
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "女",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                        },
+                      ),
+                      new Divider(
+                        height: 0.0,
+                        color: const Color(0xFFF3F4F6),
+                      ),
+                      new InkWell(
+                        child: new Container(
+                          height: 54.0,
+                          child: new Center(
+                            child: new Text(
+                              "取消",
+                              style: new TextStyle(
+                                  color: const Color(0xFF333333),
+                                  fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        new MDivider(
+          indent: 16.0,
+          endIndent: 16.0,
+          height: 0.0,
+          color: const Color(0xFFF3F4F6),
+        ),
+        new InkWell(
+          child: new Container(
+            height: 54.0,
+            padding: new EdgeInsets.all(16.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -182,13 +321,10 @@ class _BodyState extends State<Body> {
                         fontSize: 15.0,
                       ),
                     ),
-                    new IconButton(
-                        padding: new EdgeInsets.only(left: 0.0),
-                        icon: new Icon(
-                          Icons.keyboard_arrow_right,
-                          color: const Color(0xFFACACAC),
-                        ),
-                        onPressed: null),
+                    new Icon(
+                      Icons.keyboard_arrow_right,
+                      color: const Color(0xFFACACAC),
+                    ),
                   ],
                 )
               ],
@@ -196,12 +332,16 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new Divider(height: 0.0, indent: 12.0, color: const Color(0xFFF3F4F6)),
+        new MDivider(
+          indent: 16.0,
+          endIndent: 16.0,
+          height: 0.0,
+          color: const Color(0xFFF3F4F6),
+        ),
         new InkWell(
           child: new Container(
             height: 54.0,
-            color: Colors.white,
-            padding: new EdgeInsets.only(left: 11.0),
+            padding: new EdgeInsets.all(16.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -213,19 +353,16 @@ class _BodyState extends State<Body> {
                 new Row(
                   children: <Widget>[
                     new Text(
-                      "噼里啪啦酱",
+                      "几番离别，几番告白",
                       style: new TextStyle(
                         color: const Color(0xFFACACAC),
                         fontSize: 15.0,
                       ),
                     ),
-                    new IconButton(
-                        padding: new EdgeInsets.only(left: 0.0),
-                        icon: new Icon(
-                          Icons.keyboard_arrow_right,
-                          color: const Color(0xFFACACAC),
-                        ),
-                        onPressed: null),
+                    new Icon(
+                      Icons.keyboard_arrow_right,
+                      color: const Color(0xFFACACAC),
+                    ),
                   ],
                 )
               ],
@@ -233,7 +370,12 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new Divider(height: 0.0, indent: 12.0, color: const Color(0xFFF3F4F6)),
+        new MDivider(
+          indent: 16.0,
+          endIndent: 16.0,
+          height: 0.0,
+          color: const Color(0xFFF3F4F6),
+        ),
       ],
     );
   }

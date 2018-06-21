@@ -5,7 +5,7 @@ import 'package:xiaoman/page/personal_info.dart';
 import 'package:xiaoman/page/setting.dart';
 import 'package:xiaoman/page/switch_role.dart';
 import 'my_follow.dart';
-import 'my_money.dart';
+import 'my_wallet.dart';
 
 class Mine extends StatefulWidget {
   Mine({Key key}) : super(key: key);
@@ -97,7 +97,7 @@ class _TopBarState extends State<TopBar> {
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (context) => new SwitchRole(),
+                    builder: (context) => new SwitchRole(),
                   ),
                 );
               },
@@ -170,7 +170,7 @@ Widget _buildBottom(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            new MaterialPageRoute(builder: (context) => new MyMoney()),
+            new MaterialPageRoute(builder: (context) => new MyWallet()),
           );
         },
         child: new Padding(
@@ -182,10 +182,14 @@ Widget _buildBottom(BuildContext context) {
               children: <Widget>[
                 new Row(
                   children: <Widget>[
-                    new IconButton(
-                        padding: new EdgeInsets.only(right: 10.0),
-                        icon: new Icon(Icons.star_border),
-                        onPressed: null),
+                    new Padding(
+                      padding: new EdgeInsets.only(right: 10.0),
+                      child: new Image.asset(
+                        "assets/my_ic_joined.png",
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                    ),
                     new Text(
                       "我参与的",
                       style: new TextStyle(
@@ -207,7 +211,7 @@ Widget _buildBottom(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            new MaterialPageRoute(builder: (context) => new MyMoney()),
+            new MaterialPageRoute(builder: (context) => new MyWallet()),
           );
         },
         child: new Padding(
@@ -219,10 +223,14 @@ Widget _buildBottom(BuildContext context) {
               children: <Widget>[
                 new Row(
                   children: <Widget>[
-                    new IconButton(
-                        padding: new EdgeInsets.only(right: 10.0),
-                        icon: new Icon(Icons.star_border),
-                        onPressed: null),
+                    new Padding(
+                      padding: new EdgeInsets.only(right: 10.0),
+                      child: new Image.asset(
+                        "assets/my_ic_release.png",
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                    ),
                     new Text(
                       "我发布的",
                       style: new TextStyle(
@@ -244,7 +252,7 @@ Widget _buildBottom(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            new MaterialPageRoute(builder: (context) => new MyMoney()),
+            new MaterialPageRoute(builder: (context) => new MyWallet()),
           );
         },
         child: new Padding(
@@ -256,10 +264,14 @@ Widget _buildBottom(BuildContext context) {
               children: <Widget>[
                 new Row(
                   children: <Widget>[
-                    new IconButton(
-                        padding: new EdgeInsets.only(right: 10.0),
-                        icon: new Icon(Icons.attach_money),
-                        onPressed: null),
+                    new Padding(
+                      padding: new EdgeInsets.only(right: 10.0),
+                      child: new Image.asset(
+                        "assets/my_ic_wallet.png",
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                    ),
                     new Text(
                       "我的钱包",
                       style: new TextStyle(
@@ -293,10 +305,14 @@ Widget _buildBottom(BuildContext context) {
               children: <Widget>[
                 new Row(
                   children: <Widget>[
-                    new IconButton(
-                        padding: new EdgeInsets.only(right: 10.0),
-                        icon: new Icon(Icons.star_border),
-                        onPressed: null),
+                    new Padding(
+                      padding: new EdgeInsets.only(right: 10.0),
+                      child: new Image.asset(
+                        "assets/my_ic_setting.png",
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                    ),
                     new Text(
                       "设置",
                       style: new TextStyle(

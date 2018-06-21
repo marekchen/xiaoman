@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xiaoman/widget/conversation_item.dart';
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) : super(key: key);
@@ -19,7 +20,10 @@ class _MessagePageState extends State<MessagePage> {
 
 Widget _buildList() {
   List<int> messageList;
-  return new ListView.builder(itemBuilder: (buildContext, index) {
-
-  },itemCount: messageList.length,);
+  return new ListView.builder(
+    itemBuilder: (buildContext, index) {
+      return new ConversationItem();
+    },
+    itemCount: 20,
+  );
 }

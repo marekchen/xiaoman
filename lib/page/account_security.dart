@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:xiaoman/base/m_divider.dart';
+import 'package:xiaoman/page/dialog/change_password.dart';
+import 'package:xiaoman/page/dialog/change_phone_num.dart';
 
 class AccountSecurity extends StatelessWidget {
   AccountSecurity({Key key}) : super(key: key);
@@ -27,11 +32,11 @@ class AccountSecurity extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: new Padding(
-        padding: new EdgeInsets.symmetric(horizontal: 16.0),
-        child: new Column(children: <Widget>[
+      body: new Column(
+        children: <Widget>[
           new InkWell(
             child: new Container(
+              padding: new EdgeInsets.all(16.0),
               height: 54.0,
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,48 +55,73 @@ class AccountSecurity extends StatelessWidget {
                           fontSize: 15.0,
                         ),
                       ),
-                      new IconButton(
-                          padding: new EdgeInsets.only(left: 10.0),
-                          icon: new Icon(
-                            Icons.keyboard_arrow_right,
-                            color: const Color(0xFFACACAC),
-                          ),
-                          onPressed: null),
+                      new Icon(
+                        Icons.keyboard_arrow_right,
+                        color: const Color(0xFFACACAC),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute<bool>(
+                  builder: (BuildContext context) => new ChangePhoneNumDialog(),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
           ),
-          new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
+          new MDivider(
+            indent: 16.0,
+            endIndent: 16.0,
+            height: 0.0,
+            color: const Color(0xFFF3F4F6),
+          ),
           new InkWell(
             child: new Container(
+              padding: new EdgeInsets.all(16.0),
               height: 54.0,
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   new Text(
-                    "修改密码",
+                    "修改支付密码",
                     style: new TextStyle(
                         color: const Color(0xFF333333), fontSize: 16.0),
                   ),
-                  new IconButton(
-                      padding: new EdgeInsets.only(left: 10.0),
-                      icon: new Icon(
-                        Icons.keyboard_arrow_right,
-                        color: const Color(0xFFACACAC),
-                      ),
-                      onPressed: () {}),
+                  new Icon(
+                    Icons.keyboard_arrow_right,
+                    color: const Color(0xFFACACAC),
+                  ),
                 ],
               ),
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute<bool>(
+                  builder: (BuildContext context) => new ChangePasswordDialog(),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
           ),
-          new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
+          new MDivider(
+            indent: 16.0,
+            endIndent: 16.0,
+            height: 0.0,
+            color: const Color(0xFFF3F4F6),
+          ),
           new InkWell(
             child: new Container(
               height: 54.0,
-              margin: new EdgeInsets.only(top: 27.0),
+              padding: new EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 11.0,
+              ),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -118,23 +148,30 @@ class AccountSecurity extends StatelessWidget {
                           fontSize: 15.0,
                         ),
                       ),
-                      new IconButton(
-                          padding: new EdgeInsets.only(left: 10.0),
-                          icon: new Icon(
-                            Icons.keyboard_arrow_right,
-                            color: const Color(0xFFACACAC),
-                          ),
-                          onPressed: null),
+                      new Icon(
+                        Icons.keyboard_arrow_right,
+                        color: const Color(0xFFACACAC),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
+            onTap: () {},
           ),
-          new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
+          new MDivider(
+            indent: 16.0,
+            endIndent: 16.0,
+            height: 0.0,
+            color: const Color(0xFFF3F4F6),
+          ),
           new InkWell(
             child: new Container(
               height: 54.0,
+              padding: new EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 11.0,
+              ),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -161,20 +198,24 @@ class AccountSecurity extends StatelessWidget {
                           fontSize: 15.0,
                         ),
                       ),
-                      new IconButton(
-                          padding: new EdgeInsets.only(left: 10.0),
-                          icon: new Icon(
-                            Icons.keyboard_arrow_right,
-                            color: const Color(0xFFACACAC),
-                          ),
-                          onPressed: null),
+                      new Icon(
+                        Icons.keyboard_arrow_right,
+                        color: const Color(0xFFACACAC),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
+            onTap: () {},
           ),
-        ]),
+          new MDivider(
+            indent: 16.0,
+            endIndent: 16.0,
+            height: 0.0,
+            color: const Color(0xFFF3F4F6),
+          ),
+        ],
       ),
     );
   }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyMoney extends StatefulWidget {
-  MyMoney({Key key}) : super(key: key);
+class MyWallet extends StatefulWidget {
+  MyWallet({Key key}) : super(key: key);
 
   @override
-  _MyMoneyState createState() => new _MyMoneyState();
+  _MyWalletState createState() => new _MyWalletState();
 }
 
-class _MyMoneyState extends State<MyMoney> {
+class _MyWalletState extends State<MyWallet> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
