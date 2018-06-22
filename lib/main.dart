@@ -1,17 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xiaoman/app_router.dart';
 import 'package:xiaoman/base/m_bottom_tab_bar.dart';
 import 'package:xiaoman/page/discovery.dart';
 import 'package:xiaoman/page/home.dart';
 import 'package:xiaoman/page/message.dart';
 import 'package:xiaoman/page/mine.dart';
-import 'package:xiaoman/base/m_bottom_navigation_bar.dart';
 import 'package:xiaoman/page/release.dart';
-import 'package:xiaoman/page/test.dart';
+import 'package:fluro/fluro.dart';
+import './config/application.dart';
+import './config/routes.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new MyHomePage());
 
 class MyApp extends StatelessWidget {
+  MyApp() {
+    final router = new Router();
+    Routes.configureRoutes(router);
+    print("MyApp()");
+    Application.router = router;
+    if (Application.router == null) {
+      print("Application.router==null");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -20,12 +32,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(),
+      onGenerateRoute: Application.router.generator,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key key}) : super(key: key) {
+    final router = new Router();
+    Routes.configureRoutes(router);
+    print("MyHomePage()");
+    Application.router = router;
+    if (Application.router == null) {
+      print("Application.router==null");
+    }
+  }
 
   @override
   _MyHomePageState createState() => new _MyHomePageState();
@@ -125,10 +146,17 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: (index) {
             setState(() {
               _tabIndex = index;
+              Routes.setting = "mine";
+              if (Application.router == null) {
+                print("Application.router==null");
+              } else {
+                print("Application.router!=null");
+              }
             });
           },
         ),
       ),
+      onGenerateRoute: ApplicationRouter().router.generator,
     );
   }
 }

@@ -1,6 +1,10 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xiaoman/app_router.dart';
 import 'package:xiaoman/base/mcard.dart';
+import 'package:xiaoman/config/application.dart';
+import 'package:xiaoman/config/routes.dart';
 import 'package:xiaoman/page/personal_info.dart';
 import 'package:xiaoman/page/setting.dart';
 import 'package:xiaoman/page/switch_role.dart';
@@ -291,10 +295,29 @@ Widget _buildBottom(BuildContext context) {
       new Divider(height: 1.0, indent: 50.0, color: const Color(0xFFF3F4F6)),
       new InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(builder: (context) => new Setting()),
-          );
+//          Navigator.push(
+//            context,
+//            new MaterialPageRoute(builder: (context) => new SettingPage()),
+//          );
+//          print("Routes.setting:" + Routes.setting);
+//          if (Application.router == null) {
+//            print("Application.router==null");
+//            print("Application.router:" + Application.router.toString());
+//          }
+//          Application.router.navigateTo(
+//            context,
+//            "/setting",
+//            transition: TransitionType.inFromRight,
+//            transitionDuration: const Duration(milliseconds: 600),
+//          );
+          ApplicationRouter().router.navigateTo(
+                context,
+                "/setting",
+                transition: TransitionType.inFromRight,
+
+
+
+              );
         },
         child: new Padding(
           padding: new EdgeInsets.only(left: 16.0, right: 16.0),

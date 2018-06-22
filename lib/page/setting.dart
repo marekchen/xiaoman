@@ -3,8 +3,8 @@ import 'package:xiaoman/base/m_divider.dart';
 import 'package:xiaoman/page/about_us.dart';
 import 'package:xiaoman/page/account_security.dart';
 
-class Setting extends StatelessWidget {
-  Setting({Key key}) : super(key: key);
+class SettingPage extends StatelessWidget {
+  SettingPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
