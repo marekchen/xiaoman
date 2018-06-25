@@ -13,7 +13,7 @@ class Comment {
       this.replyNum});
 
   factory Comment.fromJson(Map<String, dynamic> json) {
-    return new Comment(
+    return Comment(
       userName: json['userName'],
       userAvatar: json['userAvatar'],
       content: json['content'],

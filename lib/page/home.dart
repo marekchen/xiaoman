@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/model/event.dart';
-import 'package:xiaoman/widget/event_card.dart';
-import 'package:xiaoman/widget/search_bar.dart';
+
+import '../model/event.dart';
+import '../widget/event_card.dart';
+import '../widget/search_bar.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => new _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
-const double _kAppBarHeight = 140.0;
+double _kAppBarHeight = 140.0;
 
 class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return new Scaffold(
+    return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: new Color(0xFFF8F9FA),
-      body: new CustomScrollView(
-        key: new PageStorageKey<String>("home"),
+      backgroundColor: Color(0xFFF8F9FA),
+      body: CustomScrollView(
+        key: PageStorageKey<String>("home"),
         slivers: <Widget>[
           _buildAppBar(context, statusBarHeight),
           _buildBody(context, statusBarHeight),
@@ -34,24 +35,24 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 }
 
 Widget _buildAppBar(BuildContext context, double statusBarHeight) {
-  return new SliverAppBar(
+  return SliverAppBar(
     pinned: true,
     backgroundColor: Colors.white,
     expandedHeight: _kAppBarHeight,
-    flexibleSpace: new LayoutBuilder(
+    flexibleSpace: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final Size size = constraints.biggest;
         final double appBarHeight = size.height - statusBarHeight;
         final double t =
             (appBarHeight - kToolbarHeight) / (_kAppBarHeight - kToolbarHeight);
         final double extraPadding =
-            new Tween<double>(begin: 10.0, end: 20.0).lerp(t);
+            Tween<double>(begin: 10.0, end: 20.0).lerp(t);
         final double logoHeight = appBarHeight - extraPadding;
-        return new Padding(
-          padding: new EdgeInsets.only(
+        return Padding(
+          padding: EdgeInsets.only(
             top: statusBarHeight + 0.5 * extraPadding,
           ),
-          child: new TopBar(height: logoHeight, t: t.clamp(0.0, 1.0)),
+          child: TopBar(height: logoHeight, t: t.clamp(0.0, 1.0)),
         );
       },
     ),
@@ -59,12 +60,12 @@ Widget _buildAppBar(BuildContext context, double statusBarHeight) {
 }
 
 Widget _buildBody(BuildContext context, double statusBarHeight) {
-  final EdgeInsets padding = new EdgeInsets.only(top: 8.0, bottom: 8.0);
-  return new SliverPadding(
+  final EdgeInsets padding = EdgeInsets.only(top: 8.0, bottom: 8.0);
+  return SliverPadding(
     padding: padding,
-    sliver: new SliverList(
-      key: new PageStorageKey<String>("home-list"),
-      delegate: new SliverChildBuilderDelegate(
+    sliver: SliverList(
+      key: PageStorageKey<String>("home-list"),
+      delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           final Widget item = list[index];
           return item;
@@ -75,7 +76,7 @@ Widget _buildBody(BuildContext context, double statusBarHeight) {
   );
 }
 
-Event event = new Event(
+Event event = Event(
   userAvatar:
       "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳巴拉酱",
@@ -92,7 +93,7 @@ Event event = new Event(
   joinNum: 143,
 );
 
-Event event2 = new Event(
+Event event2 = Event(
   userAvatar:
       "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳222",
@@ -107,7 +108,7 @@ Event event2 = new Event(
   commentNum: 143,
 );
 
-Event event3 = new Event(
+Event event3 = Event(
   userAvatar:
       "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳333333",
@@ -124,62 +125,62 @@ Event event3 = new Event(
 );
 
 List<Widget> list = <Widget>[
-  new EventCard(event: event),
-  new EventCard(event: event2),
-  new EventCard(event: event3),
-  new EventCard(event: event),
-  new EventCard(event: event2),
-  new EventCard(event: event3),
+  EventCard(event: event),
+  EventCard(event: event2),
+  EventCard(event: event3),
+  EventCard(event: event),
+  EventCard(event: event2),
+  EventCard(event: event3),
 ];
 
 class TopBar extends StatefulWidget {
-  const TopBar({this.height, this.t});
+  TopBar({this.height, this.t});
 
   final double height;
   final double t;
 
   @override
-  _TopBarState createState() => new _TopBarState();
+  _TopBarState createState() => _TopBarState();
 }
 
 class _TopBarState extends State<TopBar> {
-  final Curve _textOpacity = const Interval(0.4, 1.0, curve: Curves.easeInOut);
-  final TextEditingController _textController = new TextEditingController();
+  final Curve _textOpacity = Interval(0.4, 1.0, curve: Curves.easeInOut);
+  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    RectTween _searchBarRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 60.0, width, 45.0), //410
-      begin: new Rect.fromLTWH(0.0, 0.0, width, 45.0),
+    RectTween _searchBarRectTween = RectTween(
+      end: Rect.fromLTWH(0.0, 60.0, width, 45.0), //410
+      begin: Rect.fromLTWH(0.0, 0.0, width, 45.0),
     );
-    return new SizedBox(
+    return SizedBox(
       width: width,
-      child: new Stack(
+      child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          new Positioned.fromRect(
-            rect: new Rect.fromLTWH(0.0, 0.0, 100.0, 32.0),
-            child: new Opacity(
+          Positioned.fromRect(
+            rect: Rect.fromLTWH(0.0, 0.0, 100.0, 32.0),
+            child: Opacity(
               opacity: _textOpacity.transform(widget.t),
-              child: new Container(
-                padding: new EdgeInsets.only(left: 16.0),
-                child: new Text(
+              child: Container(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text(
                   "首页",
-                  style: new TextStyle(
-                    color: new Color(0xFF0D0E15),
+                  style: TextStyle(
+                    color: Color(0xFF0D0E15),
                     fontSize: 32.0,
                   ),
                 ),
               ),
             ),
           ),
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _searchBarRectTween.lerp(widget.t),
-            child: new Container(
+            child: Container(
               height: 45.0,
-              padding: new EdgeInsets.only(left: 16.0, right: 16.0),
-              child: new SearchBar(controller: _textController),
+              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              child: SearchBar(controller: _textController),
             ),
           )
         ],

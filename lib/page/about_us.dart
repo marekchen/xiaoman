@@ -5,62 +5,62 @@ class AboutUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
+        leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
             onPressed: () {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "关于我们",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
       backgroundColor: Colors.white,
-      body: new Stack(
+      body: Stack(
         children: <Widget>[
-          new Positioned(
+          Positioned(
             top: 56.0,
             left: 0.0,
             right: 0.0,
-            child: new Center(
-              child: new Image.asset(
+            child: Center(
+              child: Image.asset(
                 "assets/logo.png",
                 height: 120.0,
                 width: 120.0,
               ),
             ),
           ),
-          new Positioned(
+          Positioned(
             bottom: 56.0,
             left: 0.0,
             right: 0.0,
-            child: new Column(
+            child: Column(
               children: <Widget>[
-                new Text(
+                Text(
                   "版本号: 1.0.0",
-                  style: new TextStyle(
-                    color: const Color(0xFF333333),
+                  style: TextStyle(
+                    color: Color(0xFF333333),
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                new Padding(
-                  padding: new EdgeInsets.only(top: 10.0),
-                  child: new Text(
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text(
                     "上海xxxxxx公司",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 14.0,
                     ),
                   ),

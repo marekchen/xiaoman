@@ -26,7 +26,7 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
-    return new Event(
+    return Event(
       userName: json['userName'],
       userAvatar: json['userAvatar'],
       eventType: json['eventType'],

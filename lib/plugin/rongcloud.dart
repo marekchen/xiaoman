@@ -73,7 +73,7 @@ class UserInfo {
   }
 
   factory UserInfo.fromJson(Map<dynamic, dynamic> json) {
-    UserInfo userInfo = new UserInfo(
+    UserInfo userInfo = UserInfo(
       json['id'],
       json['name'],
       Uri.parse(json['portraitUri']),
@@ -119,7 +119,7 @@ class MentionedInfo {
   }
 
   factory MentionedInfo.fromJson(Map<dynamic, dynamic> json) {
-    MentionedInfo mentionedInfo = new MentionedInfo(
+    MentionedInfo mentionedInfo = MentionedInfo(
       mentionedTypeFromInt(json['type']),
       json['userIdList'],
       json['mentionedContent'],
@@ -189,7 +189,7 @@ class Message {
   }
 
   factory Message.fromJson(Map<dynamic, dynamic> json) {
-    Message message = new Message(
+    Message message = Message(
       json['targetId'],
       conversationTypeFromInt(json['conversationType']),
       parseMessageContent(json["objectName"], json["content"]),
@@ -249,7 +249,7 @@ class TextMessage extends MessageContent {
   }
 
   factory TextMessage.fromJson(Map<dynamic, dynamic> json) {
-    TextMessage message = new TextMessage(
+    TextMessage message = TextMessage(
       json['content'],
     );
     if (json.containsKey("userInfo")) {
@@ -286,7 +286,7 @@ class LocationMessage extends MessageContent {
   }
 
   factory LocationMessage.fromJson(Map<dynamic, dynamic> json) {
-    LocationMessage message = new LocationMessage(
+    LocationMessage message = LocationMessage(
       json['lat'],
       json['lng'],
       json['poi'],
@@ -330,7 +330,7 @@ class ImageMessage extends MediaMessageContent {
   }
 
   factory ImageMessage.fromJson(Map<dynamic, dynamic> json) {
-    ImageMessage message = new ImageMessage(
+    ImageMessage message = ImageMessage(
         thumbUri: Uri.parse(json['thumbUri']),
         localUri: Uri.parse(json['localUri']),
         isFull: json['isFull']);
@@ -380,7 +380,7 @@ class FileMessage extends MediaMessageContent {
   }
 
   factory FileMessage.fromJson(Map<dynamic, dynamic> json) {
-    FileMessage message = new FileMessage(Uri.parse(json['localUri']));
+    FileMessage message = FileMessage(Uri.parse(json['localUri']));
     if (json.containsKey("userInfo")) {
       message.setUserInfo(UserInfo.fromJson(json['userInfo']));
     }
@@ -398,16 +398,16 @@ class FileMessage extends MediaMessageContent {
 }
 
 class RongCloud {
-  static const MethodChannel _channel =
-      const MethodChannel('marekchen.github.com/rongcloud');
+  static MethodChannel _channel =
+      MethodChannel('marekchen.github.com/rongcloud');
 
-  static const EventChannel _channel_event =
-      const EventChannel('marekchen.github.com/rongcloud-event');
+  static EventChannel _channel_event =
+      EventChannel('marekchen.github.com/rongcloud-event');
 
   static Future<Response> connect(String token) async {
     final Map<dynamic, dynamic> result = await _channel
         .invokeMethod('connect', <String, dynamic>{'token': token});
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -416,7 +416,7 @@ class RongCloud {
   static Future<Response> disconnect() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('disconnect');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -424,7 +424,7 @@ class RongCloud {
 
   static Future<Response> logout() async {
     final Map<dynamic, dynamic> result = await _channel.invokeMethod('logout');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -433,7 +433,7 @@ class RongCloud {
   static Future<Response> clearMessages() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('clearMessages');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -442,7 +442,7 @@ class RongCloud {
   static Future<Response> deleteMessages() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('deleteMessages');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -451,7 +451,7 @@ class RongCloud {
   static Future<Response> getHistoryMessages() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('getHistoryMessages');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -467,7 +467,7 @@ class RongCloud {
     arguments.putIfAbsent("timestamp", () => timestamp);
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('clearMessagesUnreadStatus', arguments);
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -476,7 +476,7 @@ class RongCloud {
   static Future<Response> setMessageReceivedStatus() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('setMessageReceivedStatus');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -485,7 +485,7 @@ class RongCloud {
   static Future<Response> getConversationNotificationStatus() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('getConversationNotificationStatus');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
@@ -494,14 +494,14 @@ class RongCloud {
   static Future<Response> setConversationNotificationStatus() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('setConversationNotificationStatus');
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorInfo = result["ErrorInfo"];
     return response;
   }
 
   static Response _parseResponseMessage(Map<dynamic, dynamic> result) {
-    Response response = new Response();
+    Response response = Response();
     response.code = result["Code"];
     response.errorCode = result["ErrorCode"];
     response.errorInfo = result["ErrorInfo"];

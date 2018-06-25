@@ -4,34 +4,34 @@ class MyReleasesTask extends StatefulWidget {
   MyReleasesTask({Key key}) : super(key: key);
 
   @override
-  _MyReleasesTaskState createState() => new _MyReleasesTaskState();
+  _MyReleasesTaskState createState() => _MyReleasesTaskState();
 }
 
 class _MyReleasesTaskState extends State<MyReleasesTask> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
+        leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
             onPressed: () {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "我发布的任务",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: Color(0xFFF8F9FA),
     );
   }
 }

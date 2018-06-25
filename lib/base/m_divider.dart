@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class MDivider extends StatelessWidget {
-  const MDivider(
+  MDivider(
       {Key key,
       this.height = 16.0,
       this.indent = 0.0,
@@ -21,7 +21,7 @@ class MDivider extends StatelessWidget {
   static BorderSide createBorderSide(BuildContext context,
       {Color color, double width = 0.0}) {
     assert(width != null);
-    return new BorderSide(
+    return BorderSide(
       color: color,
       width: width,
     );
@@ -29,14 +29,14 @@ class MDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new SizedBox(
+    return SizedBox(
       height: height,
-      child: new Center(
-        child: new Container(
+      child: Center(
+        child: Container(
           height: 0.0,
-          margin: new EdgeInsetsDirectional.only(start: indent, end: endIndent),
-          decoration: new BoxDecoration(
-            border: new Border(
+          margin: EdgeInsetsDirectional.only(start: indent, end: endIndent),
+          decoration: BoxDecoration(
+            border: Border(
               bottom: createBorderSide(context, color: color),
             ),
           ),

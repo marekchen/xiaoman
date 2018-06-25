@@ -1,57 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/base/m_underline_tab_indicator.dart';
-import 'package:xiaoman/model/task.dart';
+
+import '../base/m_underline_tab_indicator.dart';
+import '../model/task.dart';
 
 class MyFollow extends StatefulWidget {
   MyFollow({Key key}) : super(key: key);
 
   @override
-  _MyFollowState createState() => new _MyFollowState();
+  _MyFollowState createState() => _MyFollowState();
 }
 
 class _MyFollowState extends State<MyFollow> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(primaryColor: new Color(0xFFE9ECEF)),
-      home: new DefaultTabController(
+    return MaterialApp(
+      theme: ThemeData(primaryColor: Color(0xFFE9ECEF)),
+      home: DefaultTabController(
         length: 3,
-        child: new Scaffold(
-          appBar: new AppBar(
+        child: Scaffold(
+          appBar: AppBar(
             centerTitle: true,
-            title: new Text(
+            title: Text(
               "我的关注",
-              style: new TextStyle(
+              style: TextStyle(
                 fontSize: 18.0,
-                color: const Color(0xFF0D0E15),
+                color: Color(0xFF0D0E15),
               ),
             ),
             backgroundColor: Colors.white,
-            leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             elevation: 1.0,
-            bottom: new TabBar(
-              indicator: new MUnderlineTabIndicator(
-                insets: new EdgeInsets.fromLTRB(70.0, 0.0, 70.0, 0.0),
-                borderSide: new BorderSide(
+            bottom: TabBar(
+              indicator: MUnderlineTabIndicator(
+                insets: EdgeInsets.fromLTRB(70.0, 0.0, 70.0, 0.0),
+                borderSide: BorderSide(
                   width: 3.0,
-                  color: const Color(0xFF42BE56),
+                  color: Color(0xFF42BE56),
                 ),
               ),
-              indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+              indicatorPadding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               tabs: [
-                new Tab(
-                  child: new Row(
+                Tab(
+                  child: Row(
                     children: <Widget>[
-                      new Text(
+                      Text(
                         "用户",
-                        style: new TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
-                          color: const Color(0xFF0D0E15),
+                          color: Color(0xFF0D0E15),
                         ),
                       ),
                     ],
@@ -59,14 +60,14 @@ class _MyFollowState extends State<MyFollow> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                   ),
                 ),
-                new Tab(
-                  child: new Row(
+                Tab(
+                  child: Row(
                     children: <Widget>[
-                      new Text(
+                      Text(
                         "任务",
-                        style: new TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
-                          color: const Color(0xFF0D0E15),
+                          color: Color(0xFF0D0E15),
                         ),
                       ),
                     ],
@@ -77,18 +78,18 @@ class _MyFollowState extends State<MyFollow> {
               ],
             ),
           ),
-          body: new TabBarView(
+          body: TabBarView(
             children: [
-              new ListView.builder(
-                key: new PageStorageKey<String>("follow-user"),
+              ListView.builder(
+                key: PageStorageKey<String>("follow-user"),
                 itemBuilder: (BuildContext context, int index) =>
-                    new UserInfoCard(list[index]),
+                    UserInfoCard(list[index]),
                 itemCount: list.length,
               ),
-              new ListView.builder(
-                key: new PageStorageKey<String>("follow-task"),
+              ListView.builder(
+                key: PageStorageKey<String>("follow-task"),
                 itemBuilder: (BuildContext context, int index) =>
-                    new TaskCard(taskList[index]),
+                    TaskCard(taskList[index]),
                 itemCount: taskList.length,
               ),
             ],
@@ -100,206 +101,206 @@ class _MyFollowState extends State<MyFollow> {
 }
 
 class UserInfo {
-  const UserInfo({this.name, this.avatar});
+  UserInfo({this.name, this.avatar});
 
   final String name;
   final String avatar;
 }
 
-const List<Task> taskList = const <Task>[
-  const Task(
+List<Task> taskList = <Task>[
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
-  const Task(
+  Task(
     title: "我是任务标题，是啥任务咧，点我瞧瞧",
     subTitle: "我是任务标题，是啥任务咧，点我瞧瞧是啥任务咧，点我瞧瞧点我瞧瞧点我瞧瞧点我瞧瞧点我",
   ),
 ];
 
-const List<UserInfo> list = const <UserInfo>[
-  const UserInfo(
+List<UserInfo> list = <UserInfo>[
+  UserInfo(
       name: "毛莎莎",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "吴亦凡",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "王火种",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
-  const UserInfo(
+  UserInfo(
       name: "陈小春",
       avatar:
           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg"),
 ];
 
 class UserInfoCard extends StatelessWidget {
-  const UserInfoCard(this.userInfo);
+  UserInfoCard(this.userInfo);
 
   final UserInfo userInfo;
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       height: 61.0,
       color: Colors.white,
-      padding: new EdgeInsets.symmetric(horizontal: 16.0),
-      child: new Column(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          new Container(
+          Container(
             height: 60.0,
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Row(
+                Row(
                   children: <Widget>[
-                    new Container(
+                    Container(
                       height: 32.0,
                       width: 32.0,
-                      child: new ClipRRect(
-                        borderRadius: new BorderRadius.circular(4.0),
-                        child: new Image.network(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4.0),
+                        child: Image.network(
                           userInfo.avatar,
                           fit: BoxFit.fitHeight,
                         ),
                       ),
                     ),
-                    new Padding(
-                      padding: new EdgeInsets.only(left: 10.0),
-                      child: new Text(
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text(
                         userInfo.name,
-                        style: new TextStyle(
+                        style: TextStyle(
                           fontSize: 14.0,
-                          color: const Color(0xFF0D0E15),
+                          color: Color(0xFF0D0E15),
                         ),
                       ),
                     ),
                   ],
                 ),
-                new Text(
+                Text(
                   "已关注",
-                  style: new TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: const Color(0xFF768196),
+                    color: Color(0xFF768196),
                   ),
                 ),
               ],
             ),
           ),
-          new Divider(height: 1.0, color: const Color(0xFFF3F4F6))
+          Divider(height: 1.0, color: Color(0xFFF3F4F6))
         ],
       ),
     );
@@ -307,33 +308,33 @@ class UserInfoCard extends StatelessWidget {
 }
 
 class TaskCard extends StatelessWidget {
-  const TaskCard(this.task);
+  TaskCard(this.task);
 
   final Task task;
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       color: Colors.white,
-      padding: new EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-      margin: new EdgeInsets.only(bottom: 1.0),
-      child: new Column(
+      padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+      margin: EdgeInsets.only(bottom: 1.0),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Text(
+          Text(
             task.title,
-            style: new TextStyle(
+            style: TextStyle(
               fontSize: 16.0,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
               fontWeight: FontWeight.bold,
             ),
           ),
-          new Text(
+          Text(
             task.subTitle,
-            style: new TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
           ),
         ],

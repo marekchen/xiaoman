@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/base/m_underline_tab_indicator.dart';
-import 'package:xiaoman/model/event.dart';
-import 'package:xiaoman/widget/search_bar.dart';
-import 'package:xiaoman/widget/event_card.dart';
+
+import '../base/m_underline_tab_indicator.dart';
+import '../model/event.dart';
+import '../widget/search_bar.dart';
+import '../widget/event_card.dart';
 
 class Discovery extends StatefulWidget {
   Discovery({Key key}) : super(key: key);
 
   @override
-  _DiscoveryState createState() => new _DiscoveryState();
+  _DiscoveryState createState() => _DiscoveryState();
 }
 
-const double _kAppBarHeight = 177.0;
+double _kAppBarHeight = 177.0;
 
 class _DiscoveryState extends State<Discovery>
     with
@@ -23,7 +24,7 @@ class _DiscoveryState extends State<Discovery>
   void initState() {
     super.initState();
     if (tabController == null) {
-      tabController = new TabController(vsync: this, length: 3);
+      tabController = TabController(vsync: this, length: 3);
     }
   }
 
@@ -38,13 +39,13 @@ class _DiscoveryState extends State<Discovery>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: new Color(0xFFF8F9FA),
-      body: new DefaultTabController(
+      backgroundColor: Color(0xFFF8F9FA),
+      body: DefaultTabController(
         length: 3,
-        child: new NestedScrollView(
-          key: new PageStorageKey<String>("discovery"),
+        child: NestedScrollView(
+          key: PageStorageKey<String>("discovery"),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               _buildAppBar(context, innerBoxIsScrolled, tabController),
@@ -60,27 +61,27 @@ class _DiscoveryState extends State<Discovery>
 Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
     TabController tabController) {
   final double statusBarHeight = MediaQuery.of(context).padding.top;
-  return new SliverOverlapAbsorber(
+  return SliverOverlapAbsorber(
     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-    child: new SliverAppBar(
+    child: SliverAppBar(
       pinned: true,
       forceElevated: innerBoxIsScrolled,
       backgroundColor: Colors.white,
       expandedHeight: _kAppBarHeight,
-      flexibleSpace: new LayoutBuilder(
+      flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           final Size size = constraints.biggest;
           final double appBarHeight = size.height - statusBarHeight;
           final double t = (appBarHeight - kToolbarHeight) /
               (_kAppBarHeight - kToolbarHeight);
           final double extraPadding = //20.0;
-              new Tween<double>(begin: 10.0, end: 20.0).lerp(t);
+              Tween<double>(begin: 10.0, end: 20.0).lerp(t);
           final double logoHeight = appBarHeight - 1 * extraPadding;
-          return new Padding(
-            padding: new EdgeInsets.only(
+          return Padding(
+            padding: EdgeInsets.only(
               top: statusBarHeight + 0.5 * extraPadding,
             ),
-            child: new TopBar(
+            child: TopBar(
               controller: tabController,
               height: logoHeight,
               t: t.clamp(0.0, 1.0),
@@ -93,7 +94,7 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
 }
 
 Widget _buildBody(BuildContext context, TabController tabController) {
-  return new TabBarView(
+  return TabBarView(
     controller: tabController,
     children: [
       _buildTab(context, 1),
@@ -103,9 +104,9 @@ Widget _buildBody(BuildContext context, TabController tabController) {
   );
 }
 
-Event event = new Event(
+Event event = Event(
   userAvatar:
-  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳巴拉酱",
   eventType: 1,
   pictures: [
@@ -120,9 +121,9 @@ Event event = new Event(
   joinNum: 143,
 );
 
-Event event2 = new Event(
+Event event2 = Event(
   userAvatar:
-  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳222",
   eventType: 2,
   pictures: [
@@ -135,9 +136,9 @@ Event event2 = new Event(
   commentNum: 143,
 );
 
-Event event3 = new Event(
+Event event3 = Event(
   userAvatar:
-  "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "霹雳333333",
   eventType: 3,
   pictures: [
@@ -152,21 +153,21 @@ Event event3 = new Event(
 );
 
 Widget _buildTab(BuildContext context, int type) {
-  return new SafeArea(
+  return SafeArea(
     top: false,
     bottom: false,
-    child: new Builder(
+    child: Builder(
       builder: (BuildContext context) {
-        return new CustomScrollView(
-          key: new PageStorageKey<String>("discovery" + type.toString()),
+        return CustomScrollView(
+          key: PageStorageKey<String>("discovery" + type.toString()),
           slivers: <Widget>[
-            new SliverOverlapInjector(
+            SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
-            new SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              sliver: new SliverList(
-                delegate: new SliverChildBuilderDelegate(
+            SliverPadding(
+              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     switch (index % 3) {
                       case 0:
@@ -189,7 +190,7 @@ Widget _buildTab(BuildContext context, int type) {
 }
 
 class TopBar extends StatefulWidget {
-  const TopBar({
+  TopBar({
     this.controller,
     this.height,
     this.t,
@@ -200,81 +201,81 @@ class TopBar extends StatefulWidget {
   final double t;
 
   @override
-  _TopBarState createState() => new _TopBarState();
+  _TopBarState createState() => _TopBarState();
 }
 
 class _TopBarState extends State<TopBar> {
-  final Curve _textOpacity = const Interval(0.4, 1.0, curve: Curves.easeInOut);
-  final TextEditingController _textController = new TextEditingController();
+  final Curve _textOpacity = Interval(0.4, 1.0, curve: Curves.easeInOut);
+  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    RectTween _searchBarRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 60.0, width, 45.0),
-      begin: new Rect.fromLTWH(0.0, 0.0, width, 45.0),
+    RectTween _searchBarRectTween = RectTween(
+      end: Rect.fromLTWH(0.0, 60.0, width, 45.0),
+      begin: Rect.fromLTWH(0.0, 0.0, width, 45.0),
     );
-    RectTween _tabBarTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 122.0, width, 45.0),
-      begin: new Rect.fromLTWH(0.0, 6.0, width, 45.0),
+    RectTween _tabBarTween = RectTween(
+      end: Rect.fromLTWH(0.0, 122.0, width, 45.0),
+      begin: Rect.fromLTWH(0.0, 6.0, width, 45.0),
     );
-    return new SizedBox(
+    return SizedBox(
       width: width,
-      child: new Stack(
+      child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          new Positioned.fromRect(
-            rect: new Rect.fromLTWH(0.0, 0.0, 100.0, 32.0),
-            child: new Opacity(
+          Positioned.fromRect(
+            rect: Rect.fromLTWH(0.0, 0.0, 100.0, 32.0),
+            child: Opacity(
               opacity: _textOpacity.transform(widget.t),
-              child: new Container(
-                padding: new EdgeInsets.only(left: 16.0),
-                child: new Text(
+              child: Container(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text(
                   "发现",
-                  style: new TextStyle(
-                    color: new Color(0xFF0D0E15),
+                  style: TextStyle(
+                    color: Color(0xFF0D0E15),
                     fontSize: 32.0,
                   ),
                 ),
               ),
             ),
           ),
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _searchBarRectTween.lerp(widget.t),
-            child: new Opacity(
+            child: Opacity(
               opacity: _textOpacity.transform(widget.t),
-              child: new Container(
+              child: Container(
                 height: 45.0,
-                padding: new EdgeInsets.only(left: 16.0, right: 16.0),
-                child: new SearchBar(controller: _textController),
+                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                child: SearchBar(controller: _textController),
               ),
             ),
           ),
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _tabBarTween.lerp(widget.t),
-            child: new Container(
+            child: Container(
               height: 50.0,
               width: 500.0,
-              padding: new EdgeInsets.only(right: 90.0),
-              child: new TabBar(
-                indicator: new MUnderlineTabIndicator(
-                  insets: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-                  borderSide: new BorderSide(
+              padding: EdgeInsets.only(right: 90.0),
+              child: TabBar(
+                indicator: MUnderlineTabIndicator(
+                  insets: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  borderSide: BorderSide(
                     width: 3.0,
-                    color: const Color(0xFF42BE56),
+                    color: Color(0xFF42BE56),
                   ),
                 ),
-                indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                indicatorPadding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
                 controller: widget.controller,
                 tabs: [
-                  new Tab(
-                    child: new Row(
+                  Tab(
+                    child: Row(
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "大杂烩",
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
+                            color: Color(0xFF0D0E15),
                           ),
                         ),
                       ],
@@ -282,14 +283,14 @@ class _TopBarState extends State<TopBar> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                     ),
                   ),
-                  new Tab(
-                    child: new Row(
+                  Tab(
+                    child: Row(
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "朋友在玩",
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
+                            color: Color(0xFF0D0E15),
                           ),
                         ),
                       ],
@@ -297,14 +298,14 @@ class _TopBarState extends State<TopBar> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                     ),
                   ),
-                  new Tab(
-                    child: new Row(
+                  Tab(
+                    child: Row(
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "热点",
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontSize: 16.0,
-                            color: const Color(0xFF0D0E15),
+                            color: Color(0xFF0D0E15),
                           ),
                         ),
                       ],

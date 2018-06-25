@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:xiaoman/plugin/rongcloud.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../plugin/rongcloud.dart';
 
 class Test extends StatefulWidget {
   Test({Key key}) : super(key: key);
 
   @override
-  _TestState createState() => new _TestState();
+  _TestState createState() => _TestState();
 }
 
 class _TestState extends State<Test> {
@@ -37,26 +36,26 @@ class _TestState extends State<Test> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
-        body: new Column(
+        body: Column(
           children: <Widget>[
-            new Text("1111111111111"),
-            new Text("2222222222222"),
-            new RaisedButton(
+            Text("1111111111111"),
+            Text("2222222222222"),
+            RaisedButton(
               onPressed: () {
                 RongCloud.connect(
                     "GajZWPd5yIqDpMZIXobBOGpomLY2zaivtK7TeS41XfJnGS22i5plmh3cOT59KFgBiMoQSCw9PYFaC/Db56F6oSCfqWPCQZ0R");
               },
-              child: new Text("connect"),
+              child: Text("connect"),
             ),
-            new Text(text),
-            new Text(text2),
-            new RaisedButton(
+            Text(text),
+            Text(text2),
+            RaisedButton(
               onPressed: () {
-                TextMessage content = new TextMessage("test Text Message");
+                TextMessage content = TextMessage("test Text Message");
                 Message message =
-                    new Message("chenpei2", ConversationType.PRIVATE, content);
+                    Message("chenpei2", ConversationType.PRIVATE, content);
                 RongCloud.sendMessage(message).listen((Response response) {
                   setState(() {
                     if (response.code == 0) {
@@ -69,16 +68,16 @@ class _TestState extends State<Test> {
                   });
                 });
               },
-              child: new Text("sendMessage"),
+              child: Text("sendMessage"),
             ),
-            new Text(text3),
-            new RaisedButton(
+            Text(text3),
+            RaisedButton(
               onPressed: () {
                 ImagePicker.pickImage(source: ImageSource.gallery).then((file) {
-                  ImageMessage content = new ImageMessage(
+                  ImageMessage content = ImageMessage(
                       thumbUri: file.uri, localUri: file.uri, isFull: false);
-                  Message message = new Message(
-                      "chenpei2", ConversationType.PRIVATE, content);
+                  Message message =
+                      Message("chenpei2", ConversationType.PRIVATE, content);
                   RongCloud
                       .sendImageMessage(message)
                       .listen((Response response) {
@@ -94,15 +93,15 @@ class _TestState extends State<Test> {
                   });
                 });
               },
-              child: new Text("pick-image"),
+              child: Text("pick-image"),
             ),
-            new Text(text4),
-            new RaisedButton(
+            Text(text4),
+            RaisedButton(
               onPressed: () {
                 ImagePicker.pickImage(source: ImageSource.gallery).then((file) {
-                  FileMessage content = new FileMessage(file.uri);
-                  Message message = new Message(
-                      "chenpei2", ConversationType.PRIVATE, content);
+                  FileMessage content = FileMessage(file.uri);
+                  Message message =
+                      Message("chenpei2", ConversationType.PRIVATE, content);
                   RongCloud
                       .sendMediaMessage(message)
                       .listen((Response response) {
@@ -118,16 +117,16 @@ class _TestState extends State<Test> {
                   });
                 });
               },
-              child: new Text("pick-file"),
+              child: Text("pick-file"),
             ),
-            new RaisedButton(
+            RaisedButton(
               onPressed: () {
                 RongCloud
                     .clearMessagesUnreadStatus(
                         "chenpei", ConversationType.PRIVATE)
                     .then((response) {});
               },
-              child: new Text("clearMessagesUnreadStatus"),
+              child: Text("clearMessagesUnreadStatus"),
             ),
           ],
         ));

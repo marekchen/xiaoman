@@ -1,10 +1,11 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:xiaoman/page/setting.dart';
+
+import './page/setting.dart';
 
 class ApplicationRouter {
-  static final ApplicationRouter _instance = new ApplicationRouter._internal();
-  final Router _router = new Router(); // global router
+  static final ApplicationRouter _instance = ApplicationRouter._internal();
+  final Router _router = Router(); // global router
 
   factory ApplicationRouter() {
     return _instance;
@@ -20,17 +21,16 @@ class ApplicationRouter {
   }
 
   void _configureRoutes() {
-    _router.notFoundHandler = new Handler(
+    _router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-          print("ROUTE WAS NOT FOUND !!!");
-        });
+      print("ROUTE WAS NOT FOUND !!!");
+    });
     _router.define("setting", handler: settingHandler);
   }
 
   // handlers
-  var settingHandler = new Handler(
+  var settingHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-        return new SettingPage();
-      });
-
+    return SettingPage();
+  });
 }

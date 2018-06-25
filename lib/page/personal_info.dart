@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/base/m_divider.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../base/m_divider.dart';
 
 class PersonalInfo extends StatelessWidget {
   PersonalInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
+        leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
             onPressed: () {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "个人信息",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
       backgroundColor: Colors.white,
-      body: new Body(),
+      body: Body(),
     );
   }
 }
@@ -38,38 +39,37 @@ class Body extends StatefulWidget {
   Body({Key key}) : super(key: key);
 
   @override
-  _BodyState createState() => new _BodyState();
+  _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    return Column(
       children: <Widget>[
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new InkWell(
-          child: new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        InkWell(
+          child: Container(
             height: 100.0,
-            padding: new EdgeInsets.all(16.0),
-            child: new Row(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Text(
+                Text(
                   "头像",
-                  style: new TextStyle(
-                      color: const Color(0xFF333333), fontSize: 16.0),
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 16.0),
                 ),
-                new Row(
+                Row(
                   children: <Widget>[
-                    new CircleAvatar(
+                    CircleAvatar(
                       radius: 30.0,
-                      backgroundImage: new NetworkImage(
+                      backgroundImage: NetworkImage(
                         "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                       ),
                     ),
-                    new Icon(
+                    Icon(
                       Icons.keyboard_arrow_right,
-                      color: const Color(0xFFACACAC),
+                      color: Color(0xFFACACAC),
                     ),
                   ],
                 )
@@ -80,19 +80,18 @@ class _BodyState extends State<Body> {
             showModalBottomSheet<void>(
               context: context,
               builder: (BuildContext context) {
-                return new Container(
+                return Container(
                   height: 162.0,
-                  child: new Column(
+                  child: Column(
                     children: <Widget>[
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "相册",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
@@ -102,19 +101,18 @@ class _BodyState extends State<Body> {
                               .then((file) {});
                         },
                       ),
-                      new Divider(
+                      Divider(
                         height: 0.0,
-                        color: const Color(0xFFF3F4F6),
+                        color: Color(0xFFF3F4F6),
                       ),
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "拍照",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
@@ -124,19 +122,18 @@ class _BodyState extends State<Body> {
                               .then((file) {});
                         },
                       ),
-                      new Divider(
+                      Divider(
                         height: 0.0,
-                        color: const Color(0xFFF3F4F6),
+                        color: Color(0xFFF3F4F6),
                       ),
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "取消",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
@@ -151,36 +148,35 @@ class _BodyState extends State<Body> {
             );
           },
         ),
-        new MDivider(
+        MDivider(
           indent: 16.0,
           endIndent: 16.0,
           height: 0.0,
-          color: const Color(0xFFF3F4F6),
+          color: Color(0xFFF3F4F6),
         ),
-        new InkWell(
-          child: new Container(
+        InkWell(
+          child: Container(
             height: 54.0,
-            padding: new EdgeInsets.all(16.0),
-            child: new Row(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Text(
+                Text(
                   "昵称",
-                  style: new TextStyle(
-                      color: const Color(0xFF333333), fontSize: 16.0),
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 16.0),
                 ),
-                new Row(
+                Row(
                   children: <Widget>[
-                    new Text(
+                    Text(
                       "噼里啪啦酱",
-                      style: new TextStyle(
-                        color: const Color(0xFFACACAC),
+                      style: TextStyle(
+                        color: Color(0xFFACACAC),
                         fontSize: 15.0,
                       ),
                     ),
-                    new Icon(
+                    Icon(
                       Icons.keyboard_arrow_right,
-                      color: const Color(0xFFACACAC),
+                      color: Color(0xFFACACAC),
                     ),
                   ],
                 )
@@ -189,36 +185,35 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new MDivider(
+        MDivider(
           indent: 16.0,
           endIndent: 16.0,
           height: 0.0,
-          color: const Color(0xFFF3F4F6),
+          color: Color(0xFFF3F4F6),
         ),
-        new InkWell(
-          child: new Container(
+        InkWell(
+          child: Container(
             height: 54.0,
-            padding: new EdgeInsets.all(16.0),
-            child: new Row(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Text(
+                Text(
                   "性别",
-                  style: new TextStyle(
-                      color: const Color(0xFF333333), fontSize: 16.0),
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 16.0),
                 ),
-                new Row(
+                Row(
                   children: <Widget>[
-                    new Text(
+                    Text(
                       "男",
-                      style: new TextStyle(
-                        color: const Color(0xFFACACAC),
+                      style: TextStyle(
+                        color: Color(0xFFACACAC),
                         fontSize: 15.0,
                       ),
                     ),
-                    new Icon(
+                    Icon(
                       Icons.keyboard_arrow_right,
-                      color: const Color(0xFFACACAC),
+                      color: Color(0xFFACACAC),
                     ),
                   ],
                 )
@@ -229,57 +224,52 @@ class _BodyState extends State<Body> {
             showModalBottomSheet<void>(
               context: context,
               builder: (BuildContext context) {
-                return new Container(
+                return Container(
                   height: 162.0,
-                  child: new Column(
+                  child: Column(
                     children: <Widget>[
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "男",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
-                        onTap: () {
-                        },
+                        onTap: () {},
                       ),
-                      new Divider(
+                      Divider(
                         height: 0.0,
-                        color: const Color(0xFFF3F4F6),
+                        color: Color(0xFFF3F4F6),
                       ),
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "女",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
-                        onTap: () {
-                        },
+                        onTap: () {},
                       ),
-                      new Divider(
+                      Divider(
                         height: 0.0,
-                        color: const Color(0xFFF3F4F6),
+                        color: Color(0xFFF3F4F6),
                       ),
-                      new InkWell(
-                        child: new Container(
+                      InkWell(
+                        child: Container(
                           height: 54.0,
-                          child: new Center(
-                            child: new Text(
+                          child: Center(
+                            child: Text(
                               "取消",
-                              style: new TextStyle(
-                                  color: const Color(0xFF333333),
-                                  fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Color(0xFF333333), fontSize: 18.0),
                             ),
                           ),
                         ),
@@ -294,36 +284,35 @@ class _BodyState extends State<Body> {
             );
           },
         ),
-        new MDivider(
+        MDivider(
           indent: 16.0,
           endIndent: 16.0,
           height: 0.0,
-          color: const Color(0xFFF3F4F6),
+          color: Color(0xFFF3F4F6),
         ),
-        new InkWell(
-          child: new Container(
+        InkWell(
+          child: Container(
             height: 54.0,
-            padding: new EdgeInsets.all(16.0),
-            child: new Row(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Text(
+                Text(
                   "地区",
-                  style: new TextStyle(
-                      color: const Color(0xFF333333), fontSize: 16.0),
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 16.0),
                 ),
-                new Row(
+                Row(
                   children: <Widget>[
-                    new Text(
+                    Text(
                       "上海",
-                      style: new TextStyle(
-                        color: const Color(0xFFACACAC),
+                      style: TextStyle(
+                        color: Color(0xFFACACAC),
                         fontSize: 15.0,
                       ),
                     ),
-                    new Icon(
+                    Icon(
                       Icons.keyboard_arrow_right,
-                      color: const Color(0xFFACACAC),
+                      color: Color(0xFFACACAC),
                     ),
                   ],
                 )
@@ -332,36 +321,35 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new MDivider(
+        MDivider(
           indent: 16.0,
           endIndent: 16.0,
           height: 0.0,
-          color: const Color(0xFFF3F4F6),
+          color: Color(0xFFF3F4F6),
         ),
-        new InkWell(
-          child: new Container(
+        InkWell(
+          child: Container(
             height: 54.0,
-            padding: new EdgeInsets.all(16.0),
-            child: new Row(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Text(
+                Text(
                   "个人简介",
-                  style: new TextStyle(
-                      color: const Color(0xFF333333), fontSize: 16.0),
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 16.0),
                 ),
-                new Row(
+                Row(
                   children: <Widget>[
-                    new Text(
+                    Text(
                       "几番离别，几番告白",
-                      style: new TextStyle(
-                        color: const Color(0xFFACACAC),
+                      style: TextStyle(
+                        color: Color(0xFFACACAC),
                         fontSize: 15.0,
                       ),
                     ),
-                    new Icon(
+                    Icon(
                       Icons.keyboard_arrow_right,
-                      color: const Color(0xFFACACAC),
+                      color: Color(0xFFACACAC),
                     ),
                   ],
                 )
@@ -370,11 +358,11 @@ class _BodyState extends State<Body> {
           ),
           onTap: () {},
         ),
-        new MDivider(
+        MDivider(
           indent: 16.0,
           endIndent: 16.0,
           height: 0.0,
-          color: const Color(0xFFF3F4F6),
+          color: Color(0xFFF3F4F6),
         ),
       ],
     );

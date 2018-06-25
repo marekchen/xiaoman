@@ -5,7 +5,7 @@ class Task {
   final int joinNum;
   final String body;
 
-  const Task({
+  Task({
     this.title,
     this.subTitle,
     this.followNum,
@@ -14,7 +14,7 @@ class Task {
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {
-    return new Task(
+    return Task(
       title: json['title'],
       subTitle: json['subTitle'],
       followNum: json['followNum'],

@@ -14,7 +14,7 @@ class Article {
       this.commentList});
 
   factory Article.fromJson(Map<String, dynamic> json) {
-    return new Article(
+    return Article(
       userName: json['userName'],
       userAvatar: json['userAvatar'],
       pictures: json['pictures'],
@@ -31,7 +31,7 @@ class Comment {
   Comment({this.userName, this.content});
 
   factory Comment.fromJson(Map<String, dynamic> json) {
-    return new Comment(
+    return Comment(
       userName: json['userName'],
       content: json['content'],
     );

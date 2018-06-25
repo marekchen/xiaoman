@@ -1,68 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:xiaoman/app_router.dart';
-import 'package:xiaoman/base/m_bottom_tab_bar.dart';
-import 'package:xiaoman/page/discovery.dart';
-import 'package:xiaoman/page/home.dart';
-import 'package:xiaoman/page/message.dart';
-import 'package:xiaoman/page/mine.dart';
-import 'package:xiaoman/page/release.dart';
-import 'package:fluro/fluro.dart';
-import './config/application.dart';
-import './config/routes.dart';
 
-void main() => runApp(new MyHomePage());
+import './app_router.dart';
+import './base/m_bottom_tab_bar.dart';
+import './page/discovery.dart';
+import './page/home.dart';
+import './page/message.dart';
+import './page/mine.dart';
+import './page/release.dart';
+
+void main() => runApp(MyHomePage());
 
 class MyApp extends StatelessWidget {
-  MyApp() {
-    final router = new Router();
-    Routes.configureRoutes(router);
-    print("MyApp()");
-    Application.router = router;
-    if (Application.router == null) {
-      print("Application.router==null");
-    }
-  }
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(),
-      onGenerateRoute: Application.router.generator,
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key) {
-    final router = new Router();
-    Routes.configureRoutes(router);
-    print("MyHomePage()");
-    Application.router = router;
-    if (Application.router == null) {
-      print("Application.router==null");
-    }
-  }
+  MyHomePage({Key key}) : super(key: key) {}
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _tabIndex = 0;
-  final tabTextStyleNormal = new TextStyle(color: const Color(0xff969696));
-  final tabTextStyleSelected = new TextStyle(color: const Color(0xff63ca6c));
+  final tabTextStyleNormal = TextStyle(color: Color(0xff969696));
+  final tabTextStyleSelected = TextStyle(color: Color(0xff63ca6c));
 
   var tabImages;
   var _body;
   var appBarTitles = ['首页', '发现', '发布', '消息', '我的'];
 
   Image getTabImage(path) {
-    return new Image.asset(path, width: 30.0, height: 30.0);
+    return Image.asset(path, width: 30.0, height: 30.0);
   }
 
   void initData() {
@@ -90,14 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ]
       ];
     }
-    _body = new IndexedStack(
+    _body = IndexedStack(
       children: <Widget>[
-        new Home(),
-        new Discovery(),
-        new Release(),
-        new MessagePage(),
-        //new Test(),
-        new Mine(),
+        Home(),
+        Discovery(),
+        Release(),
+        MessagePage(),
+        // Test(),
+        Mine(),
       ],
       index: _tabIndex,
     );
@@ -118,40 +99,29 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Text getTabTitle(int curIndex) {
-    return new Text(appBarTitles[curIndex], style: getTabTextStyle(curIndex));
+    return Text(appBarTitles[curIndex], style: getTabTextStyle(curIndex));
   }
 
   @override
   Widget build(BuildContext context) {
     initData();
-    return new MaterialApp(
-      theme: new ThemeData(primaryColor: const Color(0xFF63CA6C)),
-      home: new Scaffold(
+    return MaterialApp(
+      theme: ThemeData(primaryColor: Color(0xFF63CA6C)),
+      home: Scaffold(
         body: _body,
-        bottomNavigationBar: new MCupertinoTabBar(
+        bottomNavigationBar: MCupertinoTabBar(
           backgroundColor: Colors.white,
           items: <BottomNavigationBarItem>[
-            new BottomNavigationBarItem(
-                icon: getTabIcon(0), title: getTabTitle(0)),
-            new BottomNavigationBarItem(
-                icon: getTabIcon(1), title: getTabTitle(1)),
-            new BottomNavigationBarItem(
-                icon: getTabIcon(2), title: getTabTitle(2)),
-            new BottomNavigationBarItem(
-                icon: getTabIcon(3), title: getTabTitle(3)),
-            new BottomNavigationBarItem(
-                icon: getTabIcon(4), title: getTabTitle(4)),
+            BottomNavigationBarItem(icon: getTabIcon(0), title: getTabTitle(0)),
+            BottomNavigationBarItem(icon: getTabIcon(1), title: getTabTitle(1)),
+            BottomNavigationBarItem(icon: getTabIcon(2), title: getTabTitle(2)),
+            BottomNavigationBarItem(icon: getTabIcon(3), title: getTabTitle(3)),
+            BottomNavigationBarItem(icon: getTabIcon(4), title: getTabTitle(4)),
           ],
           currentIndex: _tabIndex,
           onTap: (index) {
             setState(() {
               _tabIndex = index;
-              Routes.setting = "mine";
-              if (Application.router == null) {
-                print("Application.router==null");
-              } else {
-                print("Application.router!=null");
-              }
             });
           },
         ),
@@ -163,41 +133,41 @@ class _MyHomePageState extends State<MyHomePage> {
 //class _MyHomePageState extends State<MyHomePage>
 //    with SingleTickerProviderStateMixin {
 //  final List<BottomNavigationBarItem> items = [
-//    new BottomNavigationBarItem(
-//      icon: new ImageIcon(
-//        const AssetImage(
+//     BottomNavigationBarItem(
+//      icon:  ImageIcon(
+//        AssetImage(
 //          'assets/tabbar_ic_home.png',
 //        ),
 //      ),
-//      title: new Text('hone'),
+//      title:  Text('hone'),
 //    ),
-//    new BottomNavigationBarItem(
-//      icon: new ImageIcon(
-//        const AssetImage(
+//     BottomNavigationBarItem(
+//      icon:  ImageIcon(
+//        AssetImage(
 //          'assets/tabbar_ic_found.png',
 //        ),
 //      ),
-//      title: new Text('found'),
+//      title:  Text('found'),
 //    ),
-////    new BottomNavigationBarItem(
-////      icon: new Icon(Icons.wrap_text),
-////      title: new Text('write'),
+////     BottomNavigationBarItem(
+////      icon:  Icon(Icons.wrap_text),
+////      title:  Text('write'),
 ////    ),
-//    new BottomNavigationBarItem(
-//      icon: new ImageIcon(
-//        const AssetImage(
+//     BottomNavigationBarItem(
+//      icon:  ImageIcon(
+//        AssetImage(
 //          'assets/tabbar_ic_message.png',
 //        ),
 //      ),
-//      title: new Text('message'),
+//      title:  Text('message'),
 //    ),
-//    new BottomNavigationBarItem(
-//      icon: new ImageIcon(
-//        const AssetImage(
+//     BottomNavigationBarItem(
+//      icon:  ImageIcon(
+//        AssetImage(
 //          'assets/tabbar_ic_mine.png',
 //        ),
 //      ),
-//      title: new Text('mine'),
+//      title:  Text('mine'),
 //    ),
 //  ];
 //
@@ -207,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //  @override
 //  void initState() {
 //    super.initState();
-//    pageController = new PageController(initialPage: this.page);
+//    pageController =  PageController(initialPage: this.page);
 //  }
 //
 //  void onTap(int page) {
@@ -215,28 +185,28 @@ class _MyHomePageState extends State<MyHomePage> {
 //      this.page = page;
 //    });
 //    pageController.animateToPage(page,
-//        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+//        duration: Duration(milliseconds: 300), curve: Curves.ease);
 //  }
 //
 //  @override
 //  Widget build(BuildContext context) {
-//    return new Scaffold(
-//      body: new PageView(
+//    return  Scaffold(
+//      body:  PageView(
 //        controller: pageController,
 //        children: [
-//          new Home(),
-//          new Discovery(),
-////          new Release(),
-//          new MessagePage(),
-//          new Test(),
-////          new Mine(),
+//           Home(),
+//           Discovery(),
+////           Release(),
+//           MessagePage(),
+//           Test(),
+////           Mine(),
 //        ],
-//        physics: new NeverScrollableScrollPhysics(),
+//        physics:  NeverScrollableScrollPhysics(),
 //      ),
-//      bottomNavigationBar: new MBottomNavigationBar(
+//      bottomNavigationBar:  MBottomNavigationBar(
 //        items: items,
-//        fixedColor: new Color(0xFF42BE56),
-//        defaultColor: new Color(0xFF9DA4B3),
+//        fixedColor:  Color(0xFF42BE56),
+//        defaultColor:  Color(0xFF9DA4B3),
 //        onTap: onTap,
 //        currentIndex: page,
 //      ),

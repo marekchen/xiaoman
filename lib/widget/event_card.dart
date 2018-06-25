@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:xiaoman/model/event.dart';
-import 'package:xiaoman/page/task.dart';
+
+import '../model/event.dart';
+import '../page/task.dart';
 
 class EventCard extends StatefulWidget {
   final Event event;
@@ -9,7 +10,7 @@ class EventCard extends StatefulWidget {
   EventCard({Key key, @required this.event}) : super(key: key);
 
   @override
-  _EventCardState createState() => new _EventCardState();
+  _EventCardState createState() => _EventCardState();
 }
 
 String _getEventActionString(int type) {
@@ -85,42 +86,42 @@ String _getBottomRightNumString(Event event) {
 
 Widget _buildPictures(List<String> pictures, BuildContext context) {
   if (pictures == null || pictures.length == 0) {
-    return new Container();
+    return Container();
   }
   if (pictures.length == 1) {
-    return new Container(
-      margin: const EdgeInsets.only(top: 6.0, bottom: 12.0),
-      constraints: new BoxConstraints(
+    return Container(
+      margin: EdgeInsets.only(top: 6.0, bottom: 12.0),
+      constraints: BoxConstraints(
         maxHeight: 200.0,
         minHeight: 100.0,
         minWidth: 100.0,
       ),
-      child: new ClipRRect(
-        borderRadius: new BorderRadius.circular(4.0),
-        child: new Image.network(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: Image.network(
           pictures[0],
           fit: BoxFit.fitHeight,
         ),
       ),
     );
   }
-  return new GridView.count(
+  return GridView.count(
     shrinkWrap: true,
     primary: false,
-    padding: const EdgeInsets.only(top: 6.0, bottom: 12.0),
+    padding: EdgeInsets.only(top: 6.0, bottom: 12.0),
     crossAxisSpacing: 6.0,
     mainAxisSpacing: 6.0,
     crossAxisCount: 3,
-    physics: new NeverScrollableScrollPhysics(),
+    physics: NeverScrollableScrollPhysics(),
     children: pictures
-        .map((String url) => new Container(
-              decoration: new BoxDecoration(
+        .map((String url) => Container(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                image: new DecorationImage(
-                  image: new NetworkImage(url),
+                image: DecorationImage(
+                  image: NetworkImage(url),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: new BorderRadius.all(new Radius.circular(4.0)),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
             ))
         .toList(),
@@ -130,130 +131,130 @@ Widget _buildPictures(List<String> pictures, BuildContext context) {
 class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      padding: new EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 6.0),
-      child: new Container(
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 6.0),
+      child: Container(
         color: Colors.white,
-        padding: new EdgeInsets.fromLTRB(16.0, 17.0, 16.0, 12.0),
-        child: new Column(
+        padding: EdgeInsets.fromLTRB(16.0, 17.0, 16.0, 12.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
-              child: new Row(
+            Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  new Padding(
-                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 6.0, 0.0),
-                    child: new Image.network(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 6.0, 0.0),
+                    child: Image.network(
                       widget.event.userAvatar,
                       width: 20.0,
                       height: 20.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     widget.event.userName,
-                    style: new TextStyle(
-                      color: new Color(0xff768196),
+                    style: TextStyle(
+                      color: Color(0xff768196),
                       fontSize: 14.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     " · ",
-                    style: new TextStyle(
-                      color: new Color(0xff768196),
+                    style: TextStyle(
+                      color: Color(0xff768196),
                       fontSize: 14.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     _getEventActionString(widget.event.eventType),
-                    style: new TextStyle(
-                      color: new Color(0xff768196),
+                    style: TextStyle(
+                      color: Color(0xff768196),
                       fontSize: 14.0,
                     ),
                   )
                 ],
               ),
             ),
-            new Divider(height: 0.0, color: new Color(0xFFEFF0F2)),
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 8.0),
-              child: new Text(
+            Divider(height: 0.0, color: Color(0xFFEFF0F2)),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 8.0),
+              child: Text(
                 widget.event.title,
-                style: new TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: new Color(0xFF0D0E15),
+                  color: Color(0xFF0D0E15),
                   fontSize: 16.0,
                 ),
               ),
             ),
             _buildPictures(widget.event.pictures, context),
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
-              child: new InkWell(
+            Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
+              child: InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
-                    new MaterialPageRoute(builder: (context) => new TaskHome()),
+                    MaterialPageRoute(builder: (context) => TaskHome()),
                   );
                 },
-                child: new Text(
+                child: Text(
                   widget.event.body,
-                  style: new TextStyle(
-                    color: new Color(0xFF0D0E15),
+                  style: TextStyle(
+                    color: Color(0xFF0D0E15),
                     fontSize: 14.0,
                   ),
                 ),
               ),
             ),
-            new Divider(height: 0.0, color: new Color(0xFFEFF0F2)),
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 0.0),
-              child: new Row(
+            Divider(height: 0.0, color: Color(0xFFEFF0F2)),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 0.0),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  new Text(
+                  Text(
                     _getBottomLeftNumString(widget.event),
-                    style: new TextStyle(
-                      color: new Color(0xFF0D0E15),
+                    style: TextStyle(
+                      color: Color(0xFF0D0E15),
                       fontSize: 14.0,
                     ),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.fromLTRB(4.0, 0.0, 0.0, 0.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(4.0, 0.0, 0.0, 0.0),
+                    child: Text(
                       _getBottomLeftString(widget.event.eventType),
-                      style: new TextStyle(
-                        color: new Color(0xFF768196),
+                      style: TextStyle(
+                        color: Color(0xFF768196),
                         fontSize: 14.0,
                       ),
                     ),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                    child: Text(
                       "·",
-                      style: new TextStyle(
-                        color: new Color(0xFF768196),
+                      style: TextStyle(
+                        color: Color(0xFF768196),
                         fontSize: 14.0,
                       ),
                     ),
                   ),
-                  new Text(
+                  Text(
                     _getBottomRightNumString(widget.event),
-                    style: new TextStyle(
-                      color: new Color(0xFF0D0E15),
+                    style: TextStyle(
+                      color: Color(0xFF0D0E15),
                       fontSize: 14.0,
                     ),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.fromLTRB(4.0, 0.0, 0.0, 0.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(4.0, 0.0, 0.0, 0.0),
+                    child: Text(
                       _getBottomRightString(widget.event.eventType),
-                      style: new TextStyle(
-                        color: new Color(0xFF768196),
+                      style: TextStyle(
+                        color: Color(0xFF768196),
                         fontSize: 14.0,
                       ),
                     ),

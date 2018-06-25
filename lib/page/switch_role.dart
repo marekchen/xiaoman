@@ -4,7 +4,7 @@ class SwitchRole extends StatefulWidget {
   SwitchRole({Key key}) : super(key: key);
 
   @override
-  _SwitchRoleState createState() => new _SwitchRoleState();
+  _SwitchRoleState createState() => _SwitchRoleState();
 }
 
 class _SwitchRoleState extends State<SwitchRole> {
@@ -18,64 +18,65 @@ class _SwitchRoleState extends State<SwitchRole> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
-              Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color(0xFF0D0E15),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "切换身份",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFF8F9FA),
-      body: new Column(
+      backgroundColor: Color(0xFFF8F9FA),
+      body: Column(
         children: <Widget>[
-          new Container(
+          Container(
             height: 100.0,
             color: Colors.white,
-            padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            child: new Row(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Padding(
-                      padding: new EdgeInsets.only(right: 16.0),
-                      child: new CircleAvatar(
+                    Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: CircleAvatar(
                         radius: 30.0,
-                        backgroundImage: new NetworkImage(
+                        backgroundImage: NetworkImage(
                           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                         ),
                       ),
                     ),
-                    new Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "噼里啪啦酱",
-                          style: new TextStyle(
-                            color: const Color(0xFF0D0E15),
+                          style: TextStyle(
+                            color: Color(0xFF0D0E15),
                             fontSize: 16.0,
                           ),
                         ),
-                        new Text(
+                        Text(
                           "我是一个快乐的人儿",
-                          style: new TextStyle(
-                            color: const Color(0xFFACACAC),
+                          style: TextStyle(
+                            color: Color(0xFFACACAC),
                             fontSize: 12.0,
                           ),
                         )
@@ -83,49 +84,48 @@ class _SwitchRoleState extends State<SwitchRole> {
                     ),
                   ],
                 ),
-                new Radio<int>(
+                Radio<int>(
                     value: 0,
                     groupValue: radioValue,
                     onChanged: handleRadioValueChanged),
               ],
             ),
           ),
-          new Divider(
-              height: 0.0, indent: 92.0, color: const Color(0xFFF3F4F6)),
-          new Container(
+          Divider(height: 0.0, indent: 92.0, color: Color(0xFFF3F4F6)),
+          Container(
             height: 100.0,
             color: Colors.white,
-            padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            child: new Row(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Padding(
-                      padding: new EdgeInsets.only(right: 16.0),
-                      child: new CircleAvatar(
+                    Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: CircleAvatar(
                         radius: 30.0,
-                        backgroundImage: new NetworkImage(
+                        backgroundImage: NetworkImage(
                           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                         ),
                       ),
                     ),
-                    new Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "噼里啪啦酱",
-                          style: new TextStyle(
-                            color: const Color(0xFF0D0E15),
+                          style: TextStyle(
+                            color: Color(0xFF0D0E15),
                             fontSize: 16.0,
                           ),
                         ),
-                        new Text(
+                        Text(
                           "我是一个快乐的人儿",
-                          style: new TextStyle(
-                            color: const Color(0xFFACACAC),
+                          style: TextStyle(
+                            color: Color(0xFFACACAC),
                             fontSize: 12.0,
                           ),
                         )
@@ -133,49 +133,48 @@ class _SwitchRoleState extends State<SwitchRole> {
                     ),
                   ],
                 ),
-                new Radio<int>(
+                Radio<int>(
                     value: 1,
                     groupValue: radioValue,
                     onChanged: handleRadioValueChanged),
               ],
             ),
           ),
-          new Divider(
-              height: 0.0, indent: 92.0, color: const Color(0xFFF3F4F6)),
-          new Container(
+          Divider(height: 0.0, indent: 92.0, color: Color(0xFFF3F4F6)),
+          Container(
             height: 100.0,
             color: Colors.white,
-            padding: new EdgeInsets.symmetric(horizontal: 16.0),
-            child: new Row(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Padding(
-                      padding: new EdgeInsets.only(right: 16.0),
-                      child: new CircleAvatar(
+                    Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: CircleAvatar(
                         radius: 30.0,
-                        backgroundImage: new NetworkImage(
+                        backgroundImage: NetworkImage(
                           "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                         ),
                       ),
                     ),
-                    new Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Text(
+                        Text(
                           "噼里啪啦酱",
-                          style: new TextStyle(
-                            color: const Color(0xFF0D0E15),
+                          style: TextStyle(
+                            color: Color(0xFF0D0E15),
                             fontSize: 16.0,
                           ),
                         ),
-                        new Text(
+                        Text(
                           "我是一个快乐的人儿",
-                          style: new TextStyle(
-                            color: const Color(0xFFACACAC),
+                          style: TextStyle(
+                            color: Color(0xFFACACAC),
                             fontSize: 12.0,
                           ),
                         )
@@ -183,10 +182,11 @@ class _SwitchRoleState extends State<SwitchRole> {
                     ),
                   ],
                 ),
-                new Radio<int>(
-                    value: 2,
-                    groupValue: radioValue,
-                    onChanged: handleRadioValueChanged),
+                Radio<int>(
+                  value: 2,
+                  groupValue: radioValue,
+                  onChanged: handleRadioValueChanged,
+                ),
               ],
             ),
           ),

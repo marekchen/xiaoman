@@ -4,35 +4,35 @@ class MyWallet extends StatefulWidget {
   MyWallet({Key key}) : super(key: key);
 
   @override
-  _MyWalletState createState() => new _MyWalletState();
+  _MyWalletState createState() => _MyWalletState();
 }
 
 class _MyWalletState extends State<MyWallet> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
+        leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
             onPressed: () {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "我的钱包",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFF8F9FA),
-      body: new Body(),
+      backgroundColor: Color(0xFFF8F9FA),
+      body: Body(),
     );
   }
 }
@@ -41,77 +41,73 @@ class Body extends StatefulWidget {
   Body({Key key}) : super(key: key);
 
   @override
-  _BodyState createState() => new _BodyState();
+  _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    return Column(
       children: <Widget>[
-        new Container(
+        Container(
           height: 180.0,
-          color: const Color(0xFF42BE56),
-          child: new Column(
+          color: Color(0xFF42BE56),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              new Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  new Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      new Text(
+                      Text(
                         "￥27",
-                        style:
-                            new TextStyle(color: Colors.white, fontSize: 28.0),
+                        style: TextStyle(color: Colors.white, fontSize: 28.0),
                       ),
-                      new Padding(
-                        padding: new EdgeInsets.only(top: 9.0),
-                        child: new Text(
+                      Padding(
+                        padding: EdgeInsets.only(top: 9.0),
+                        child: Text(
                           "余额",
-                          style: new TextStyle(
-                              color: Colors.white, fontSize: 12.0),
+                          style: TextStyle(color: Colors.white, fontSize: 12.0),
                         ),
                       ),
                     ],
                   ),
-                  new Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      new Text(
+                      Text(
                         "308",
-                        style:
-                            new TextStyle(color: Colors.white, fontSize: 28.0),
+                        style: TextStyle(color: Colors.white, fontSize: 28.0),
                       ),
-                      new Padding(
-                        padding: new EdgeInsets.only(top: 9.0),
-                        child: new Text(
+                      Padding(
+                        padding: EdgeInsets.only(top: 9.0),
+                        child: Text(
                           "小满币",
-                          style: new TextStyle(
-                              color: Colors.white, fontSize: 12.0),
+                          style: TextStyle(color: Colors.white, fontSize: 12.0),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              new RaisedButton(
+              RaisedButton(
                 color: Colors.white,
-                padding: new EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   vertical: 10.0,
                   horizontal: 120.0,
                 ),
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(4.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: new Text(
+                child: Text(
                   "充值",
-                  style: new TextStyle(
-                    color: const Color(0xFF42BE56),
+                  style: TextStyle(
+                    color: Color(0xFF42BE56),
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -121,16 +117,16 @@ class _BodyState extends State<Body> {
             ],
           ),
         ),
-        new Padding(
-          padding: new EdgeInsets.only(top: 12.0),
-          child: new Container(
+        Padding(
+          padding: EdgeInsets.only(top: 12.0),
+          child: Container(
             color: Colors.white,
             height: 54.0,
-            child: new Center(
-              child: new Text(
+            child: Center(
+              child: Text(
                 "交易记录",
-                style: new TextStyle(
-                  color: const Color(0xFF768196),
+                style: TextStyle(
+                  color: Color(0xFF768196),
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -138,276 +134,276 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-        new Container(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+        Container(
           height: 54.0,
           color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          child: new Row(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                  Text(
                     "描述描述描述描述描述描述描述描述",
-                    style: new TextStyle(
-                      color: const Color(0xFF768196),
+                    style: TextStyle(
+                      color: Color(0xFF768196),
                       fontSize: 12.0,
                     ),
                   ),
-                  new Text(
+                  Text(
                     "2018.05.11",
-                    style: new TextStyle(
-                      color: const Color(0xFFACACAC),
+                    style: TextStyle(
+                      color: Color(0xFFACACAC),
                       fontSize: 12.0,
                     ),
                   )
                 ],
               ),
-              new Text(
+              Text(
                 "+27.0元",
-                style: new TextStyle(
-                  color: const Color(0xFF42BE56),
+                style: TextStyle(
+                  color: Color(0xFF42BE56),
                   fontSize: 18.0,
                 ),
               ),
             ],
           ),
         ),
-        new Divider(height: 0.0, color: const Color(0xFFF3F4F6)),
-//        new ListView.builder(
+        Divider(height: 0.0, color: Color(0xFFF3F4F6)),
+//         ListView.builder(
 //          itemBuilder: (context, index) {
-//            return new Row(
+//            return  Row(
 //              children: <Widget>[
 //
 //              ],

@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
-import 'package:xiaoman/base/mcard.dart';
-import 'package:xiaoman/model/comment.dart';
-import 'package:xiaoman/model/task.dart';
-import 'package:xiaoman/widget/comment_card.dart';
 
-const double _kAppBarHeight = 220.0;
+import '../base/mcard.dart';
+import '../model/comment.dart';
+import '../model/task.dart';
+import '../widget/comment_card.dart';
+
+double _kAppBarHeight = 220.0;
 
 class TaskDetailPage extends StatelessWidget {
   TaskDetailPage(this.task);
@@ -16,9 +17,9 @@ class TaskDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: new Color(0xFFE9ECEF),
-      body: new NestedScrollView(
+    return Scaffold(
+      backgroundColor: Color(0xFFE9ECEF),
+      body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             _buildAppBar(context, innerBoxIsScrolled),
@@ -31,20 +32,20 @@ class TaskDetailPage extends StatelessWidget {
 
   Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return new SliverOverlapAbsorber(
+    return SliverOverlapAbsorber(
       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-      child: new SliverAppBar(
+      child: SliverAppBar(
         pinned: true,
         forceElevated: innerBoxIsScrolled,
-        backgroundColor: const Color(0xFFF8F9FA),
+        backgroundColor: Color(0xFFF8F9FA),
         expandedHeight: _kAppBarHeight,
-        flexibleSpace: new LayoutBuilder(
+        flexibleSpace: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             final Size size = constraints.biggest;
             final double appBarHeight = size.height - statusBarHeight;
             final double t = (appBarHeight - kToolbarHeight) /
                 (_kAppBarHeight - kToolbarHeight);
-            return new TopBar(
+            return TopBar(
               statusBarHeight: statusBarHeight,
               t: t,
             );
@@ -96,70 +97,70 @@ class TaskDetailPage extends StatelessWidget {
         '<a href="mailto:ponnamkarthik3@gmail.com">Mail to me</a> ';
 
     List<Comment> list = [
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
           likeNum: 556,
           replyNum: 322,
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
-      new Comment(
+      Comment(
           userName: '二逼欢乐多',
           userAvatar:
               'http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg',
@@ -168,136 +169,136 @@ class TaskDetailPage extends StatelessWidget {
           content: '城里的月光把梦照亮，请温暖他心房，看透了人间聚散。'),
     ];
 
-    return new SafeArea(
+    return SafeArea(
       top: false,
       bottom: false,
-      child: new Builder(builder: (BuildContext context) {
-        return new CustomScrollView(
+      child: Builder(builder: (BuildContext context) {
+        return CustomScrollView(
           slivers: <Widget>[
-            new SliverOverlapInjector(
+            SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
-            new SliverList(
-              delegate: new SliverChildListDelegate([
-                new Container(
-                  color: const Color(0xFFF8F9FA),
-                  child: new Column(
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Container(
+                  color: Color(0xFFF8F9FA),
+                  child: Column(
                     children: <Widget>[
-                      new Container(
-                        child: new Text(
+                      Container(
+                        child: Text(
                           '224人关注 / 9人要参加',
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontSize: 14.0,
-                            color: const Color(0xFF768196),
+                            color: Color(0xFF768196),
                           ),
                         ),
                         alignment: Alignment.centerLeft,
-                        padding: new EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 10.0),
                       ),
-                      new Padding(
-                        padding: new EdgeInsets.symmetric(horizontal: 16.0),
-                        child: new Row(
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new CupertinoButton(
-                              child: const Text('关注任务'),
-                              color: const Color(0xFF42BE56),
+                            CupertinoButton(
+                              child: Text('关注任务'),
+                              color: Color(0xFF42BE56),
                               pressedOpacity: 0.2,
-                              padding: new EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 55.0),
                               minSize: 30.0,
-                              borderRadius: const BorderRadius.all(
-                                  const Radius.circular(4.0)),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(4.0)),
                               onPressed: () {},
                             ),
-                            new CupertinoButton(
-                              child: const Text('接受任务'),
-                              color: const Color(0xFF42BE56),
+                            CupertinoButton(
+                              child: Text('接受任务'),
+                              color: Color(0xFF42BE56),
                               pressedOpacity: 0.2,
-                              padding: new EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 55.0),
                               minSize: 30.0,
-                              borderRadius: const BorderRadius.all(
-                                  const Radius.circular(4.0)),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(4.0)),
                               onPressed: () {},
                             ),
                           ],
                         ),
                       ),
-                      new Container(
+                      Container(
                         height: 20.0,
                       ),
-//                    new Row(
+//                     Row(
 //                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 //                      children: <Widget>[
-//                        new RaisedButton(
+//                         RaisedButton(
 //                          onPressed: () {},
-//                          color: const Color(0xFF42BE56),
-//                          padding: new EdgeInsets.symmetric(
+//                          color: Color(0xFF42BE56),
+//                          padding:  EdgeInsets.symmetric(
 //                              vertical: 10.0, horizontal: 50.0),
-//                          shape: new RoundedRectangleBorder(
-//                            borderRadius: new BorderRadius.circular(4.0),
+//                          shape:  RoundedRectangleBorder(
+//                            borderRadius:  BorderRadius.circular(4.0),
 //                          ),
-//                          child: new Text(
+//                          child:  Text(
 //                            '关注任务',
-//                            style: new TextStyle(
+//                            style:  TextStyle(
 //                                fontSize: 16.0, color: Colors.white),
 //                          ),
 //                        ),
-//                        new RaisedButton(
+//                         RaisedButton(
 //                          onPressed: () {},
 //                          highlightElevation: 0.0,
-//                          color: const Color(0xFF42BE56),
-//                          padding: new EdgeInsets.symmetric(
+//                          color: Color(0xFF42BE56),
+//                          padding:  EdgeInsets.symmetric(
 //                              vertical: 10.0, horizontal: 50.0),
 //                          textColor: Colors.white,
-//                          shape: new RoundedRectangleBorder(
-//                            borderRadius: new BorderRadius.circular(4.0),
+//                          shape:  RoundedRectangleBorder(
+//                            borderRadius:  BorderRadius.circular(4.0),
 //                          ),
-//                          child: new Text(
+//                          child:  Text(
 //                            '接收任务',
-//                            style: new TextStyle(
+//                            style:  TextStyle(
 //                                fontSize: 16.0, color: Colors.white),
 //                          ),
 //                        ),
 //                      ],
 //                    ),
-                      new ExpansionDetail(html: html, html2: html2),
+                      ExpansionDetail(html: html, html2: html2),
                     ],
                   ),
                 ),
-                new Container(
-                  child: new Column(
+                Container(
+                  child: Column(
                     children: <Widget>[
-                      new InkWell(
+                      InkWell(
                         onTap: () {},
-                        child: new Container(
+                        child: Container(
                           height: 54.0,
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Text(
+                              Text(
                                 '日程安排',
-                                style: new TextStyle(
-                                    color: const Color(0xFF0D0E15),
+                                style: TextStyle(
+                                    color: Color(0xFF0D0E15),
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ),
-                              new Row(
+                              Row(
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                     "2018.01.06 周六起",
-                                    style: new TextStyle(
-                                        color: const Color(0xFF768196),
+                                    style: TextStyle(
+                                        color: Color(0xFF768196),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  new Padding(
-                                    padding: new EdgeInsets.only(left: 5.0),
-                                    child: new Icon(
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: const Color(0xFF768196),
+                                      color: Color(0xFF768196),
                                     ),
                                   ),
                                 ],
@@ -306,36 +307,36 @@ class TaskDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Divider(
-                          height: 1.0, color: const Color(0xFFE9ECEF)),
-                      new InkWell(
+                      Divider(
+                          height: 1.0, color: Color(0xFFE9ECEF)),
+                      InkWell(
                         onTap: () {},
-                        child: new Container(
+                        child: Container(
                           height: 54.0,
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Text(
+                              Text(
                                 '团队属性',
-                                style: new TextStyle(
-                                    color: const Color(0xFF0D0E15),
+                                style: TextStyle(
+                                    color: Color(0xFF0D0E15),
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ),
-                              new Row(
+                              Row(
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                     "单人活动",
-                                    style: new TextStyle(
-                                        color: const Color(0xFF768196),
+                                    style: TextStyle(
+                                        color: Color(0xFF768196),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  new Padding(
-                                    padding: new EdgeInsets.only(left: 5.0),
-                                    child: new Icon(
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: const Color(0xFF768196),
+                                      color: Color(0xFF768196),
                                     ),
                                   ),
                                 ],
@@ -344,36 +345,36 @@ class TaskDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Divider(
-                          height: 1.0, color: const Color(0xFFE9ECEF)),
-                      new InkWell(
+                      Divider(
+                          height: 1.0, color: Color(0xFFE9ECEF)),
+                      InkWell(
                         onTap: () {},
-                        child: new Container(
+                        child: Container(
                           height: 54.0,
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Text(
+                              Text(
                                 '权限管理',
-                                style: new TextStyle(
-                                    color: const Color(0xFF0D0E15),
+                                style: TextStyle(
+                                    color: Color(0xFF0D0E15),
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ),
-                              new Row(
+                              Row(
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                     "公共活动",
-                                    style: new TextStyle(
-                                        color: const Color(0xFF768196),
+                                    style: TextStyle(
+                                        color: Color(0xFF768196),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  new Padding(
-                                    padding: new EdgeInsets.only(left: 5.0),
-                                    child: new Icon(
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: const Color(0xFF768196),
+                                      color: Color(0xFF768196),
                                     ),
                                   ),
                                 ],
@@ -382,36 +383,36 @@ class TaskDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Divider(
-                          height: 1.0, color: const Color(0xFFE9ECEF)),
-                      new InkWell(
+                      Divider(
+                          height: 1.0, color: Color(0xFFE9ECEF)),
+                      InkWell(
                         onTap: () {},
-                        child: new Container(
+                        child: Container(
                           height: 54.0,
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Text(
+                              Text(
                                 '直播管理',
-                                style: new TextStyle(
-                                    color: const Color(0xFF0D0E15),
+                                style: TextStyle(
+                                    color: Color(0xFF0D0E15),
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ),
-                              new Row(
+                              Row(
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                     "本活动开通直播",
-                                    style: new TextStyle(
-                                        color: const Color(0xFF768196),
+                                    style: TextStyle(
+                                        color: Color(0xFF768196),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  new Padding(
-                                    padding: new EdgeInsets.only(left: 5.0),
-                                    child: new Icon(
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: const Color(0xFF768196),
+                                      color: Color(0xFF768196),
                                     ),
                                   ),
                                 ],
@@ -420,61 +421,61 @@ class TaskDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Divider(
-                          height: 1.0, color: const Color(0xFFE9ECEF)),
+                      Divider(
+                          height: 1.0, color: Color(0xFFE9ECEF)),
                     ],
                   ),
-                  margin: new EdgeInsets.symmetric(vertical: 10.0),
-                  padding: new EdgeInsets.symmetric(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 20.0,
                   ),
-                  color: const Color(0xFFF8F9FA),
+                  color: Color(0xFFF8F9FA),
                 ),
-                new Container(
-                  padding: new EdgeInsets.symmetric(
+                Container(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 14.0,
                   ),
-                  color: const Color(0xFFF8F9FA),
-                  child: new Column(
+                  color: Color(0xFFF8F9FA),
+                  child: Column(
                     children: <Widget>[
-                      new Container(
-                        child: new Row(
+                      Container(
+                        child: Row(
                           children: <Widget>[
-                            new Row(
+                            Row(
                               children: <Widget>[
-                                new Container(
+                                Container(
                                   height: 16.0,
                                   width: 4.0,
-                                  color: const Color(0xFF42BE56),
+                                  color: Color(0xFF42BE56),
                                 ),
-                                new Padding(
-                                  padding: new EdgeInsets.only(left: 4.0),
-                                  child: new Text(
+                                Padding(
+                                  padding: EdgeInsets.only(left: 4.0),
+                                  child: Text(
                                     "热门评论",
-                                    style: new TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16.0,
-                                      color: const Color(0xFF0D0E15),
+                                      color: Color(0xFF0D0E15),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            new Row(
+                            Row(
                               children: <Widget>[
-                                new Text(
+                                Text(
                                   "更多热门评论",
-                                  style: new TextStyle(
-                                      color: const Color(0xFF768196),
+                                  style: TextStyle(
+                                      color: Color(0xFF768196),
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                new Padding(
-                                  padding: new EdgeInsets.only(left: 5.0),
-                                  child: new Icon(
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0),
+                                  child: Icon(
                                     Icons.arrow_forward_ios,
-                                    color: const Color(0xFF768196),
+                                    color: Color(0xFF768196),
                                   ),
                                 ),
                               ],
@@ -484,26 +485,26 @@ class TaskDetailPage extends StatelessWidget {
                         ),
                         height: 42.0,
                       ),
-                      const Divider(
-                          height: 1.0, color: const Color(0xFFE9ECEF)),
-//                      new ListView.builder(
+                      Divider(
+                          height: 1.0, color: Color(0xFFE9ECEF)),
+//                       ListView.builder(
 //                        itemBuilder: (context, index) {
-//                          return new CommentCard(comment: list[index]);
-//                          //return new Container(height: 20.0,);
+//                          return  CommentCard(comment: list[index]);
+//                          //return  Container(height: 20.0,);
 //                        },
 //                        itemCount: 10,
 //                        shrinkWrap: true,
 //                      )
-                      new CommentCard(comment: list[0]),
-                      new CommentCard(comment: list[1]),
-                      new CommentCard(comment: list[2]),
-                      new CommentCard(comment: list[3]),
-                      new CommentCard(comment: list[4]),
-                      new CommentCard(comment: list[5]),
-                      new CommentCard(comment: list[6]),
-                      new CommentCard(comment: list[7]),
-                      new CommentCard(comment: list[8]),
-                      new CommentCard(comment: list[9]),
+                      CommentCard(comment: list[0]),
+                      CommentCard(comment: list[1]),
+                      CommentCard(comment: list[2]),
+                      CommentCard(comment: list[3]),
+                      CommentCard(comment: list[4]),
+                      CommentCard(comment: list[5]),
+                      CommentCard(comment: list[6]),
+                      CommentCard(comment: list[7]),
+                      CommentCard(comment: list[8]),
+                      CommentCard(comment: list[9]),
                     ],
                   ),
                 )
@@ -524,51 +525,51 @@ class TopBar extends StatelessWidget {
 
   final double statusBarHeight;
   final double t;
-  final Curve _textOpacity = const Interval(0.1, 1.0, curve: Curves.easeInOut);
+  final Curve _textOpacity = Interval(0.1, 1.0, curve: Curves.easeInOut);
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    RectTween _backgroundRectTween = new RectTween(
-      end: new Rect.fromLTWH(
+    RectTween _backgroundRectTween = RectTween(
+      end: Rect.fromLTWH(
           0.0, 0.0, width, _kAppBarHeight + statusBarHeight - 65.0),
-      begin: new Rect.fromLTWH(0.0, 0.0, width, 20.0),
+      begin: Rect.fromLTWH(0.0, 0.0, width, 20.0),
     );
-    RectTween _taskHeaderRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 115.0, width, 135.0),
-      begin: new Rect.fromLTWH(0.0, 0.0, width, 135.0),
+    RectTween _taskHeaderRectTween = RectTween(
+      end: Rect.fromLTWH(0.0, 115.0, width, 135.0),
+      begin: Rect.fromLTWH(0.0, 0.0, width, 135.0),
     );
-    return new SizedBox(
+    return SizedBox(
       width: width,
-      child: new Stack(
+      child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _backgroundRectTween.lerp(t),
-            child: new Opacity(
+            child: Opacity(
               opacity: _textOpacity.transform(t),
-              child: new Image.network(
+              child: Image.network(
                 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg',
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _taskHeaderRectTween.lerp(t),
-            child: new Opacity(
+            child: Opacity(
               opacity: _textOpacity.transform(t),
-              child: new Container(
-                padding: new EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
-                child: new MCard(
+              child: Container(
+                padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
+                child: MCard(
                   color: Colors.white,
                   radius: 8.0,
-                  child: new Container(
-                    padding: new EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
-                    child: new Text(
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                    child: Text(
                       '「从化暗夜公园观星」 2天露营版，带给完全不一样的观星体验，亲近大自然。',
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 22.0,
-                        color: const Color(0xFF333333),
+                        color: Color(0xFF333333),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -594,7 +595,7 @@ class ExpansionDetail extends StatefulWidget {
   final html2;
 
   @override
-  _ExpansionDetailState createState() => new _ExpansionDetailState();
+  _ExpansionDetailState createState() => _ExpansionDetailState();
 }
 
 class _ExpansionDetailState extends State<ExpansionDetail> {
@@ -608,57 +609,57 @@ class _ExpansionDetailState extends State<ExpansionDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(
+    return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        new AnimatedCrossFade(
-          firstChild: new HtmlView(data: widget.html),
-          secondChild: new HtmlView(data: widget.html2),
-          firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
-          secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
+        AnimatedCrossFade(
+          firstChild: HtmlView(data: widget.html),
+          secondChild: HtmlView(data: widget.html2),
+          firstCurve: Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
+          secondCurve: Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
           sizeCurve: Curves.fastOutSlowIn,
           crossFadeState: _isExpanded
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: 200),
+          duration: Duration(milliseconds: 200),
         ),
-        new AnimatedCrossFade(
-          firstChild: new Center(
-            child: new Column(
+        AnimatedCrossFade(
+          firstChild: Center(
+            child: Column(
               children: <Widget>[
-                new Container(
+                Container(
                   // red box
                   height: 160.0,
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                      begin: const Alignment(0.0, -1.0),
-                      end: const Alignment(0.0, 0.6),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(0.0, -1.0),
+                      end: Alignment(0.0, 0.6),
                       colors: <Color>[
-                        const Color(0x00FCFDFD),
-                        const Color(0xFFF8F9FA),
+                        Color(0x00FCFDFD),
+                        Color(0xFFF8F9FA),
                       ],
                     ),
                   ),
-                  padding: new EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0),
                 ),
-                new Container(
+                Container(
                   height: 44.0,
-                  color: const Color(0xFFF8F9FA),
-                  child: new InkWell(
-                    child: new Row(
+                  color: Color(0xFFF8F9FA),
+                  child: InkWell(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        new Text(
+                        Text(
                           '展开查看活动详情',
-                          style: new TextStyle(
-                            color: const Color(0xFFADB5BD),
+                          style: TextStyle(
+                            color: Color(0xFFADB5BD),
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        new Icon(
+                        Icon(
                           Icons.keyboard_arrow_down,
-                          color: const Color(0xFFADB5BD),
+                          color: Color(0xFFADB5BD),
                         ),
                       ],
                     ),
@@ -668,14 +669,14 @@ class _ExpansionDetailState extends State<ExpansionDetail> {
               ],
             ),
           ),
-          secondChild: new Container(),
-          firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
-          secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
+          secondChild: Container(),
+          firstCurve: Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
+          secondCurve: Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
           sizeCurve: Curves.fastOutSlowIn,
           crossFadeState: _isExpanded
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: 200),
+          duration: Duration(milliseconds: 200),
         ),
       ],
     );

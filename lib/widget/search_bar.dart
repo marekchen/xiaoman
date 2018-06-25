@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:xiaoman/base/mcard.dart';
+
+import '../base/mcard.dart';
 
 class SearchBar extends StatefulWidget {
   final TextEditingController controller;
 
-  SearchBar({Key key,@required this.controller}) : super(key: key);
+  SearchBar({Key key, @required this.controller}) : super(key: key);
 
   @override
-  _SearchBarState createState() => new _SearchBarState();
+  _SearchBarState createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-
   @override
   Widget build(BuildContext context) {
-    return new MCard(
-      color: new Color(0xFFF3F4F6),
+    return MCard(
+      color: Color(0xFFF3F4F6),
       radius: 8.0,
-      child: new Container(
-        padding: new EdgeInsets.fromLTRB(13.0, 0.0, 0.0, 0.0),
-        child: new TextField(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(13.0, 0.0, 0.0, 0.0),
+        child: TextField(
           controller: widget.controller,
-          decoration: new InputDecoration(
+          decoration: InputDecoration(
             hintText: '搜索',
-            hintStyle: new TextStyle(
-              color: new Color(0xFF768196),
+            hintStyle: TextStyle(
+              color: Color(0xFF768196),
               fontSize: 14.0,
             ),
-            icon: new Icon(
+            icon: Icon(
               Icons.search,
-              color: new Color(0xFF9DA4B3),
+              color: Color(0xFF9DA4B3),
             ),
             border: InputBorder.none,
           ),

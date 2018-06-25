@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/widget/message_item.dart';
+
+import '../widget/message_item.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage({Key key}) : super(key: key);
 
   @override
-  _ChatPageState createState() => new _ChatPageState();
+  _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-
-  final TextEditingController _textController = new TextEditingController();
+  final TextEditingController _textController = TextEditingController();
 
   void _handleSubmitted(String text) {
     _textController.clear();
@@ -18,18 +18,18 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
-      body:new Column(
+    return Scaffold(
+      backgroundColor: Color(0xFFF8F9FA),
+      body: Column(
         children: <Widget>[
-          new Flexible(
+          Flexible(
             child: _buildList(),
           ),
-          new Divider(
+          Divider(
             height: 1.0,
           ),
-          new Container(
-            decoration: new BoxDecoration(
+          Container(
+            decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
             ),
             child: _textComposerWidget(),
@@ -41,12 +41,12 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildList() {
     List<int> messageList;
-    return new ListView.builder(
+    return ListView.builder(
       itemBuilder: (buildContext, index) {
-        if(index%2==0) {
-          return new MessageItem();
-        }else{
-          return new MessageItem2();
+        if (index % 2 == 0) {
+          return MessageItem();
+        } else {
+          return MessageItem2();
         }
       },
       itemCount: 20,
@@ -54,24 +54,24 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _textComposerWidget() {
-    return new IconTheme(
-      data: new IconThemeData(color: Colors.blue),
-      child: new Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: new Row(
+    return IconTheme(
+      data: IconThemeData(color: Colors.blue),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
           children: <Widget>[
-            new Flexible(
-              child: new TextField(
+            Flexible(
+              child: TextField(
                 decoration:
-                new InputDecoration.collapsed(hintText: "Send a message"),
+                    InputDecoration.collapsed(hintText: "Send a message"),
                 controller: _textController,
                 onSubmitted: _handleSubmitted,
               ),
             ),
-            new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                icon: new Icon(Icons.send),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              child: IconButton(
+                icon: Icon(Icons.send),
                 onPressed: () => _handleSubmitted(_textController.text),
               ),
             )

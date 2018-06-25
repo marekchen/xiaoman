@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MCard extends StatelessWidget {
-  const MCard({
+  MCard({
     Key key,
     this.color,
     this.child,
@@ -17,17 +17,17 @@ class MCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Semantics(
+    return Semantics(
       container: true,
-      child: new Material(
-        shadowColor: const Color(0x78CED4DA),
+      child: Material(
+        shadowColor: Color(0x78CED4DA),
         type: MaterialType.card,
         elevation: 4.0,
-        borderRadius: new BorderRadius.all(new Radius.circular(radius)),
-        child: new Container(
-            decoration: new BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        child: Container(
+            decoration: BoxDecoration(
               color: color,
-              borderRadius: new BorderRadius.all(new Radius.circular(radius)),
+              borderRadius: BorderRadius.all(Radius.circular(radius)),
             ),
             child: child),
       ),

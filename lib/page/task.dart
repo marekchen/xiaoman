@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/base/m_underline_tab_indicator.dart';
-import 'package:xiaoman/base/mcard.dart';
-import 'package:xiaoman/model/article.dart';
-import 'package:xiaoman/page/task_detail.dart';
-import 'package:xiaoman/widget/article_card.dart';
+
+import '../base/m_underline_tab_indicator.dart';
+import '../base/mcard.dart';
+import '../model/article.dart';
+import '../widget/article_card.dart';
+
+import './task_detail.dart';
 
 class TaskHome extends StatefulWidget {
   TaskHome({Key key}) : super(key: key);
 
   @override
-  _TaskHomeState createState() => new _TaskHomeState();
+  _TaskHomeState createState() => _TaskHomeState();
 }
 
-const double _kAppBarHeight = 200.0;
+double _kAppBarHeight = 200.0;
 
 class _TaskHomeState extends State<TaskHome>
     with SingleTickerProviderStateMixin<TaskHome> {
@@ -22,7 +24,7 @@ class _TaskHomeState extends State<TaskHome>
   void initState() {
     super.initState();
     if (tabController == null) {
-      tabController = new TabController(vsync: this, length: 3);
+      tabController = TabController(vsync: this, length: 3);
     }
   }
 
@@ -34,16 +36,16 @@ class _TaskHomeState extends State<TaskHome>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      floatingActionButton: new FloatingActionButton(
-        child: new Icon(Icons.border_color),
-        backgroundColor: const Color(0xFF42BE56),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.border_color),
+        backgroundColor: Color(0xFF42BE56),
         onPressed: () {},
       ),
-      backgroundColor: new Color(0xFFF8F9FA),
-      body: new DefaultTabController(
+      backgroundColor: Color(0xFFF8F9FA),
+      body: DefaultTabController(
         length: 3,
-        child: new NestedScrollView(
+        child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               _buildAppBar(context, innerBoxIsScrolled, tabController),
@@ -59,45 +61,45 @@ class _TaskHomeState extends State<TaskHome>
 Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
     TabController tabController) {
   final double statusBarHeight = MediaQuery.of(context).padding.top;
-  return new SliverOverlapAbsorber(
+  return SliverOverlapAbsorber(
     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-    child: new SliverAppBar(
+    child: SliverAppBar(
       pinned: true,
       forceElevated: innerBoxIsScrolled,
       backgroundColor: Colors.white,
       expandedHeight: _kAppBarHeight,
-      flexibleSpace: new LayoutBuilder(
+      flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           final Size size = constraints.biggest;
           final double appBarHeight = size.height - statusBarHeight;
           final double t = (appBarHeight - kToolbarHeight) /
               (_kAppBarHeight - kToolbarHeight);
-          return new TopBar(
+          return TopBar(
             statusBarHeight: statusBarHeight,
             controller: tabController,
             t: t.clamp(0.0, 1.0),
           );
         },
       ),
-      bottom: new TabBar(
-        indicator: new MUnderlineTabIndicator(
-          insets: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-          borderSide: new BorderSide(
+      bottom: TabBar(
+        indicator: MUnderlineTabIndicator(
+          insets: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+          borderSide: BorderSide(
             width: 3.0,
-            color: const Color(0xFF42BE56),
+            color: Color(0xFF42BE56),
           ),
         ),
-        indicatorPadding: new EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+        indicatorPadding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
         controller: tabController,
         tabs: [
-          new Tab(
-            child: new Row(
+          Tab(
+            child: Row(
               children: <Widget>[
-                new Text(
+                Text(
                   "手账",
-                  style: new TextStyle(
+                  style: TextStyle(
                     fontSize: 16.0,
-                    color: const Color(0xFF0D0E15),
+                    color: Color(0xFF0D0E15),
                   ),
                 ),
               ],
@@ -105,14 +107,14 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
               crossAxisAlignment: CrossAxisAlignment.center,
             ),
           ),
-          new Tab(
-            child: new Row(
+          Tab(
+            child: Row(
               children: <Widget>[
-                new Text(
+                Text(
                   "直播",
-                  style: new TextStyle(
+                  style: TextStyle(
                     fontSize: 16.0,
-                    color: const Color(0xFF0D0E15),
+                    color: Color(0xFF0D0E15),
                   ),
                 ),
               ],
@@ -120,14 +122,14 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
               crossAxisAlignment: CrossAxisAlignment.center,
             ),
           ),
-          new Tab(
-            child: new Row(
+          Tab(
+            child: Row(
               children: <Widget>[
-                new Text(
+                Text(
                   "群聊",
-                  style: new TextStyle(
+                  style: TextStyle(
                     fontSize: 16.0,
-                    color: const Color(0xFF0D0E15),
+                    color: Color(0xFF0D0E15),
                   ),
                 ),
               ],
@@ -142,7 +144,7 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
 }
 
 class TopBar extends StatefulWidget {
-  const TopBar({
+  TopBar({
     this.controller,
     this.statusBarHeight,
     this.t,
@@ -153,48 +155,48 @@ class TopBar extends StatefulWidget {
   final double t;
 
   @override
-  _TopBarState createState() => new _TopBarState();
+  _TopBarState createState() => _TopBarState();
 }
 
 class _TopBarState extends State<TopBar> {
-  final Curve _textOpacity = const Interval(0.4, 1.0, curve: Curves.easeInOut);
+  final Curve _textOpacity = Interval(0.4, 1.0, curve: Curves.easeInOut);
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    RectTween _backgroundRectTween = new RectTween(
-      end: new Rect.fromLTWH(
+    RectTween _backgroundRectTween = RectTween(
+      end: Rect.fromLTWH(
           0.0, 0.0, width, _kAppBarHeight + widget.statusBarHeight - 45.0),
-      begin: new Rect.fromLTWH(
+      begin: Rect.fromLTWH(
           0.0, 0.0, width, _kAppBarHeight + widget.statusBarHeight - 45.0),
     );
-    RectTween _taskHeaderRectTween = new RectTween(
-      end: new Rect.fromLTWH(0.0, 75.0, width, 105.0),
-      begin: new Rect.fromLTWH(0.0, 0.0, width, 105.0),
+    RectTween _taskHeaderRectTween = RectTween(
+      end: Rect.fromLTWH(0.0, 75.0, width, 105.0),
+      begin: Rect.fromLTWH(0.0, 0.0, width, 105.0),
     );
-    return new SizedBox(
+    return SizedBox(
       width: width,
-      child: new Stack(
+      child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _backgroundRectTween.lerp(widget.t),
-            child: new Opacity(
+            child: Opacity(
               opacity: _textOpacity.transform(widget.t),
-              child: new Image.network(
+              child: Image.network(
                 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3169300040,1868474930&fm=27&gp=0.jpg',
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          new Positioned.fromRect(
+          Positioned.fromRect(
             rect: _taskHeaderRectTween.lerp(widget.t),
-            child: new Opacity(
+            child: Opacity(
               opacity: _textOpacity.transform(widget.t),
-              child: new Container(
+              child: Container(
                 height: 45.0,
-                padding: new EdgeInsets.only(left: 16.0, right: 16.0),
-                child: new TaskHeader(),
+                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                child: TaskHeader(),
               ),
             ),
           ),
@@ -208,90 +210,90 @@ class TaskHeader extends StatefulWidget {
   TaskHeader({Key key}) : super(key: key);
 
   @override
-  _TaskHeaderState createState() => new _TaskHeaderState();
+  _TaskHeaderState createState() => _TaskHeaderState();
 }
 
 class _TaskHeaderState extends State<TaskHeader> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       height: 105.0,
-      padding: new EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
-      child: new MCard(
-        color: new Color(0xFFFFFFFF),
+      padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 10.0),
+      child: MCard(
+        color: Color(0xFFFFFFFF),
         radius: 8.0,
-        child: new Container(
-          padding: new EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
-          child: new Column(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Container(
+                  Container(
                     height: 14.0,
                     width: 2.0,
-                    color: const Color(0xFF42BE56),
+                    color: Color(0xFF42BE56),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.only(left: 4.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.only(left: 4.0),
+                    child: Text(
                       "来自任务",
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 14.0,
-                        color: const Color(0xFF768196),
+                        color: Color(0xFF768196),
                       ),
                     ),
                   ),
                 ],
               ),
-              new Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-                child: new Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    new Text(
+                    Text(
                       "从化暗夜公园观星",
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
-                        color: const Color(0xFF0D0E15),
+                        color: Color(0xFF0D0E15),
                       ),
                     ),
-                    new InkWell(
-                      child: new Row(
+                    InkWell(
+                      child: Row(
                         children: <Widget>[
-                          new Text(
+                          Text(
                             "查看任务",
-                            style: new TextStyle(
+                            style: TextStyle(
                               fontSize: 14.0,
-                              color: const Color(0xFF9DA4B3),
+                              color: Color(0xFF9DA4B3),
                             ),
                           ),
-                          new Padding(
-                            padding: new EdgeInsets.only(left: 2.0),
-                            child: new Icon(
+                          Padding(
+                            padding: EdgeInsets.only(left: 2.0),
+                            child: Icon(
                               Icons.keyboard_arrow_right,
                               size: 14.0,
-                              color: const Color(0xFF9DA4B3),
+                              color: Color(0xFF9DA4B3),
                             ),
                           ),
                         ],
                       ),
                       onTap: () => Navigator.push(
                             context,
-                            new MaterialPageRoute(
-                                builder: (context) => new TaskDetailPage(null)),
+                            MaterialPageRoute(
+                                builder: (context) => TaskDetailPage(null)),
                           ),
                     ),
                   ],
                 ),
               ),
-              new Text(
+              Text(
                 "18人参加此次任务",
-                style: new TextStyle(
+                style: TextStyle(
                   fontSize: 14.0,
-                  color: const Color(0xFF9DA4B3),
+                  color: Color(0xFF9DA4B3),
                 ),
               ),
             ],
@@ -303,7 +305,7 @@ class _TaskHeaderState extends State<TaskHeader> {
 }
 
 Widget _buildBody(BuildContext context, TabController tabController) {
-  return new TabBarView(
+  return TabBarView(
     children: [
       _buildTab(context, "article"),
       _buildTab(context, "streaming"),
@@ -314,21 +316,21 @@ Widget _buildBody(BuildContext context, TabController tabController) {
 }
 
 Widget _buildTab(BuildContext context, String type) {
-  return new SafeArea(
+  return SafeArea(
     top: false,
     bottom: false,
-    child: new Builder(
+    child: Builder(
       builder: (BuildContext context) {
-        return new CustomScrollView(
-          key: new PageStorageKey<String>(type),
+        return CustomScrollView(
+          key: PageStorageKey<String>(type),
           slivers: <Widget>[
-            new SliverOverlapInjector(
+            SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
-            new SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0),
-              sliver: new SliverList(
-                delegate: new SliverChildBuilderDelegate(
+            SliverPadding(
+              padding: EdgeInsets.only(top: 8.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return ArticleCard(article: article);
                   },
@@ -343,7 +345,7 @@ Widget _buildTab(BuildContext context, String type) {
   );
 }
 
-Article article = new Article(
+Article article = Article(
   userAvatar:
       "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
   userName: "二逼欢乐多",

@@ -3,80 +3,78 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:xiaoman/base/m_divider.dart';
+import '../../base/m_divider.dart';
 
 class ChangePhoneNumDialog extends StatefulWidget {
   @override
-  ChangePhoneNumDialogState createState() => new ChangePhoneNumDialogState();
+  ChangePhoneNumDialogState createState() => ChangePhoneNumDialogState();
 }
 
 class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
-
   String phoneNum;
   String pinCode;
 
   @override
   Widget build(BuildContext context) {
-
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: new IconButton(
-            icon: new Icon(
+        leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              color: const Color(0xFF0D0E15),
+              color: Color(0xFF0D0E15),
             ),
             onPressed: () {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: new Text(
+        title: Text(
           "修改手机号",
-          style: new TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
-            color: const Color(0xFF0D0E15),
+            color: Color(0xFF0D0E15),
           ),
         ),
       ),
       backgroundColor: Colors.white,
-      body: new Form(
-        child: new Column(
+      body: Form(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Container(
-              padding: new EdgeInsets.symmetric(horizontal: 16.0),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               height: 45.0,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  new Padding(
-                    padding: new EdgeInsets.only(right: 16.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Text(
                       "手机号",
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
                       ),
                     ),
                   ),
-                  new Expanded(
-                    child: new TextField(
+                  Expanded(
+                    child: TextField(
                       autofocus: true,
                       textAlign: TextAlign.start,
                       inputFormatters: <TextInputFormatter>[
-                        new LengthLimitingTextInputFormatter(11),
+                        LengthLimitingTextInputFormatter(11),
                       ],
-                      decoration: new InputDecoration(
+                      decoration: InputDecoration(
                         hintText: '请输入手机号',
-                        hintStyle: new TextStyle(
-                          color: new Color(0xFF768196),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF768196),
                           fontSize: 16.0,
                         ),
                         border: InputBorder.none,
                       ),
-                      style: new TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16.0,
                       ),
@@ -87,20 +85,20 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                       },
                     ),
                   ),
-                  new CupertinoButton(
-                    child: new Text(
+                  CupertinoButton(
+                    child: Text(
                       '获取验证码',
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
                       ),
                     ),
-                    color: const Color(0xFF42BE56),
+                    color: Color(0xFF42BE56),
                     pressedOpacity: 0.2,
-                    padding: new EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 10.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                     minSize: 30.0,
                     borderRadius:
-                        const BorderRadius.all(const Radius.circular(4.0)),
+                        BorderRadius.all(Radius.circular(4.0)),
                     onPressed: () {
                       requestPinCode();
                     },
@@ -108,39 +106,39 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                 ],
               ),
             ),
-            new MDivider(indent: 16.0, color: const Color(0xFFF3F4F6)),
-            new Container(
-              padding: new EdgeInsets.symmetric(horizontal: 16.0),
+            MDivider(indent: 16.0, color: Color(0xFFF3F4F6)),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               height: 45.0,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  new Padding(
-                    padding: new EdgeInsets.only(right: 16.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Text(
                       "验证码",
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
                       ),
                     ),
                   ),
-                  new Expanded(
-                    child: new TextField(
+                  Expanded(
+                    child: TextField(
                       autofocus: true,
                       textAlign: TextAlign.start,
                       inputFormatters: <TextInputFormatter>[
-                        new LengthLimitingTextInputFormatter(6),
+                        LengthLimitingTextInputFormatter(6),
                       ],
-                      decoration: new InputDecoration(
+                      decoration: InputDecoration(
                         hintText: '请输入验证码',
-                        hintStyle: new TextStyle(
-                          color: new Color(0xFF768196),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF768196),
                           fontSize: 16.0,
                         ),
                         border: InputBorder.none,
                       ),
-                      style: new TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16.0,
                       ),
@@ -154,20 +152,20 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                 ],
               ),
             ),
-            new MDivider(indent: 16.0, color: const Color(0xFFF3F4F6)),
-            new Container(
-              child: new Row(
+            MDivider(indent: 16.0, color: Color(0xFFF3F4F6)),
+            Container(
+              child: Row(
                 children: <Widget>[
-                  new Expanded(
-                    child: new CupertinoButton(
-                      child: const Text('确认绑定'),
-                      color: const Color(0xFF42BE56),
+                  Expanded(
+                    child: CupertinoButton(
+                      child: Text('确认绑定'),
+                      color: Color(0xFF42BE56),
                       pressedOpacity: 0.2,
-                      padding: new EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 80.0),
                       minSize: 30.0,
                       borderRadius:
-                          const BorderRadius.all(const Radius.circular(4.0)),
+                          BorderRadius.all(Radius.circular(4.0)),
                       onPressed: () {
                         bindPhoneNum();
                       },
@@ -175,7 +173,7 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                   ),
                 ],
               ),
-              padding: new EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
             ),
           ],
         ),
@@ -184,12 +182,12 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
   }
 
   void requestPinCode() {
-    String phoneNum =  this.phoneNum;
+    String phoneNum = this.phoneNum;
     String userId;
   }
 
-  void bindPhoneNum(){
-    String phoneNum =  this.phoneNum;
+  void bindPhoneNum() {
+    String phoneNum = this.phoneNum;
     String pinCode = this.pinCode;
     String userId;
   }

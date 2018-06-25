@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({
+  ChatCard({
     Key key,
     this.color,
     @required this.child,
@@ -17,10 +17,10 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      decoration: new BoxDecoration(borderRadius: borderRadius, color: color),
+    return Container(
+      decoration: BoxDecoration(borderRadius: borderRadius, color: color),
       child: child,
-      padding: new EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(10.0),
     );
   }
 }

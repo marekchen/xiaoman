@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoman/base/mcard.dart';
-import 'package:xiaoman/model/comment.dart';
+
+import '../base/mcard.dart';
+import '../model/comment.dart';
 
 class CommentCard extends StatelessWidget {
   final Comment comment;
@@ -9,70 +10,70 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-      child: new Row(
+    return Container(
+      padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: Row(
         children: <Widget>[
-          new Container(
+          Container(
             height: 32.0,
             width: 32.0,
-            child: new ClipRRect(
-              borderRadius: new BorderRadius.circular(4.0),
-              child: new Image.network(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.network(
                 comment.userAvatar,
                 fit: BoxFit.cover,
                 //alignment: Alignment.topLeft,
               ),
             ),
           ),
-          new Expanded(
-            child: new Container(
-              padding: new EdgeInsets.only(left: 11.0),
-              child: new Column(
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 11.0),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Padding(
-                    padding: const EdgeInsets.only(bottom: 7.0),
-                    child: new Text(
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 7.0),
+                    child: Text(
                       comment.userName,
-                      style: new TextStyle(
-                        color: const Color(0xFF9DA4B3),
+                      style: TextStyle(
+                        color: Color(0xFF9DA4B3),
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  new MCard(
+                  MCard(
                     color: Colors.white,
                     radius: 6.0,
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      margin: const EdgeInsets.only(top: 7.0, bottom: 10.0),
-                      child: new Column(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      margin: EdgeInsets.only(top: 7.0, bottom: 10.0),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          new Text(
+                          Text(
                             comment.content,
-                            style: new TextStyle(
-                              color: const Color(0xFF0D0E15),
+                            style: TextStyle(
+                              color: Color(0xFF0D0E15),
                               fontSize: 16.0,
                             ),
                           ),
-                          const Divider(
-                              height: 20.0, color: const Color(0xFFE9ECEF)),
-                          new Row(
+                          Divider(
+                              height: 20.0, color: Color(0xFFE9ECEF)),
+                          Row(
                             children: <Widget>[
-                              new Icon(
+                              Icon(
                                 Icons.star_border,
-                                color: const Color(0xFF768196),
+                                color: Color(0xFF768196),
                               ),
-                              new Text(
+                              Text(
                                 comment.likeNum.toString() + "个赞",
-                                style: new TextStyle(
+                                style: TextStyle(
                                     fontSize: 16.0,
-                                    color: const Color(0xFF768196),
+                                    color: Color(0xFF768196),
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -81,20 +82,20 @@ class CommentCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  new Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: new Row(
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Row(
                       children: <Widget>[
-                        new Text(
+                        Text(
                           comment.replyNum.toString() + "条回复 >",
-                          style: new TextStyle(
-                              fontSize: 12.0, color: const Color(0xFF0085FF)),
+                          style: TextStyle(
+                              fontSize: 12.0, color: Color(0xFF0085FF)),
                         ),
-                        new Text(
+                        Text(
                           '60分钟前',
-                          style: new TextStyle(
+                          style: TextStyle(
                               fontSize: 12.0,
-                              color: const Color(0xFF9DA4B3),
+                              color: Color(0xFF9DA4B3),
                               fontWeight: FontWeight.bold),
                         ),
                       ],
