@@ -9,14 +9,14 @@ import './switch_role.dart';
 import './my_follow.dart';
 import './my_wallet.dart';
 
-class Mine extends StatefulWidget {
-  Mine({Key key}) : super(key: key);
+class MinePage extends StatefulWidget {
+  MinePage({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _MinePageState createState() => _MinePageState();
 }
 
-class _HomeState extends State<Mine> {
+class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

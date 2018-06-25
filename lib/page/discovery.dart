@@ -5,19 +5,19 @@ import '../model/event.dart';
 import '../widget/search_bar.dart';
 import '../widget/event_card.dart';
 
-class Discovery extends StatefulWidget {
-  Discovery({Key key}) : super(key: key);
+class DiscoveryPage extends StatefulWidget {
+  DiscoveryPage({Key key}) : super(key: key);
 
   @override
-  _DiscoveryState createState() => _DiscoveryState();
+  _DiscoveryPageState createState() => _DiscoveryPageState();
 }
 
 double _kAppBarHeight = 177.0;
 
-class _DiscoveryState extends State<Discovery>
+class _DiscoveryPageState extends State<DiscoveryPage>
     with
-        AutomaticKeepAliveClientMixin<Discovery>,
-        SingleTickerProviderStateMixin<Discovery> {
+        AutomaticKeepAliveClientMixin<DiscoveryPage>,
+        SingleTickerProviderStateMixin<DiscoveryPage> {
   TabController tabController;
 
   @override

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Release extends StatefulWidget {
-  Release({Key key}) : super(key: key);
+class ReleasePage extends StatefulWidget {
+  ReleasePage({Key key}) : super(key: key);
 
   @override
-  _ReleaseState createState() => _ReleaseState();
+  _ReleasePageState createState() => _ReleasePageState();
 }
 
-class _ReleaseState extends State<Release> {
+class _ReleasePageState extends State<ReleasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

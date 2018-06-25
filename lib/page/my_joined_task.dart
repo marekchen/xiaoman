@@ -15,13 +15,14 @@ class _MyJoinedTaskState extends State<MyJoinedTask> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Color(0xFF0D0E15),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color(0xFF0D0E15),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
         title: Text(
           "我参与的任务",

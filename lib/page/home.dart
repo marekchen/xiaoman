@@ -4,16 +4,16 @@ import '../model/event.dart';
 import '../widget/event_card.dart';
 import '../widget/search_bar.dart';
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
 double _kAppBarHeight = 140.0;
 
-class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;

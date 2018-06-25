@@ -73,12 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     _body = IndexedStack(
       children: <Widget>[
-        Home(),
-        Discovery(),
-        Release(),
+        HomePage(),
+        DiscoveryPage(),
+        ReleasePage(),
         MessagePage(),
         // Test(),
-        Mine(),
+        MinePage(),
       ],
       index: _tabIndex,
     );
