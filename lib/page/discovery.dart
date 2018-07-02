@@ -15,9 +15,7 @@ class DiscoveryPage extends StatefulWidget {
 double _kAppBarHeight = 177.0;
 
 class _DiscoveryPageState extends State<DiscoveryPage>
-    with
-        AutomaticKeepAliveClientMixin<DiscoveryPage>,
-        SingleTickerProviderStateMixin<DiscoveryPage> {
+    with SingleTickerProviderStateMixin<DiscoveryPage> {
   TabController tabController;
 
   @override
@@ -30,36 +28,31 @@ class _DiscoveryPageState extends State<DiscoveryPage>
 
   @override
   void dispose() {
-    tabController.dispose();
     super.dispose();
   }
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      backgroundColor: Color(0xFFF8F9FA),
-      body: DefaultTabController(
-        length: 3,
-        child: NestedScrollView(
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        backgroundColor: Color(0xFFF8F9FA),
+        body: NestedScrollView(
           key: PageStorageKey<String>("discovery"),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              _buildAppBar(context, innerBoxIsScrolled, tabController),
+              _buildAppBar(context, innerBoxIsScrolled),
             ];
           },
-          body: _buildBody(context, tabController),
+          body: _buildBody(context),
         ),
       ),
     );
   }
 }
 
-Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
-    TabController tabController) {
+Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
   final double statusBarHeight = MediaQuery.of(context).padding.top;
   return SliverOverlapAbsorber(
     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -82,8 +75,6 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
               top: statusBarHeight + 0.5 * extraPadding,
             ),
             child: TopBar(
-              controller: tabController,
-              height: logoHeight,
               t: t.clamp(0.0, 1.0),
             ),
           );
@@ -93,9 +84,8 @@ Widget _buildAppBar(BuildContext context, bool innerBoxIsScrolled,
   );
 }
 
-Widget _buildBody(BuildContext context, TabController tabController) {
+Widget _buildBody(BuildContext context) {
   return TabBarView(
-    controller: tabController,
     children: [
       _buildTab(context, 1),
       _buildTab(context, 2),
@@ -165,18 +155,11 @@ Widget _buildTab(BuildContext context, int type) {
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             ),
             SliverPadding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              sliver: new SliverList(
+                delegate: new SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    switch (index % 3) {
-                      case 0:
-                        return EventCard(event: event);
-                      case 1:
-                        return EventCard(event: event2);
-                      case 2:
-                        return EventCard(event: event3);
-                    }
+                    return EventCard(event: event);
                   },
                   childCount: 30,
                 ),
@@ -191,13 +174,9 @@ Widget _buildTab(BuildContext context, int type) {
 
 class TopBar extends StatefulWidget {
   TopBar({
-    this.controller,
-    this.height,
     this.t,
   });
 
-  final TabController controller;
-  final double height;
   final double t;
 
   @override
@@ -266,7 +245,6 @@ class _TopBarState extends State<TopBar> {
                   ),
                 ),
                 indicatorPadding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                controller: widget.controller,
                 tabs: [
                   Tab(
                     child: Row(

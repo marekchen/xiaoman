@@ -8,6 +8,7 @@ import './page/home.dart';
 import './page/message.dart';
 import './page/mine.dart';
 import './page/release.dart';
+import './page/login.dart';
 
 void main() => runApp(MyHomePage());
 
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         HomePage(),
         DiscoveryPage(),
-        ReleasePage(),
+        LoginPage(),
         MessagePage(),
         // Test(),
         MinePage(),

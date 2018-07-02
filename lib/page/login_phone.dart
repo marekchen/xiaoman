@@ -1,16 +1,15 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../base/m_divider.dart';
 
-class ChangePhoneNumDialog extends StatefulWidget {
+import '../base/m_divider.dart';
+
+class LoginPhonePage extends StatefulWidget {
   @override
-  ChangePhoneNumDialogState createState() => ChangePhoneNumDialogState();
+  LoginPhonePageState createState() => LoginPhonePageState();
 }
 
-class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
+class LoginPhonePageState extends State<LoginPhonePage> {
   String phoneNum;
   String pinCode;
 
@@ -30,7 +29,7 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
             }),
         centerTitle: true,
         title: Text(
-          "修改手机号",
+          "手机号登录/注册",
           style: TextStyle(
             fontSize: 18.0,
             color: Color(0xFF0D0E15),
@@ -98,8 +97,7 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                     padding:
                         EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                     minSize: 30.0,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(15.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     onPressed: () {
                       requestPinCode();
                     },
@@ -131,6 +129,7 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                       inputFormatters: <TextInputFormatter>[
                         LengthLimitingTextInputFormatter(6),
                       ],
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintText: '请输入验证码',
                         hintStyle: TextStyle(
@@ -159,14 +158,13 @@ class ChangePhoneNumDialogState extends State<ChangePhoneNumDialog> {
                 children: <Widget>[
                   Expanded(
                     child: CupertinoButton(
-                      child: Text('确认修改手机号'),
+                      child: Text('登录/注册'),
                       color: Color(0xFF42BE56),
                       pressedOpacity: 0.2,
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 80.0),
                       minSize: 30.0,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(22.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(22.0)),
                       onPressed: () {
                         bindPhoneNum();
                       },
