@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:redux/redux.dart';
+import 'package:xiaoman/app.dart';
 import 'package:xiaoman/redux/common/common_actions.dart';
 import '../app/app_state.dart';
 
@@ -18,6 +19,7 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
 
   Future<Null> _showToast(Store<AppState> store, ShowToastAction action,
       NextDispatcher next) async {
+    print("toast:" + action.msg);
     Fluttertoast.showToast(msg: action.msg);
   }
 }

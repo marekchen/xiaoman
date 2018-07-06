@@ -235,21 +235,22 @@ class LoginPhonePageState extends State<LoginPhonePageContent> {
     if (phoneNum.length == 11 &&
         phoneNum.startsWith('1') &&
         verifyCode.length == 6) {
-      var response =
-      await api.loginWithVerifyCode(this.phoneNum, this.verifyCode);
-      if (response.statusCode != 200) {
-        Fluttertoast.showToast(msg: "网络异常或服务器错误");
-      } else {
-        Map<String, dynamic> responseJson = json.decode(response.body);
-        var code = responseJson['code'];
-        if (code == 0) {
-          // 登录成功
-          Fluttertoast.showToast(msg: "登录成功");
-        } else {
-          // 登录失败
-          Fluttertoast.showToast(msg: "登录失败");
-        }
-      }
+      viewModel.loginWithVerifyCode(this.phoneNum, this.verifyCode);
+//      var response =
+//      await api.loginWithVerifyCode(this.phoneNum, this.verifyCode);
+//      if (response.statusCode != 200) {
+//        Fluttertoast.showToast(msg: "网络异常或服务器错误");
+//      } else {
+//        Map<String, dynamic> responseJson = json.decode(response.body);
+//        var code = responseJson['code'];
+//        if (code == 0) {
+//          // 登录成功
+//          Fluttertoast.showToast(msg: "登录成功");
+//        } else {
+//          // 登录失败
+//          Fluttertoast.showToast(msg: "登录失败");
+//        }
+//      }
     } else {
       Fluttertoast.showToast(msg: "验证码不正确");
     }
