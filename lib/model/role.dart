@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-class User {
-  User({
+class Role {
+  Role({
     @required this.nickname,
     @required this.avatar,
     @required this.focusCount,

@@ -2,19 +2,21 @@ import 'package:meta/meta.dart';
 
 class User {
   User({
+    @required this.userId,
     @required this.nickname,
     @required this.avatar,
-    @required this.focusCount,
     @required this.rongToken,
-    @required this.gender,
-    @required this.signature,
-    @required this.collectCount,
+    this.focusCount,
+    this.gender,
+    this.signature,
+    this.collectCount,
   });
 
+  final String userId;
   final String nickname;
   final String avatar;
-  final int focusCount;
   final String rongToken;
+  final int focusCount;
   final int gender;
   final String signature;
   final int collectCount;

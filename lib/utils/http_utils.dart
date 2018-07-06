@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
-final _httpClient = HttpClient();
+final client = http.Client();
 
-Future<String> getRequest(Uri uri) async {
-  var request = await _httpClient.getUrl(uri);
-  var response = await request.close();
-
-  return response.transform(utf8.decoder).join();
+Future<Response> postRequest(String uri, dynamic body) {
+  print("uri:" + uri);
+  return client.post(uri, body: body);
 }

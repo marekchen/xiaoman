@@ -1,38 +1,51 @@
+import 'package:flutter/widgets.dart';
+
 import '../../model/user.dart';
 
-class GetVerifyCodeAction {
-  GetVerifyCodeAction(this.mobile);
+class InitUserAction {}
 
-  final String mobile;
+class ChangeUserAction {
+  ChangeUserAction(this.context, this.token, this.currentUser);
+
+  final BuildContext context;
+  final String token;
+  final User currentUser;
 }
 
-class LoginWithVerifyCodeAction {}
+class UpdateUserAction {
+  UpdateUserAction(this.currentUser);
 
-class LoginWithThirdAction {}
+  final User currentUser;
+}
 
-//class ShowDatesUpdatedAction
-//  final List<DateTime> dates;
-//}
-//
-//class FetchShowsAction {
-//  FetchShowsAction(this.theater);
-//  final Theater theater;
-//}
-//
-//class RequestingShowsAction {}
-//
-//class RefreshShowsAction {}
-//
-//class ReceivedShowsAction {
-//  ReceivedShowsAction(this.theater, this.shows);
-//
-//  final Theater theater;
-//  final List<Show> shows;
-//}
-//
-//class ErrorLoadingShowsAction {}
-//
-//class ChangeCurrentDateAction {
-//  ChangeCurrentDateAction(this.date);
-//  final DateTime date;
-//}
+class LogoutAction {}
+
+class GetUserInfoAction {}
+
+class LoginWithVerifyCodeAction {
+  LoginWithVerifyCodeAction(this.context, this.mobile, this.verifyCode);
+
+  final BuildContext context;
+  final String mobile;
+  final String verifyCode;
+}
+
+class LoginWithThirdAction {
+  LoginWithThirdAction(this.context, this.unionid, this.type, this.avatar,
+      this.nickname, this.gender);
+
+  final BuildContext context;
+  final String unionid;
+  final int type;
+  final String avatar;
+  final String nickname;
+  final int gender;
+}
+
+class LoginSuccessAction {
+  LoginSuccessAction(this.context, this.token, this.currentUser);
+
+  final BuildContext context;
+  final String token;
+  final User currentUser;
+}

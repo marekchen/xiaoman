@@ -120,7 +120,8 @@ class _BodyState extends State<Body> {
                         onTap: () {
                           ImagePicker
                               .pickImage(source: ImageSource.camera)
-                              .then((file) {});
+                              .then((file) {
+                          });
                         },
                       ),
                       Divider(

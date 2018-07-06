@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../app_router.dart';
+import '../app.dart';
 import '../base/mcard.dart';
 import './personal_info.dart';
 import './switch_role.dart';
@@ -291,7 +291,7 @@ Widget _buildBottom(BuildContext context) {
       Divider(height: 1.0, indent: 50.0, color: Color(0xFFF3F4F6)),
       InkWell(
         onTap: () {
-          ApplicationRouter().router.navigateTo(
+          App().router.navigateTo(
                 context,
                 "/setting",
                 transition: TransitionType.inFromRight,

@@ -1,13 +1,21 @@
+import 'package:redux/redux.dart';
 import './user_actions.dart';
 import './user_state.dart';
-import 'package:redux/redux.dart';
 
 final userReducer = combineReducers<UserState>([
-  TypedReducer<UserState, GetVerifyCodeAction>(_changeTheater),
-  TypedReducer<UserState, LoginWithVerifyCodeAction>(_changeTheater),
-  TypedReducer<UserState, LoginWithThirdAction>(_changeTheater),
+  TypedReducer<UserState, ChangeUserAction>(_changeUser),
+  TypedReducer<UserState, LogoutAction>(_logout),
+  TypedReducer<UserState, UpdateUserAction>(_updateUser),
 ]);
 
-UserState _changeTheater(UserState state, dynamic _) {
-  return state.copyWith(currentUser: null);
+UserState _changeUser(UserState state, ChangeUserAction action) {
+  return state.copyWith(currentUser: action.currentUser, token: action.token);
+}
+
+UserState _logout(UserState state, LogoutAction action) {
+  return UserState.initial();
+}
+
+UserState _updateUser(UserState state, UpdateUserAction action) {
+  return state.copyWith(currentUser: action.currentUser);
 }

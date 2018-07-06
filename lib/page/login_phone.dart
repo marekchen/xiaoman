@@ -1,17 +1,46 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xiaoman/networking/api.dart';
+import 'package:xiaoman/page/login_phone_view_model.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 import '../base/m_divider.dart';
 
-class LoginPhonePage extends StatefulWidget {
+class LoginPhonePage extends StatelessWidget {
+  LoginPhonePage();
+
   @override
-  LoginPhonePageState createState() => LoginPhonePageState();
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, LoginPhoneViewModel>(
+      distinct: true,
+      converter: (store) => LoginPhoneViewModel.fromStore(store,context),
+      builder: (_, viewModel) => LoginPhonePageContent(viewModel),
+    );
+  }
 }
 
-class LoginPhonePageState extends State<LoginPhonePage> {
+class LoginPhonePageContent extends StatefulWidget {
+  LoginPhonePageContent(this.viewModel);
+
+  LoginPhoneViewModel viewModel;
+
+  @override
+  LoginPhonePageState createState() => LoginPhonePageState(viewModel);
+}
+
+class LoginPhonePageState extends State<LoginPhonePageContent> {
+  LoginPhonePageState(this.viewModel);
+
+  final Api api = Api();
+  LoginPhoneViewModel viewModel;
   String phoneNum;
-  String pinCode;
+  String verifyCode;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +128,7 @@ class LoginPhonePageState extends State<LoginPhonePage> {
                     minSize: 30.0,
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     onPressed: () {
-                      requestPinCode();
+                      getVerifyCode();
                     },
                   ),
                 ],
@@ -144,7 +173,7 @@ class LoginPhonePageState extends State<LoginPhonePage> {
                       ),
                       onChanged: (String value) {
                         setState(() {
-                          this.pinCode = value;
+                          this.verifyCode = value;
                         });
                       },
                     ),
@@ -166,7 +195,7 @@ class LoginPhonePageState extends State<LoginPhonePage> {
                       minSize: 30.0,
                       borderRadius: BorderRadius.all(Radius.circular(22.0)),
                       onPressed: () {
-                        bindPhoneNum();
+                        login();
                       },
                     ),
                   ),
@@ -180,14 +209,49 @@ class LoginPhonePageState extends State<LoginPhonePage> {
     );
   }
 
-  void requestPinCode() {
+  void getVerifyCode() async {
     String phoneNum = this.phoneNum;
-    String userId;
+    if (phoneNum.length == 11 && phoneNum.startsWith('1')) {
+      var response = await api.getVerifyCode(phoneNum);
+      if (response.statusCode != 200) {
+        Fluttertoast.showToast(msg: "网络异常或服务器错误");
+      } else {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+        var code = responseJson['code'];
+        if (code == 0) {
+          // 发送成功
+          Fluttertoast.showToast(msg: "发送成功");
+        } else {
+          // 发送失败
+          Fluttertoast.showToast(msg: "发送失败");
+        }
+      }
+    } else {
+      Fluttertoast.showToast(msg: "请输入正确的手机号");
+    }
   }
 
-  void bindPhoneNum() {
-    String phoneNum = this.phoneNum;
-    String pinCode = this.pinCode;
-    String userId;
+  void login() async {
+    if (phoneNum.length == 11 &&
+        phoneNum.startsWith('1') &&
+        verifyCode.length == 6) {
+      var response =
+      await api.loginWithVerifyCode(this.phoneNum, this.verifyCode);
+      if (response.statusCode != 200) {
+        Fluttertoast.showToast(msg: "网络异常或服务器错误");
+      } else {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+        var code = responseJson['code'];
+        if (code == 0) {
+          // 登录成功
+          Fluttertoast.showToast(msg: "登录成功");
+        } else {
+          // 登录失败
+          Fluttertoast.showToast(msg: "登录失败");
+        }
+      }
+    } else {
+      Fluttertoast.showToast(msg: "验证码不正确");
+    }
   }
 }
