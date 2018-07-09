@@ -14,7 +14,7 @@ class UserState {
   factory UserState.initial() {
     return UserState(
       currentUser: null,
-      token: null,
+      token: "",
     );
   }
 

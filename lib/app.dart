@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +11,7 @@ class App {
   static final App _instance = App._internal();
   final Router _router = Router(); // global router
   final _api = Api();
-  final prefs = SharedPreferences.getInstance();
+  final _prefs = SharedPreferences.getInstance();
 
   factory App() {
     return _instance;
@@ -25,6 +27,10 @@ class App {
 
   Api get api {
     return _api;
+  }
+
+  Future<SharedPreferences> get prefs {
+    return _prefs;
   }
 
   void _configureRoutes() {

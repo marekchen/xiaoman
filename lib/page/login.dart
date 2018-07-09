@@ -1,16 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xiaoman/page/login_view_model.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 import './login_phone.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
-
+class LoginPage extends StatelessWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, LoginViewModel>(
+      distinct: true,
+      converter: (store) => LoginViewModel.fromStore(store, context),
+      builder: (_, viewModel) => LoginPageContent(viewModel),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageContent extends StatelessWidget {
+  LoginPageContent(this.viewModel);
+
+  LoginViewModel viewModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,19 +81,25 @@ class _LoginPageState extends State<LoginPage> {
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Image.asset(
-                            "assets/ic_wechat.png",
-                            height: 32.0,
-                            width: 32.0,
-                          ),
-                          Text(
-                            "微信登录",
-                            style: TextStyle(
-                                color: Color(0xFF838EA0), fontSize: 16.0),
-                          ),
-                        ],
+                      new InkWell(
+                        onTap: () {
+                          viewModel.func();
+                          getToken();
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/ic_wechat.png",
+                              height: 32.0,
+                              width: 32.0,
+                            ),
+                            Text(
+                              "微信登录",
+                              style: TextStyle(
+                                  color: Color(0xFF838EA0), fontSize: 16.0),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: <Widget>[
@@ -92,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: 32.0,
                           ),
                           Text(
-                            "QQ登录",
+                            "QQ"+getToken(),
                             style: TextStyle(
                                 color: Color(0xFF838EA0), fontSize: 16.0),
                           ),
@@ -107,5 +124,14 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  String getToken() {
+    print("chenpei" + viewModel.token);
+    if (viewModel.token != null) {
+      return viewModel.token;
+    } else {
+      return "";
+    }
   }
 }

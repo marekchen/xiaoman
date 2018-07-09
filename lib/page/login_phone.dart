@@ -8,7 +8,6 @@ import 'package:xiaoman/networking/api.dart';
 import 'package:xiaoman/page/login_phone_view_model.dart';
 import 'package:xiaoman/redux/app/app_state.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 
 import '../base/m_divider.dart';
 
@@ -19,7 +18,7 @@ class LoginPhonePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, LoginPhoneViewModel>(
       distinct: true,
-      converter: (store) => LoginPhoneViewModel.fromStore(store,context),
+      converter: (store) => LoginPhoneViewModel.fromStore(store, context),
       builder: (_, viewModel) => LoginPhonePageContent(viewModel),
     );
   }
@@ -39,8 +38,8 @@ class LoginPhonePageState extends State<LoginPhonePageContent> {
 
   final Api api = Api();
   LoginPhoneViewModel viewModel;
-  String phoneNum;
-  String verifyCode;
+  String phoneNum = '13285145373';
+  String verifyCode = '111111';
 
   @override
   Widget build(BuildContext context) {
@@ -232,25 +231,12 @@ class LoginPhonePageState extends State<LoginPhonePageContent> {
   }
 
   void login() async {
-    if (phoneNum.length == 11 &&
+    if (phoneNum != null &&
+        phoneNum.length == 11 &&
         phoneNum.startsWith('1') &&
+        verifyCode != null &&
         verifyCode.length == 6) {
       viewModel.loginWithVerifyCode(this.phoneNum, this.verifyCode);
-//      var response =
-//      await api.loginWithVerifyCode(this.phoneNum, this.verifyCode);
-//      if (response.statusCode != 200) {
-//        Fluttertoast.showToast(msg: "网络异常或服务器错误");
-//      } else {
-//        Map<String, dynamic> responseJson = json.decode(response.body);
-//        var code = responseJson['code'];
-//        if (code == 0) {
-//          // 登录成功
-//          Fluttertoast.showToast(msg: "登录成功");
-//        } else {
-//          // 登录失败
-//          Fluttertoast.showToast(msg: "登录失败");
-//        }
-//      }
     } else {
       Fluttertoast.showToast(msg: "验证码不正确");
     }

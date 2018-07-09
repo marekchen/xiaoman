@@ -3,3 +3,6 @@ class ShowToastAction {
 
   final String msg;
 }
+
+class DoNothing {
+}

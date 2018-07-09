@@ -2,25 +2,26 @@ import 'package:flutter/widgets.dart';
 
 import '../../model/user.dart';
 
-class InitUserAction {}
+class InitUserAction {
+}
 
-class ChangeUserAction {
-  ChangeUserAction(this.context, this.token, this.currentUser);
+class SetUserAction {
+  SetUserAction( this.token, this.currentUser);
+
+  final String token;
+  final User currentUser;
+}
+
+class TestAction {
+}
+
+class LoginSuccessAction {
+  LoginSuccessAction(this.context, this.token, this.currentUser);
 
   final BuildContext context;
   final String token;
   final User currentUser;
 }
-
-class UpdateUserAction {
-  UpdateUserAction(this.currentUser);
-
-  final User currentUser;
-}
-
-class LogoutAction {}
-
-class GetUserInfoAction {}
 
 class LoginWithVerifyCodeAction {
   LoginWithVerifyCodeAction(this.context, this.mobile, this.verifyCode);
@@ -42,10 +43,23 @@ class LoginWithThirdAction {
   final int gender;
 }
 
-class LoginSuccessAction {
-  LoginSuccessAction(this.context, this.token, this.currentUser);
+class UpdateUserAction {
+  UpdateUserAction(this.currentUser);
+
+  final User currentUser;
+}
+
+
+class ChangeUserAction {
+  ChangeUserAction(this.context, this.token, this.currentUser);
 
   final BuildContext context;
   final String token;
   final User currentUser;
+}
+
+class LogoutAction {
+  LogoutAction(this.context);
+
+  final BuildContext context;
 }

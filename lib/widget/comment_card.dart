@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 import '../base/mcard.dart';
 import '../model/comment.dart';

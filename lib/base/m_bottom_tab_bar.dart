@@ -1,6 +1,7 @@
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/widgets.dart';
+import 'package:meta/meta.dart';
 
 double _kTabBarHeight = 50.0;
 
