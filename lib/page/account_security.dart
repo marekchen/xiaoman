@@ -140,9 +140,9 @@ class AccountSecurity extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        "已绑定",
+                        "暂未开通",
                         style: TextStyle(
-                          color: Color(0xFF42BE56),
+                          color: Color(0xFFACACAC),
                           fontSize: 15.0,
                         ),
                       ),
@@ -190,7 +190,7 @@ class AccountSecurity extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        "未绑定",
+                        "暂未开通",
                         style: TextStyle(
                           color: Color(0xFFACACAC),
                           fontSize: 15.0,

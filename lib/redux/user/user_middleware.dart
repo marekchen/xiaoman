@@ -66,15 +66,22 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     if (code == 0) {
       User user = User(
         userId: responseJson['userId'],
-        nickname: responseJson['nickename'],
+        nickname: responseJson['nickname'],
         avatar: responseJson['avatar'],
         rongToken: responseJson['rongToken'],
       );
+      if (user.userId == null ||
+          user.nickname == null ||
+          user.rongToken == null) {
+        next(ShowToastAction("登录失败，字段缺失"));
+        return;
+      }
       next(LoginSuccessAction(action.context, responseJson['token'], user));
       await preferences.setString(
           "currentUser", store.state.userState.toString());
       next(ShowToastAction("登录成功"));
-      Navigator.pop(action.context);
+      Navigator.of(action.context).pop();
+      Navigator.of(action.context).pop();
     } else {
       next(ShowToastAction("登录失败，验证码错误"));
     }
@@ -96,6 +103,8 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _logout(
       Store<AppState> store, LogoutAction action, NextDispatcher next) async {
     await preferences.remove("currentUser");
+    next(ShowToastAction("退出登录成功"));
+    Navigator.of(action.context).pop();
   }
 
 //

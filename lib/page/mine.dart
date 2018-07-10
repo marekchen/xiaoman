@@ -1,49 +1,47 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xiaoman/app.dart';
+import 'package:xiaoman/base/mcard.dart';
+import 'package:xiaoman/page/mine_view_model.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
 
-import '../app.dart';
-import '../base/mcard.dart';
-import './personal_info.dart';
-import './switch_role.dart';
-import './my_follow.dart';
-import './my_wallet.dart';
-
-class MinePage extends StatefulWidget {
+class MinePage extends StatelessWidget {
   MinePage({Key key}) : super(key: key);
 
   @override
-  _MinePageState createState() => _MinePageState();
-}
-
-class _MinePageState extends State<MinePage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: TopBar(),
-      body: MineBody(),
+    return StoreConnector<AppState, MineViewModel>(
+      distinct: true,
+      converter: (store) => MineViewModel.fromStore(store, context),
+      builder: (_, viewModel) => MinePageContent(viewModel),
     );
   }
 }
 
-class TopBar extends StatefulWidget implements PreferredSizeWidget {
-  TopBar({this.height, this.t});
+class MinePageContent extends StatelessWidget {
+  MinePageContent(this.viewModel);
 
-  final double height;
-  final double t;
+  final MineViewModel viewModel;
 
   @override
-  _TopBarState createState() => _TopBarState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: TopBar(viewModel),
+      body: MineBody(viewModel),
+    );
+  }
+}
+
+class TopBar extends StatelessWidget implements PreferredSizeWidget {
+  TopBar(this.viewModel);
+
+  final MineViewModel viewModel;
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
-
-class _TopBarState extends State<TopBar> {
-  void showMenuSelection(String value) {
-    //showInSnackBar('You selected: $value');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,49 +92,13 @@ class _TopBarState extends State<TopBar> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SwitchRole(),
-                  ),
-                );
+                App().router.navigateTo(
+                      context,
+                      "/switchRole",
+                      transition: TransitionType.inFromRight,
+                    );
               },
-            )
-//              child:  PopupMenuButton<String>(
-//                icon: null,
-//                child:  Container(
-//                  padding:  EdgeInsets.only(right: 5.0, left: 5.0),
-//                  decoration:  BoxDecoration(
-//                    border:  Border.all(color: Color(0xFFACACAC)),
-//                    borderRadius:
-//                         BorderRadius.all( Radius.circular(15.0)),
-//                  ),
-//                  child:  Row(
-//                    children: <Widget>[
-//                       Text(
-//                        "切换身份",
-//                        style:  TextStyle(
-//                          fontSize: 12.0,
-//                          color: Color(0xFFACACAC),
-//                        ),
-//                      ),
-//                       Icon(
-//                        Icons.arrow_downward,
-//                        color: Color(0xFFACACAC),
-//                      )
-//                    ],
-//                  ),
-//                ),
-//                onSelected: showMenuSelection,
-//                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-//                      PopupMenuItem<String>(
-//                          value: 'id1', child: Text('身份1')),
-//                      PopupMenuItem<String>(
-//                          value: 'id2', child: Text('身份2')),
-//                      PopupMenuItem<String>(
-//                          value: 'id3', child: Text('身份3')),
-//                    ],
-//              ),
+            ),
           ],
         ),
       ),
@@ -144,34 +106,203 @@ class _TopBarState extends State<TopBar> {
   }
 }
 
-class MineBody extends StatefulWidget {
-  MineBody({Key key}) : super(key: key);
+class MineBody extends StatelessWidget {
+  MineBody(this.viewModel);
 
-  @override
-  _MineBodyState createState() => _MineBodyState();
-}
+  final MineViewModel viewModel;
 
-class _MineBodyState extends State<MineBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _buildTopCard(context),
-        _buildBottom(context),
+        _buildTopCard(context, viewModel),
+        _buildBottom(context, viewModel),
       ],
     );
   }
 }
 
-Widget _buildBottom(BuildContext context) {
+Widget _buildTopCard(BuildContext context, MineViewModel viewModel) {
+  return Container(
+    padding: EdgeInsets.all(15.0),
+    child: MCard(
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                InkWell(
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(
+                      viewModel.currentUser?.avatar != null && viewModel.currentUser?.avatar != ""
+                          ? viewModel.currentUser?.avatar
+                          : "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+                    ),
+                  ),
+                  onTap: () {
+                    var pageName = "";
+                    if (viewModel.currentUser == null) {
+                      pageName = "login";
+                    } else {
+                      pageName = "personalInfo";
+                    }
+                    App().router.navigateTo(
+                          context,
+                          pageName,
+                          transition: TransitionType.inFromRight,
+                        );
+                  },
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 20.0),
+                  child: InkWell(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          viewModel.currentUser?.nickname != null
+                              ? viewModel.currentUser?.nickname
+                              : "登录/注册",
+                          style: TextStyle(
+                            color: Color(0xFF0D0E15),
+                            fontSize: 24.0,
+                          ),
+                        ),
+                        Text(
+                          viewModel.token != null ? "点击编辑个人资料" : "",
+                          style: TextStyle(
+                            color: Color(0xFFACACAC),
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      var pageName = "";
+                      if (viewModel.currentUser == null) {
+                        pageName = "login";
+                      } else {
+                        pageName = "personalInfo";
+                      }
+                      App().router.navigateTo(
+                        context,
+                        pageName,
+                        transition: TransitionType.inFromRight,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 25.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  InkResponse(
+                    onTap: () {
+                      App().router.navigateTo(
+                            context,
+                            "/myFollow",
+                            transition: TransitionType.inFromRight,
+                          );
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "215",
+                          style: TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 24.0,
+                          ),
+                        ),
+                        Text(
+                          "关注",
+                          style: TextStyle(
+                            color: Color(0xFF666666),
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkResponse(
+                    onTap: () {
+                      App().router.navigateTo(
+                            context,
+                            "/myFollow",
+                            transition: TransitionType.inFromRight,
+                          );
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "28",
+                          style: TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 24.0,
+                          ),
+                        ),
+                        Text(
+                          "收藏",
+                          style: TextStyle(
+                            color: Color(0xFF666666),
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkResponse(
+                    onTap: () {
+                      App().router.navigateTo(
+                            context,
+                            "/myFollow",
+                            transition: TransitionType.inFromRight,
+                          );
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "897",
+                          style: TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 24.0,
+                          ),
+                        ),
+                        Text(
+                          "历史",
+                          style: TextStyle(
+                            color: Color(0xFF666666),
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _buildBottom(BuildContext context, MineViewModel viewModel) {
   return Column(
     children: <Widget>[
       InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyWallet()),
-          );
+          App().router.navigateTo(
+                context,
+                "/myWallet",
+                transition: TransitionType.inFromRight,
+              );
         },
         child: Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
@@ -209,10 +340,11 @@ Widget _buildBottom(BuildContext context) {
       Divider(height: 1.0, indent: 50.0, color: Color(0xFFF3F4F6)),
       InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyWallet()),
-          );
+          App().router.navigateTo(
+                context,
+                "/myWallet",
+                transition: TransitionType.inFromRight,
+              );
         },
         child: Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
@@ -250,10 +382,11 @@ Widget _buildBottom(BuildContext context) {
       Divider(height: 0.0, indent: 50.0, color: Color(0xFFF3F4F6)),
       InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyWallet()),
-          );
+          App().router.navigateTo(
+                context,
+                "/myWallet",
+                transition: TransitionType.inFromRight,
+              );
         },
         child: Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
@@ -332,147 +465,5 @@ Widget _buildBottom(BuildContext context) {
       ),
       Divider(height: 1.0, indent: 50.0, color: Color(0xFFF3F4F6)),
     ],
-  );
-}
-
-Widget _buildTopCard(BuildContext context) {
-  return Container(
-    padding: EdgeInsets.all(15.0),
-    child: MCard(
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                InkWell(
-                  child: CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: NetworkImage(
-                      "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PersonalInfo()),
-                    );
-                  },
-                ),
-                Container(
-                  height: 60.0,
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        "劈里啪啦酱",
-                        style: TextStyle(
-                          color: Color(0xFF0D0E15),
-                          fontSize: 24.0,
-                        ),
-                      ),
-                      Text(
-                        "点击头像编辑个人资料",
-                        style: TextStyle(
-                          color: Color(0xFFACACAC),
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyFollow()),
-                      );
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "215",
-                          style: TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 24.0,
-                          ),
-                        ),
-                        Text(
-                          "关注",
-                          style: TextStyle(
-                            color: Color(0xFF666666),
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyFollow()),
-                      );
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "28",
-                          style: TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 24.0,
-                          ),
-                        ),
-                        Text(
-                          "收藏",
-                          style: TextStyle(
-                            color: Color(0xFF666666),
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyFollow()),
-                      );
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "897",
-                          style: TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 24.0,
-                          ),
-                        ),
-                        Text(
-                          "历史",
-                          style: TextStyle(
-                            color: Color(0xFF666666),
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
   );
 }

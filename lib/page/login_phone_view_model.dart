@@ -22,7 +22,9 @@ class LoginPhoneViewModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LoginPhoneViewModel && runtimeType == other.runtimeType;
+          other is LoginPhoneViewModel &&
+              runtimeType == other.runtimeType &&
+              loginWithVerifyCode == other.loginWithVerifyCode;
 
   @override
   int get hashCode => loginWithVerifyCode.hashCode;
