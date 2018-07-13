@@ -5,7 +5,7 @@ class User {
     @required this.userId,
     @required this.nickname,
     @required this.avatar,
-    @required this.rongToken,
+    this.rongToken,
     this.focusCount,
     this.gender,
     this.signature,

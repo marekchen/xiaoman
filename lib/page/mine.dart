@@ -92,6 +92,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               onTap: () {
+                viewModel.getRoleList();
                 App().router.navigateTo(
                       context,
                       "/switchRole",

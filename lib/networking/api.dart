@@ -36,7 +36,7 @@ class Api {
     return response;
   }
 
-  Future<bool> loginWithThird(String unionid, int type, String avatar,
+  Future<Response> loginWithThird(String unionid, int type, String avatar,
       String nickname, int gender) async {
     var requestUri = baseUrl + 'api/thirdlogin';
 
@@ -47,19 +47,39 @@ class Api {
       'nickname': nickname,
       'gender': gender
     });
-    if (response.statusCode != 200) {
-      // 网络错误或服务器错误
-      return false;
-    }
-    Map<String, dynamic> responseJson = json.decode(response.body);
-    var code = responseJson['code'];
-    if (code == 0) {
-      // 登录成功，保存token
-      return true;
-    } else {
-      // 登录失败
-      return false;
-    }
+    return response;
+  }
+
+  Future<Response> getRoleList(String token) async {
+    var requestUri = baseUrl + 'api/identitylist';
+
+    var response = await postRequest(requestUri, {
+      'token': token,
+    });
+    return response;
+  }
+
+  Future<Response> switchRole(String token, String userId) async {
+    var requestUri = baseUrl + 'api/identityswitch';
+
+    var response = await postRequest(requestUri, {
+      'token': token,
+      'user_id': userId,
+    });
+    return response;
+  }
+
+  Future<Response> addRole(
+      String token, String avatar, String nickname, String gender) async {
+    var requestUri = baseUrl + 'api/identityadd';
+
+    var response = await postRequest(requestUri, {
+      'token': token,
+      'avatar': avatar,
+      'nickname': nickname,
+      'gender': gender
+    });
+    return response;
   }
 
   Future<bool> createTask(String mobile, String verifyCode) async {
