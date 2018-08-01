@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 
-import '../base/mcard.dart';
+import '../base/m_card.dart';
 import '../model/comment.dart';
 import '../model/task.dart';
 import '../widget/comment_card.dart';

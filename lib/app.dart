@@ -79,6 +79,6 @@ class App {
   });
   var switchRoleHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return SwitchRole();
+    return SwitchRolePage();
   });
 }

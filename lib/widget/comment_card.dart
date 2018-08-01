@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../base/mcard.dart';
+import '../base/m_card.dart';
 import '../model/comment.dart';
 
 class CommentCard extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../base/m_underline_tab_indicator.dart';
-import '../base/mcard.dart';
+import '../base/m_card.dart';
 import '../model/article.dart';
 import '../widget/article_card.dart';
 

@@ -1,15 +1,45 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xiaoman/networking/api.dart';
-import 'package:xiaoman/page/login_phone_view_model.dart';
-import 'package:xiaoman/redux/app/app_state.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../base/m_divider.dart';
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+import 'package:xiaoman/base/m_divider.dart';
+import 'package:xiaoman/networking/api.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:xiaoman/redux/user/user_actions.dart';
+
+class LoginPhoneViewModel {
+  LoginPhoneViewModel({
+    @required this.loginWithVerifyCode,
+  });
+
+  final Function loginWithVerifyCode;
+
+  static LoginPhoneViewModel fromStore(
+      Store<AppState> store, BuildContext context) {
+    return LoginPhoneViewModel(
+      loginWithVerifyCode: (String mobile, String verifyCode) => store
+          .dispatch(LoginWithVerifyCodeAction(context, mobile, verifyCode)),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoginPhoneViewModel &&
+          runtimeType == other.runtimeType &&
+          loginWithVerifyCode == other.loginWithVerifyCode;
+
+  @override
+  int get hashCode => loginWithVerifyCode.hashCode;
+}
 
 class LoginPhonePage extends StatelessWidget {
   LoginPhonePage();

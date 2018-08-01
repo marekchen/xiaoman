@@ -1,10 +1,44 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:xiaoman/page/login_view_model.dart';
-import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:flutter/widgets.dart';
+
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import './login_phone.dart';
+import 'package:xiaoman/app.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:xiaoman/redux/user/user_actions.dart';
+
+class LoginViewModel {
+  LoginViewModel({
+    @required this.token,
+    @required this.func,
+  });
+
+  final Function func;
+
+  final String token;
+
+  static LoginViewModel fromStore(Store<AppState> store, BuildContext context) {
+    return LoginViewModel(
+      token: store.state.userState.token,
+      func: () => store.dispatch(SetUserAction("1111", null)),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoginViewModel &&
+          runtimeType == other.runtimeType &&
+          token == other.token &&
+          func == other.func;
+
+  @override
+  int get hashCode => token.hashCode ^ func.hashCode;
+}
 
 class LoginPage extends StatelessWidget {
   @override
@@ -68,24 +102,20 @@ class LoginPageContent extends StatelessWidget {
                   minSize: 30.0,
                   borderRadius: BorderRadius.all(Radius.circular(22.0)),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPhonePage(),
-                      ),
-                    );
+                    App().router.navigateTo(
+                          context,
+                          "/loginPhone",
+                          transition: TransitionType.inFromRight,
+                        );
                   },
                 ),
-                new Padding(
-                  padding: new EdgeInsets.only(top: 43.0),
-                  child: new Row(
+                Padding(
+                  padding: EdgeInsets.only(top: 43.0),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new InkWell(
-                        onTap: () {
-                          viewModel.func();
-                          getToken();
-                        },
+                      InkWell(
+                        onTap: () {},
                         child: Row(
                           children: <Widget>[
                             Image.asset(
@@ -101,19 +131,22 @@ class LoginPageContent extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          Image.asset(
-                            "assets/ic_qq.png",
-                            height: 32.0,
-                            width: 32.0,
-                          ),
-                          Text(
-                            "QQ"+getToken(),
-                            style: TextStyle(
-                                color: Color(0xFF838EA0), fontSize: 16.0),
-                          ),
-                        ],
+                      InkWell(
+                        onTap: () {},
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/ic_qq.png",
+                              height: 32.0,
+                              width: 32.0,
+                            ),
+                            Text(
+                              "QQ",
+                              style: TextStyle(
+                                  color: Color(0xFF838EA0), fontSize: 16.0),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -124,14 +157,5 @@ class LoginPageContent extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String getToken() {
-    print("chenpei" + viewModel.token);
-    if (viewModel.token != null) {
-      return viewModel.token;
-    } else {
-      return "";
-    }
   }
 }

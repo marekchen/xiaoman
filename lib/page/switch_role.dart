@@ -1,14 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xiaoman/page/switch_role_view_model.dart';
-import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:flutter/widgets.dart';
 
-class SwitchRole extends StatelessWidget {
-  SwitchRole({Key key}) : super(key: key);
+import 'package:meta/meta.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xiaoman/model/user.dart';
+import 'package:xiaoman/redux/app/app_state.dart';
+import 'package:xiaoman/redux/user/user_actions.dart';
+
+class SwitchRoleViewModel {
+  SwitchRoleViewModel({
+    @required this.token,
+    @required this.currentUser,
+    @required this.currentIndex,
+    @required this.roleList,
+    @required this.getRoleList,
+    @required this.switchRole,
+  });
+
+  final String token;
+  final User currentUser;
+  final int currentIndex;
+  final List<User> roleList;
+  final Function getRoleList;
+  final Function switchRole;
+
+  static SwitchRoleViewModel fromStore(Store<AppState> store,
+      BuildContext context) {
+    return SwitchRoleViewModel(
+        token: store.state.userState.token,
+        currentUser: store.state.userState.currentUser,
+        currentIndex: store.state.userState.currentIndex,
+        roleList: store.state.userState.roleList,
+        getRoleList: () => store.dispatch(GetRoleListAction(context)),
+        switchRole: (index) => store.dispatch(SwitchRoleAction(context, index))
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is SwitchRoleViewModel &&
+              runtimeType == other.runtimeType &&
+              token == other.token &&
+              currentUser == other.currentUser &&
+              currentIndex == other.currentIndex &&
+              roleList == other.roleList &&
+              getRoleList == other.getRoleList &&
+              switchRole == other.switchRole;
+
+  @override
+  int get hashCode =>
+      token.hashCode ^
+      currentUser.hashCode ^
+      currentIndex.hashCode ^
+      roleList.hashCode ^
+      getRoleList.hashCode ^
+      switchRole.hashCode;
+}
+
+class SwitchRolePage extends StatelessWidget {
+  SwitchRolePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SwitchRoleViewModel>(
+      onInit: (store) => store.dispatch(GetRoleListAction(context)),
       distinct: true,
       converter: (store) => SwitchRoleViewModel.fromStore(store, context),
       builder: (_, viewModel) => SwitchRoleContent(viewModel),
