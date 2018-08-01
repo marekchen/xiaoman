@@ -1,15 +1,20 @@
 import 'package:meta/meta.dart';
-import '../../model/user.dart';
+
+import 'package:xiaoman/model/user.dart';
 
 @immutable
 class UserState {
   UserState({
+    @required this.loginPhoneLoading,
+    @required this.loginLoading,
     @required this.currentUser,
     @required this.token,
     @required this.roleList,
     @required this.currentIndex,
   });
 
+  final bool loginPhoneLoading;
+  final bool loginLoading;
   final User currentUser;
   final String token;
   final List<User> roleList;
@@ -17,6 +22,8 @@ class UserState {
 
   factory UserState.initial() {
     return UserState(
+      loginPhoneLoading: false,
+      loginLoading: true,
       currentUser: null,
       token: "",
       roleList: null,
@@ -25,12 +32,16 @@ class UserState {
   }
 
   UserState copyWith({
+    bool loginPhoneLoading,
+    bool loginLoading,
     User currentUser,
     String token,
     List<User> roleList,
     int currentIndex,
   }) {
     return UserState(
+      loginPhoneLoading: loginPhoneLoading ?? this.loginPhoneLoading,
+      loginLoading: loginLoading ?? this.loginLoading,
       currentUser: currentUser ?? this.currentUser,
       token: token ?? this.token,
       roleList: roleList ?? this.roleList,
@@ -43,6 +54,8 @@ class UserState {
       identical(this, other) ||
       other is UserState &&
           runtimeType == other.runtimeType &&
+          loginPhoneLoading == other.loginPhoneLoading &&
+          loginLoading == other.loginLoading &&
           currentUser == other.currentUser &&
           token == other.token &&
           roleList == other.roleList &&
@@ -50,6 +63,8 @@ class UserState {
 
   @override
   int get hashCode =>
+      loginPhoneLoading.hashCode ^
+      loginLoading.hashCode ^
       currentUser.hashCode ^
       token.hashCode ^
       roleList.hashCode ^

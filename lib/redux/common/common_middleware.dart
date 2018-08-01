@@ -21,6 +21,5 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
   _showToast(Store<AppState> store, ShowToastAction action,
       NextDispatcher next) async {
     Fluttertoast.showToast(msg: action.msg);
-    print("chenpei" + store.state.userState.token);
   }
 }

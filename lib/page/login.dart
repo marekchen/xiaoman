@@ -8,24 +8,22 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:xiaoman/app.dart';
+import 'package:xiaoman/model/user.dart';
 import 'package:xiaoman/redux/app/app_state.dart';
-import 'package:xiaoman/redux/user/user_actions.dart';
 
 class LoginViewModel {
   LoginViewModel({
     @required this.token,
-    @required this.func,
+    @required this.user,
   });
 
-  final Function func;
-
+  final User user;
   final String token;
 
   static LoginViewModel fromStore(Store<AppState> store, BuildContext context) {
     return LoginViewModel(
-      token: store.state.userState.token,
-      func: () => store.dispatch(SetUserAction("1111", null)),
-    );
+        token: store.state.userState.token,
+        user: store.state.userState.currentUser);
   }
 
   @override
@@ -33,11 +31,11 @@ class LoginViewModel {
       identical(this, other) ||
       other is LoginViewModel &&
           runtimeType == other.runtimeType &&
-          token == other.token &&
-          func == other.func;
+          user == other.user &&
+          token == other.token;
 
   @override
-  int get hashCode => token.hashCode ^ func.hashCode;
+  int get hashCode => token.hashCode ^ user.hashCode;
 }
 
 class LoginPage extends StatelessWidget {
@@ -141,7 +139,7 @@ class LoginPageContent extends StatelessWidget {
                               width: 32.0,
                             ),
                             Text(
-                              "QQ",
+                              "QQ" + getToken(),
                               style: TextStyle(
                                   color: Color(0xFF838EA0), fontSize: 16.0),
                             ),
@@ -157,5 +155,13 @@ class LoginPageContent extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getToken() {
+    if (viewModel.token != null) {
+      return viewModel.token;
+    } else {
+      return "";
+    }
   }
 }

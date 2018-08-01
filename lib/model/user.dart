@@ -1,8 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:json_serializable/json_serializable.dart';
 
-@JsonSerializable(nullable: false)
 class User {
   User({
     @required this.userId,
@@ -15,12 +12,36 @@ class User {
     this.collectCount,
   });
 
-  final String userId;
-  final String nickname;
-  final String avatar;
-  final String rongToken;
-  final int focusCount;
-  final int gender;
-  final String signature;
-  final int collectCount;
+  String userId;
+  String nickname;
+  String avatar;
+  String rongToken;
+  int focusCount;
+  int gender;
+  String signature;
+  int collectCount;
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      userId: json['user_id'] as String,
+      nickname: json['nickname'] as String,
+      avatar: json['avatar'] as String,
+      rongToken: json['rongToken'] as String,
+      focusCount: json['focusCount'] as int,
+      gender: json['gender'] as int,
+      signature: json['rongToken'] as String,
+      collectCount: json['collectCount'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'user_id': userId,
+        'nickname': nickname,
+        'avatar': avatar,
+        'rongToken': rongToken,
+        'focusCount': focusCount,
+        'gender': gender,
+        'signature': signature,
+        'collectCount': collectCount
+      };
 }

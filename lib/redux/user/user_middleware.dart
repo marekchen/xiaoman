@@ -45,17 +45,8 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     var result = preferences.getString("currentUser");
     var token = preferences.getString("token");
     if (result != null && result.length != 0) {
-      var userInfo = json.decode(result);
-      User user = User(
-        userId: userInfo['user_id'],
-        nickname: userInfo['nickename'],
-        avatar: userInfo['avatar'],
-        rongToken: userInfo['rongToken'],
-        focusCount: userInfo['focus_count'],
-        gender: userInfo['gender'],
-        signature: userInfo['signature'],
-        collectCount: userInfo['collect_count'],
-      );
+      var userJson = json.decode(result);
+      var user = User.fromJson(userJson);
       next(SetUserAction(token, user));
     }
   }
@@ -71,26 +62,25 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     }
     var code = responseJson['code'];
     if (code == 0) {
-      User user = User(
-        userId: responseJson['user_id'],
-        nickname: responseJson['nickname'],
-        avatar: responseJson['avatar'],
-        rongToken: responseJson['rongToken'],
-      );
+      var user = User.fromJson(responseJson);
+      print(user.toJson().toString());
       if (user.userId == null ||
           user.nickname == null ||
           user.rongToken == null) {
         next(ShowToastAction("登录失败，字段缺失"));
         return;
       }
-      next(LoginSuccessAction(action.context, responseJson['token'], user));
-      await preferences.setString("token", store.state.userState.token);
+      next(LoginWithVerifyCodeSuccessAction(
+          action.context, responseJson['token'], user));
+      print('chenpei1:token:'+ responseJson['token']);
+      await preferences.setString("token", responseJson['token']);
       await preferences.setString(
-          "currentUser", store.state.userState.currentUser.toString());
+          "currentUser", json.encode(user));
       next(ShowToastAction("登录成功"));
-      Navigator.of(action.context).pop();
-      Navigator.of(action.context).pop();
+      Navigator.pop(action.context);
+      // Navigator.pop(action.context);
     } else {
+      next(LoginWithVerifyCodeFailedAction());
       next(ShowToastAction("登录失败，验证码错误"));
     }
   }
@@ -98,14 +88,14 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _updateUser(Store<AppState> store, UpdateUserAction action,
       NextDispatcher next) async {
     await preferences.setString(
-        "currentUser", store.state.userState.currentUser.toString());
+        "currentUser", json.encode(store.state.userState.currentUser));
   }
 
   Future<Null> _changeUser(Store<AppState> store, ChangeUserAction action,
       NextDispatcher next) async {
     await preferences.setString("token", store.state.userState.token);
     await preferences.setString(
-        "currentUser", store.state.userState.currentUser.toString());
+        "currentUser", json.encode(store.state.userState.currentUser));
     Navigator.pop(action.context);
   }
 
@@ -114,12 +104,13 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     await preferences.remove("token");
     await preferences.remove("currentUser");
     next(ShowToastAction("退出登录成功"));
-    Navigator.of(action.context).pop();
+    Navigator.pop(action.context);
   }
 
   Future<Null> _getRoleList(Store<AppState> store, GetRoleListAction action,
       NextDispatcher next) async {
     String token = store.state.userState.token;
+    print('chenpei2'+ token);
     var response = await api.getRoleList(token);
     Map<String, dynamic> responseJson = json.decode(response.body);
     if (response.statusCode != 200) {
@@ -131,10 +122,7 @@ class UserMiddleware extends MiddlewareClass<AppState> {
       var roleListJson = responseJson['list'];
       print(roleListJson);
       for (var userJson in roleListJson) {
-        User user = User(
-            userId: userJson['user_id'],
-            nickname: userJson['nickname'],
-            avatar: userJson['avatar']);
+        var user = User.fromJson(userJson);
         roleList.add(user);
       }
       next(GetRoleListSuccessAction(roleList));
@@ -146,7 +134,6 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _switchRole(Store<AppState> store, SwitchRoleAction action,
       NextDispatcher next) async {
     String token = store.state.userState.token;
-    print('chenpei' + token);
     var selectedUser = store.state.userState.roleList[action.index];
     var userId = selectedUser.userId;
     var response = await api.switchRole(token, userId);
@@ -156,19 +143,14 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     }
     var code = responseJson['code'];
     if (code == 0) {
-      User user = User(
-        userId: responseJson['userId'],
-        nickname: selectedUser.nickname,
-        avatar: responseJson['avatar'],
-        rongToken: responseJson['rongToken'],
-      );
+      var user = User.fromJson(responseJson);
+      user.nickname = selectedUser.nickname;
       if (user.userId == null ||
           user.nickname == null ||
           user.rongToken == null) {
         next(ShowToastAction("切换失败，字段缺失"));
         return;
       }
-      print('chenpei' + user.toString());
       next(SwitchRoleSuccessAction(
           action.context, responseJson['token'], user, action.index));
       next(ShowToastAction("切换成功"));

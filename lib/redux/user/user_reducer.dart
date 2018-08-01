@@ -4,7 +4,11 @@ import './user_actions.dart';
 import './user_state.dart';
 
 final userReducer = combineReducers<UserState>([
-  TypedReducer<UserState, LoginSuccessAction>(_loginSuccess),
+  TypedReducer<UserState, SetUserAction>(_setUser),
+  TypedReducer<UserState, LoginWithVerifyCodeSuccessAction>(_loginWithVerifyCodeSuccess),
+  TypedReducer<UserState, LoginWithVerifyCodeFailedAction>(_loginWithVerifyCodeFailed),
+  TypedReducer<UserState, LoginWithThirdSuccessAction>(_loginWithThirdSuccess),
+  TypedReducer<UserState, LoginWithThirdFailedAction>(_loginWithThirdFailed),
   TypedReducer<UserState, UpdateUserAction>(_updateUser),
   TypedReducer<UserState, ChangeUserAction>(_changeUser),
   TypedReducer<UserState, LogoutAction>(_logout),
@@ -13,8 +17,24 @@ final userReducer = combineReducers<UserState>([
   TypedReducer<UserState, AddRoleSuccessAction>(_addRoleListSuccess),
 ]);
 
-UserState _loginSuccess(UserState state, LoginSuccessAction action) {
+UserState _setUser(UserState state, SetUserAction action) {
   return state.copyWith(currentUser: action.currentUser, token: action.token);
+}
+
+UserState _loginWithVerifyCodeSuccess(UserState state, LoginWithVerifyCodeSuccessAction action) {
+  return state.copyWith(currentUser: action.currentUser, token: action.token, loginPhoneLoading: false);
+}
+
+UserState _loginWithVerifyCodeFailed(UserState state, LoginWithVerifyCodeFailedAction action) {
+  return state.copyWith(loginPhoneLoading: false);
+}
+
+UserState _loginWithThirdSuccess(UserState state, LoginWithThirdSuccessAction action) {
+  return state.copyWith(currentUser: action.currentUser, token: action.token, loginLoading: false);
+}
+
+UserState _loginWithThirdFailed(UserState state, LoginWithThirdFailedAction action) {
+  return state.copyWith(loginPhoneLoading: false);
 }
 
 UserState _updateUser(UserState state, UpdateUserAction action) {

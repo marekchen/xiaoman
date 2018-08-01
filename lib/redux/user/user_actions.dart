@@ -1,22 +1,11 @@
 import 'package:flutter/widgets.dart';
-
-import '../../model/user.dart';
+import 'package:xiaoman/model/user.dart';
 
 class InitUserAction {}
 
 class SetUserAction {
   SetUserAction(this.token, this.currentUser);
 
-  final String token;
-  final User currentUser;
-}
-
-class TestAction {}
-
-class LoginSuccessAction {
-  LoginSuccessAction(this.context, this.token, this.currentUser);
-
-  final BuildContext context;
   final String token;
   final User currentUser;
 }
@@ -29,6 +18,18 @@ class LoginWithVerifyCodeAction {
   final String verifyCode;
 }
 
+class LoginWithVerifyCodeSuccessAction {
+  LoginWithVerifyCodeSuccessAction(this.context, this.token, this.currentUser);
+
+  final BuildContext context;
+  final String token;
+  final User currentUser;
+}
+
+class LoginWithVerifyCodeFailedAction {
+  LoginWithVerifyCodeFailedAction();
+}
+
 class LoginWithThirdAction {
   LoginWithThirdAction(this.context, this.unionid, this.type, this.avatar,
       this.nickname, this.gender);
@@ -39,6 +40,18 @@ class LoginWithThirdAction {
   final String avatar;
   final String nickname;
   final int gender;
+}
+
+class LoginWithThirdSuccessAction {
+  LoginWithThirdSuccessAction(this.context, this.token, this.currentUser);
+
+  final BuildContext context;
+  final String token;
+  final User currentUser;
+}
+
+class LoginWithThirdFailedAction {
+  LoginWithThirdFailedAction();
 }
 
 class UpdateUserAction {
