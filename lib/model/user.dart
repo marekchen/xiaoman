@@ -29,7 +29,7 @@ class User {
       rongToken: json['rongToken'] as String,
       focusCount: json['focusCount'] as int,
       gender: json['gender'] as int,
-      signature: json['rongToken'] as String,
+      signature: json['signature'] as String,
       collectCount: json['collectCount'] as int,
     );
   }

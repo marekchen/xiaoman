@@ -156,7 +156,8 @@ class Body extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            ImagePicker.pickImage(source: ImageSource.gallery)
+                            ImagePicker
+                                .pickImage(source: ImageSource.gallery)
                                 .then((file) {});
                           },
                         ),
@@ -176,7 +177,8 @@ class Body extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            ImagePicker.pickImage(source: ImageSource.camera)
+                            ImagePicker
+                                .pickImage(source: ImageSource.camera)
                                 .then((file) {});
                           },
                         ),
@@ -398,7 +400,6 @@ class Body extends StatelessWidget {
           ),
           InkWell(
             child: Ink(
-              height: 54.0,
               color: Colors.white,
               padding: EdgeInsets.all(16.0),
               child: Row(
@@ -410,13 +411,19 @@ class Body extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      Text(
-                        viewModel.currentUser?.signature != null
-                            ? viewModel.currentUser?.signature
-                            : "什么都没写！",
-                        style: TextStyle(
-                          color: Color(0xFFACACAC),
-                          fontSize: 15.0,
+                      new Container(
+                        width: 250.0,
+                        child: Text(
+                          viewModel.currentUser?.signature != null
+                              ? viewModel.currentUser?.signature
+                              : "什么都没写！",
+                          style: TextStyle(
+                            color: Color(0xFFACACAC),
+                            fontSize: 15.0
+                          ),
+                          textAlign:TextAlign.right,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
                         ),
                       ),
                       Icon(

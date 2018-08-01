@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xiaoman/app.dart';
 import 'package:xiaoman/base/m_bottom_tab_bar.dart';
+import 'package:xiaoman/page/showcase.dart';
 import 'package:xiaoman/redux/app/app_state.dart';
 import 'package:xiaoman/redux/store.dart';
 import 'package:xiaoman/redux/user/user_actions.dart';
@@ -73,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         HomePage(),
         DiscoveryPage(),
-        LoginPage(),
+        ShowCase(),
         MessagePage(),
         // Test(),
         MinePage(),

@@ -23,7 +23,7 @@ class UserState {
   factory UserState.initial() {
     return UserState(
       loginPhoneLoading: false,
-      loginLoading: true,
+      loginLoading: false,
       currentUser: null,
       token: "",
       roleList: null,

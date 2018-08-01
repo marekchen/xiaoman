@@ -72,7 +72,6 @@ class UserMiddleware extends MiddlewareClass<AppState> {
       }
       next(LoginWithVerifyCodeSuccessAction(
           action.context, responseJson['token'], user));
-      print('chenpei1:token:'+ responseJson['token']);
       await preferences.setString("token", responseJson['token']);
       await preferences.setString(
           "currentUser", json.encode(user));
@@ -110,7 +109,6 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _getRoleList(Store<AppState> store, GetRoleListAction action,
       NextDispatcher next) async {
     String token = store.state.userState.token;
-    print('chenpei2'+ token);
     var response = await api.getRoleList(token);
     Map<String, dynamic> responseJson = json.decode(response.body);
     if (response.statusCode != 200) {
