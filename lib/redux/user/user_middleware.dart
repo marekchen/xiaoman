@@ -43,6 +43,7 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _initUser(
       Store<AppState> store, InitUserAction action, NextDispatcher next) async {
     var result = preferences.getString("currentUser");
+    var token = preferences.getString("token");
     if (result != null && result.length != 0) {
       var userInfo = json.decode(result);
       User user = User(
@@ -55,7 +56,7 @@ class UserMiddleware extends MiddlewareClass<AppState> {
         signature: userInfo['signature'],
         collectCount: userInfo['collect_count'],
       );
-      next(SetUserAction(userInfo['token'], user));
+      next(SetUserAction(token, user));
     }
   }
 
@@ -83,8 +84,9 @@ class UserMiddleware extends MiddlewareClass<AppState> {
         return;
       }
       next(LoginSuccessAction(action.context, responseJson['token'], user));
+      await preferences.setString("token", store.state.userState.token);
       await preferences.setString(
-          "currentUser", store.state.userState.toString());
+          "currentUser", store.state.userState.currentUser.toString());
       next(ShowToastAction("登录成功"));
       Navigator.of(action.context).pop();
       Navigator.of(action.context).pop();
@@ -96,18 +98,20 @@ class UserMiddleware extends MiddlewareClass<AppState> {
   Future<Null> _updateUser(Store<AppState> store, UpdateUserAction action,
       NextDispatcher next) async {
     await preferences.setString(
-        "currentUser", store.state.userState.toString());
+        "currentUser", store.state.userState.currentUser.toString());
   }
 
   Future<Null> _changeUser(Store<AppState> store, ChangeUserAction action,
       NextDispatcher next) async {
+    await preferences.setString("token", store.state.userState.token);
     await preferences.setString(
-        "currentUser", store.state.userState.toString());
+        "currentUser", store.state.userState.currentUser.toString());
     Navigator.pop(action.context);
   }
 
   Future<Null> _logout(
       Store<AppState> store, LogoutAction action, NextDispatcher next) async {
+    await preferences.remove("token");
     await preferences.remove("currentUser");
     next(ShowToastAction("退出登录成功"));
     Navigator.of(action.context).pop();

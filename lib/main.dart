@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xiaoman/redux/app/app_state.dart';
 import 'package:xiaoman/redux/store.dart';
+import 'package:xiaoman/redux/user/user_actions.dart';
 
 import './app.dart';
 import './base/m_bottom_tab_bar.dart';
@@ -97,6 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Text getTabTitle(int curIndex) {
     return Text(appBarTitles[curIndex], style: getTabTextStyle(curIndex));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.store.dispatch(InitUserAction());
   }
 
   @override

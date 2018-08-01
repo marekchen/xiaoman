@@ -56,8 +56,8 @@ class SwitchRoleContent extends StatelessWidget {
             return buildAddRoleTile();
           }
         },
-        itemCount: viewModel.roleList == null ? 0 : viewModel.roleList.length +
-            1,
+        itemCount:
+            viewModel.roleList == null ? 0 : viewModel.roleList.length + 1,
       ),
     );
   }
@@ -68,26 +68,31 @@ buildAddRoleTile() {
     height: 100.0,
     color: Colors.white,
     padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(right: 16.0),
-          child: CircleAvatar(
-            radius: 30.0,
-            backgroundImage: NetworkImage(
-              "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+    child: InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              radius: 30.0,
+              backgroundImage: NetworkImage(
+                "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+              ),
             ),
           ),
-        ),
-        Text(
-          "添加身份",
-          style: TextStyle(
-            color: Color(0xFF768196),
-            fontSize: 16.0,
+          Text(
+            "添加身份",
+            style: TextStyle(
+              color: Color(0xFF768196),
+              fontSize: 16.0,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
+      onTap: (){
+        // 跳转添加身份
+      },
     ),
   );
 }
@@ -117,7 +122,10 @@ class UserListTile extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 30.0,
                       backgroundImage: NetworkImage(
-                        "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
+                        viewModel.roleList[index]?.avatar != null &&
+                                viewModel.roleList[index]?.avatar != ""
+                            ? viewModel.roleList[index]?.avatar
+                            : "http://img4.duitang.com/uploads/item/201602/12/20160212172715_MCUtT.jpeg",
                       ),
                     ),
                   ),

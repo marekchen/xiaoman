@@ -1,5 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:json_serializable/json_serializable.dart';
 
+@JsonSerializable(nullable: false)
 class User {
   User({
     @required this.userId,
